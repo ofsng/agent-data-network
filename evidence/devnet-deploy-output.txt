@@ -1,0 +1,4 @@
+solana program deploy (Devnet, TPU writes, finalized)
+Program Id: 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8
+Signature: 2GXRCR1iGKVXnb75RZwRDmW8mK7PBbKgD4CVFMPMoWnqWLv3CV15eoJXumDLz6h5whT3jBLuyKVhKyjsuwgs2QRm
+Last deployed in slot 526297989; see devnet-program-show.txt and devnet-deploy.json (deployed bytes sha256 == target/deploy/adn.so).

@@ -3,24 +3,24 @@
         "suite": "Rust unit (split math, receipt size)",
         "passed": 2,
         "failed": 0,
-        "ranAt": "2026-11-25T20:13:12Z"
+        "ranAt": "2026-11-25T22:32:44Z"
     },
     {
         "suite": "Anchor program (local validator)",
         "passed": 17,
         "failed": 0,
-        "ranAt": "2026-11-25T20:13:12Z"
+        "ranAt": "2026-11-25T22:32:44Z"
     },
     {
-        "suite": "App/API security, trust, budget, resale",
-        "passed": 14,
+        "suite": "App/API/MCP security, trust, budget, resale",
+        "passed": 15,
         "failed": 0,
-        "ranAt": "2026-11-25T20:13:12Z"
+        "ranAt": "2026-11-25T22:32:44Z"
     },
     {
         "suite": "Browser smoke (UI run, failure/retry, privacy, mobile)",
         "passed": 1,
         "failed": 0,
-        "ranAt": "2026-11-25T20:13:12Z"
+        "ranAt": "2026-11-25T22:32:44Z"
     }
 ]

@@ -1,6 +1,6 @@
 # H01 — Contest rules evidence (T01)
 
-Source: official FAQ https://hack.dev3pack.xyz/faq (read 2026-11-25 via browser, accordion answers expanded), landing https://hack.dev3pack.xyz/, Superteam TR https://tr.superteam.fun/dev3pack.
+Source: official FAQ https://hack.dev3pack.xyz/faq (read 2026-11-25 and re-checked 2026-11-26 via browser, accordion answers expanded; no changes found), landing https://hack.dev3pack.xyz/, Superteam TR https://tr.superteam.fun/dev3pack.
 
 | Item | Finding (paraphrased/quoted from FAQ) | Status |
 |---|---|---|

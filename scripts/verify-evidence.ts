@@ -1,20 +1,21 @@
 // Independently re-check evidence/run-manifest.json against the chain: every recorded
 // transaction must exist, be finalized at the recorded slot and have succeeded; every
 // receipt must be a program-owned account whose decoded fields match the manifest.
-import { Connection, PublicKey } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { readFileSync } from "fs";
-import { join } from "path";
-import { ROOT, loadConfig } from "../src/config";
+import { connect, loadConfig } from "../src/config";
+import { manifestPath } from "../src/demo/orchestrator";
 import { readOnlyProgram } from "../src/chain/verify";
 
 (async () => {
   const cfg = loadConfig();
-  const file = process.argv[2] ?? join(ROOT, "evidence", "run-manifest.json");
+  const file = process.argv[2] ?? manifestPath(cfg.cluster);
   const m = JSON.parse(readFileSync(file, "utf8"));
-  const conn = new Connection(cfg.rpcUrl, "finalized");
+  const conn = connect(cfg, "finalized");
   const program = readOnlyProgram(conn);
   let ok = true;
   console.log(`manifest ${m.runId} (${m.mode}) program ${m.programId} via ${cfg.rpcUrl}`);
+  if (m.cluster !== cfg.cluster) throw new Error(`manifest is for ${m.cluster}, RPC is ${cfg.cluster}`);
   if (m.programId !== program.programId.toBase58()) throw new Error("program ID mismatch");
   for (const t of m.transactions.filter((x: any) => x.kind !== "setup")) {
     const tx = await conn.getTransaction(t.signature, { commitment: "finalized", maxSupportedTransactionVersion: 0 });

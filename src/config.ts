@@ -1,6 +1,6 @@
 // Runtime configuration. Only localnet and devnet are accepted; key paths are
 // read by the local CLI only and never exposed through the API.
-import { PublicKey } from "@solana/web3.js";
+import { Commitment, Connection, PublicKey } from "@solana/web3.js";
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { homedir } from "os";
 import { dirname, join, resolve } from "path";
@@ -70,3 +70,25 @@ export const explorer = (cluster: Cluster, kind: "tx" | "address", id: string) =
   cluster === "devnet"
     ? `https://explorer.solana.com/${kind}/${id}?cluster=devnet`
     : `https://explorer.solana.com/${kind}/${id}?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899`;
+
+// The public Devnet RPC rate-limits per IP and per method (HTTP 429). Every Devnet
+// connection shares one paced fetch that backs off on 429; localnet is unthrottled.
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+let nextSlot = 0;
+async function pacedFetch(input: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) {
+  for (let attempt = 0; ; attempt++) {
+    const now = Date.now();
+    const at = Math.max(now, nextSlot);
+    nextSlot = at + Number(process.env.ADN_RPC_GAP_MS ?? 250);
+    await sleep(at - now);
+    const res = await fetch(input, init);
+    if (res.status !== 429 || attempt >= 8) return res;
+    await sleep(Math.min(16_000, 1000 * 2 ** attempt));
+  }
+}
+
+export function connect(cfg: Pick<Config, "cluster" | "rpcUrl">, commitment: Commitment) {
+  return cfg.cluster === "devnet"
+    ? new Connection(cfg.rpcUrl, { commitment, fetch: pacedFetch as any, disableRetryOnRateLimit: true })
+    : new Connection(cfg.rpcUrl, commitment);
+}

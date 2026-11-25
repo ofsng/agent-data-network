@@ -1,0 +1,15 @@
+manifest run-20261125222532-6b1667 (DEVNET) program 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8 via https://api.devnet.solana.com
+✓ tx   5mMZitFvrdNoPvFb… slot 526298933 fee 5000  Atomic two-provider purchase (2 × purchase_unit)
+✓ tx   3fcNBE7q1odMESaj… slot 526298988 fee 5000  Create funded bounty (reward → PDA vault)
+✓ tx   4tyoWTk1zLy15nPT… slot 526299026 fee 5000  Provider submits candidate 1 (inactive asset, no payout)
+✓ tx   5GMsCA3TZCakcGKr… slot 526299028 fee 5000  Provider submits candidate 2 (inactive asset, no payout)
+✓ tx   2JX1Ew6C7fcJBREs… slot 526299080 fee 5000  Requester accepts reviewed submission (80/20 escrow payout)
+✓ tx   3K3rfgombEDFMwL1… slot 526299111 fee 5000  Provider activates commissioned unit for sale
+✓ tx   4iNcJoBrQtkbQt8U… slot 526299138 fee 5000  Second agent buys the commissioned unit (purchase_unit)
+✓ tx   4QpGbmuzMgfsZudR… slot 526299176 fee 5000  Separate requester funds a short-lived bounty
+✓ tx   59dRrDWv32U1H281… slot 526299263 fee 5000  Expired bounty refunded in full (no fee)
+✓ rcpt 8XxSMdacfG3UQTm1df76bL4hF6iyJJi88w91XKm7AwFK kind 0 amount 30000 = 24000 + 6000
+✓ rcpt AHDcfSJQGJp1n6t2FAp1n8ZVggfaWUcaYf9kzvZQfZHa kind 0 amount 30000 = 24000 + 6000
+✓ rcpt E145sspVaRUrYdWJsdLKvjcYyP4MDFPgxbNuryAxcvdb kind 1 amount 2000000 = 1600000 + 400000
+✓ rcpt G4TyaY8LVVWbTKjpoqEvZbPGgWQd13Yq6NfHeGWX3pLv kind 0 amount 30000 = 24000 + 6000
+ALL EVIDENCE VERIFIED ON CHAIN

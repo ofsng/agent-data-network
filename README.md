@@ -1,12 +1,16 @@
 # Agent Data Network (ADN)
 
-**Discover → Purchase → Verify → Commission → Reuse.** AI agents buy exactly the licensed data units they need. In **one atomic Solana transaction** they pay several independent providers. They prove what they bought with **immutable on-chain license receipts**. When data is missing, they finance it with an **on-chain bounty escrow**, and the new data can then be **resold** to the next agent.
+**Discover → Purchase → Verify → Commission → Reuse.**
+
+Submission texts: [SUBMISSION.md](SUBMISSION.md) · Video script: [DEMO-SCRIPT.md](DEMO-SCRIPT.md)
+
+ AI agents buy exactly the licensed data units they need. In **one atomic Solana transaction** they pay several independent providers. They prove what they bought with **immutable on-chain license receipts**. When data is missing, they finance it with an **on-chain bounty escrow**, and the new data can then be **resold** to the next agent.
 
 > **Hackathon prototype (Dev3pack, 27–29 Nov 2026).**
-> - The default runtime is a **local Solana validator** running the real Anchor program with real transactions. Devnet deployment is scripted but blocked on faucet funding.
-> - All data is **synthetic**. Payments use a custom **TEST** SPL mint (6 decimals) with **no monetary value**.
+> - The program is **deployed on Solana Devnet**: [`3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8`](https://explorer.solana.com/address/3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8?cluster=devnet). The same guided demo runs on Devnet or on a local validator, always with real transactions.
+> - All data is **synthetic**. Payments use a custom **TEST** SPL mint (6 decimals) with **no monetary value**. No mainnet.
 > - The agent is a **deterministic, rule-based driver** using typed tools. It is **not an LLM**.
-> - x402 is not used, and the MCP stdio server is not connected.
+> - A **read-only MCP stdio server** lets external agents search, quote, verify receipts and read bounties. x402 is not used.
 > - There are no customers, revenue or traction claims.
 
 ## Quick start
@@ -52,7 +56,24 @@ Re-verify every transaction and receipt in `evidence/run-manifest.json` against 
 npm run verify
 ```
 
-`npm run setup` is also the full reset. It wipes only the local ledger, the local SQLite cache, the local snapshots and local run evidence; it never touches the keys.
+`npm run setup` is also the full reset. It wipes only the local ledger, the local SQLite cache, the local snapshots and local run evidence; it never touches the keys or Devnet evidence.
+
+The local validator keeps about 30 minutes of history (`--limit-ledger-size 2000000`, roughly 2–3 GB), so run `npm run verify` soon after a run. Larger values grow by about 5 GB per hour; override with `ADN_LEDGER_SHREDS` if you have the disk.
+
+### Devnet
+| Command | What it does |
+|---|---|
+| `npm run devnet` | Deploys the program if absent, checks that the deployed bytes equal `target/deploy/adn.so`, bootstraps the TEST mint and config, runs the full guided demo with real Devnet transactions, and verifies it on chain. Each call adds a new run. |
+| `npm run start:devnet` | Starts the same UI against Devnet. Every signature links to Solana Explorer. |
+| `npm run verify:devnet` | Re-checks the last Devnet run (`evidence/devnet-run-manifest.json`). |
+
+The deployer pays roughly 1.89 SOL of program rent, plus an equally sized temporary buffer during the deploy (refunded), and about 0.15 SOL per demo run. The public RPC rate-limits (HTTP 429); set `SOLANA_RPC_URL` to another Devnet endpoint if needed. Mainnet URLs are refused.
+
+### MCP (external agents, read-only)
+```bash
+npm run mcp
+```
+This is a stdio MCP server with six tools: `network_status`, `search_data`, `get_data_quote`, `verify_receipt`, `list_bounties` and `get_bounty_status`. It holds no keys, signs nothing and never returns paid bytes. Purchases stay with the demo's budgeted agent wallets. To use it from an MCP client, configure the command `npx tsx src/mcp/server.ts` with this repository as the working directory, and add `SOLANA_CLUSTER=devnet` to read Devnet.
 
 ## The demo story (one browser session)
 | # | Step | What happens on chain (all real, local validator) |
@@ -89,8 +110,9 @@ Every number shown comes from the run's actual state.
 | `src/api/service.ts`, `server.ts` | Shared service (quote preflight, wallet-bound delivery, bounty views); loopback HTTP API + guarded `/api/demo` routes + static UI |
 | `src/agent/tools.ts`, `budget.ts` | Typed tools (search_data, get_data_quote, purchase_data, settle_purchase, verify_receipt, retrieve_data, create_bounty, get_bounty_status); durable spend reservations. There is **no generic signing tool**. |
 | `src/demo/` | Guided state machine (READY → … → COMPLETE), bounded bounty review, scene narration |
+| `src/mcp/server.ts` | Read-only MCP stdio server over the same service |
 | `src/web/` | Product UI (vanilla JS, no build step) |
-| `tests/anchor/`, `tests/app/`, `scripts/ui-smoke.ts` | Program, app/API and browser tests |
+| `tests/anchor/`, `tests/app/`, `scripts/ui-smoke.ts` | Program, app/API/MCP and browser tests |
 
 ## Security and trust boundaries
 - **Config:** initialization requires the program's upgrade authority. The mint is a fixed legacy 6-decimal mint, and canonical ATAs are required.
@@ -112,20 +134,7 @@ Every number shown comes from the run's actual state.
 - `evidence/rules.md` records the contest rules, and `evidence/h02-toolchain.md` the toolchain and the x402 decision.
 - Local signatures exist only on the local ledger. They have no Explorer link; verify them all with `npm run verify` (uses `getTransaction` + decoded receipt accounts; the validator keeps full history via `--limit-ledger-size`).
 
-### Devnet (optional)
-Fund the deployer with about 4.5 Devnet SOL. To get its address:
-
-```bash
-solana-keygen pubkey ~/.config/adn-demo/keys/deployer.json
-```
-
-Then deploy:
-
-```bash
-./scripts/devnet.sh
-```
-
-Contest rules accept devnet or mainnet program addresses. A Devnet program ID is recommended for the submission form, but it is not required for the demo.
+- Devnet: `evidence/devnet-deploy.json` (program, deployed-bytes hash match, Explorer link), `evidence/devnet-run-manifest.json` (every signature with an Explorer link), `evidence/devnet-demo-output.txt` and `evidence/devnet-verify-output.txt`.
 
 ## Hackathon disclosure
 - **Built before vs. during:** planning documents (`STARTUP-PACKAGE/`, V1.3 to V1.5) predate the code. All code was written from 2026-11-25 onward; git history shows the timeline. The event FAQ allows prior work on your own Solana project if it is disclosed.

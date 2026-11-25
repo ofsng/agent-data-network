@@ -16,7 +16,8 @@ cp target/idl/adn.json idl/adn.json; cp target/types/adn.ts idl/adn.ts; cp targe
 (fuser -k 8787/tcp 2>/dev/null || true)
 ADN_RESET=1 ./scripts/localnet.sh
 rm -f deployments/localnet.json data/adn-localnet.db data/adn-localnet.db-*
-rm -rf "$HOME/.config/adn-demo/snapshots/localnet" evidence/runs evidence/run-manifest.json
+rm -rf "$HOME/.config/adn-demo/snapshots/localnet" evidence/run-manifest.json
+grep -l '"cluster": "localnet"' evidence/runs/*.json 2>/dev/null | xargs -r rm -f
 for n in deployer providerA providerB treasury buyer requester; do solana -u localhost airdrop 50 "$KEYS/$n.json" >/dev/null; done
 SOLANA_CLUSTER=localnet npx tsx src/cli.ts bootstrap 2>&1 | grep -v MODULE_TYPELESS | tail -1
 echo "setup complete — run: npm start"

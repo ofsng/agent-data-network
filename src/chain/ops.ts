@@ -36,15 +36,18 @@ export async function waitFinalized(connection: Connection, sig: string) {
  * authority only), ATAs precreated for every role, demo test-token balances.
  */
 export async function bootstrap(cfg: Config, connection: Connection, w: Wallets, log = console.log) {
-  let mint = cfg.mint;
+  const program = programFor(connection, w.deployer);
+  const configPda = pda.config();
+  // The on-chain config is the source of truth for the mint (a run interrupted before
+  // the deployment file was saved must not create a second mint).
+  const existing = (await connection.getAccountInfo(configPda)) ? await program.account.config.fetch(configPda) : null;
+  let mint = existing?.mint ?? cfg.mint;
   if (!mint) {
     mint = await createMint(connection, w.deployer, w.deployer.publicKey, null, 6);
     log(`created TEST mint ${mint.toBase58()}`);
   }
   const m = await getMint(connection, mint);
   if (m.decimals !== 6) throw new Error("mint must have 6 decimals");
-  const program = programFor(connection, w.deployer);
-  const configPda = pda.config();
   if (!(await connection.getAccountInfo(configPda))) {
     const sig = await program.methods
       .initializeConfig(w.treasury.publicKey)

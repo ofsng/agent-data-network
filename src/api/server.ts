@@ -9,7 +9,7 @@ import { ROOT, loadConfig, Config } from "../config";
 import { wallets } from "../chain/ops";
 import { Db, openDb } from "../data/store";
 import { trustView } from "../data/trust";
-import { DemoOrchestrator, STEPS } from "../demo/orchestrator";
+import { DemoOrchestrator, STEPS, manifestPath } from "../demo/orchestrator";
 import { Service, ServiceError, createService } from "./service";
 
 const MAX_BODY = 64 * 1024;
@@ -59,7 +59,7 @@ export function createApp(cfg: Config = loadConfig(), db: Db = openDb(cfg.dbPath
   const routes: Array<[string, RegExp, Handler]> = [
     ["GET", /^\/api\/v1\/health$/, async () => {
       const h = await svc.health();
-      return [h.rpcOk && h.dbOk ? 200 : 503, { ...h, demo: !!orch, agent: "deterministic rule-based (no LLM)", transport: "direct Anchor (x402 not used)", mcp: "not connected" }];
+      return [h.rpcOk && h.dbOk ? 200 : 503, { ...h, demo: !!orch, agent: "deterministic rule-based (no LLM)", transport: "direct Anchor (x402 not used)", mcp: "read-only stdio server (npm run mcp)" }];
     }],
     ["GET", /^\/api\/v1\/assets$/, async (_m, req, url) => {
       rateLimit(`s:${req.socket.remoteAddress}`, 30);
@@ -93,10 +93,13 @@ export function createApp(cfg: Config = loadConfig(), db: Db = openDb(cfg.dbPath
     ["GET", /^\/api\/v1\/evidence$/, async () => {
       const dir = join(ROOT, "evidence");
       const read = (f: string) => JSON.parse(readFileSync(f, "utf8"));
-      const runs = existsSync(join(dir, "runs")) ? readdirSync(join(dir, "runs")).filter((f) => f.endsWith(".json")).sort().reverse().slice(0, 10).map((f) => read(join(dir, "runs", f))) : [];
+      const runs = existsSync(join(dir, "runs")) ? readdirSync(join(dir, "runs")).filter((f) => f.endsWith(".json")).sort().reverse().map((f) => read(join(dir, "runs", f))).filter((r) => r.cluster === cfg.cluster).slice(0, 10) : [];
       const tests = existsSync(join(dir, "test-summary.json")) ? read(join(dir, "test-summary.json")) : [];
-      const latest = existsSync(join(dir, "run-manifest.json")) ? read(join(dir, "run-manifest.json")) : null;
-      return [200, { latest, runs, tests }];
+      const mf = manifestPath(cfg.cluster);
+      const latest = existsSync(mf) ? read(mf) : null;
+      // Public Devnet deployment record (addresses + hashes only), written by scripts/devnet.sh.
+      const devnet = existsSync(join(dir, "devnet-deploy.json")) ? (({ programShow, ...rest }) => rest)(read(join(dir, "devnet-deploy.json"))) : null;
+      return [200, { latest, runs, tests, devnet }];
     }],
 
     // ---- guided demo (loopback, same-origin, run token) ----

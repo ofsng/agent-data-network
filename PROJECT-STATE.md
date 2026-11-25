@@ -1,54 +1,86 @@
-# PROJECT-STATE — Agent Data Network V1.5 (single-session hackathon demo)
+# PROJECT-STATE — Agent Data Network (final hackathon release)
 
-Last update: 2026-11-25. Active spec: `STARTUP-PACKAGE/` V1.5 (archive excluded). Runtime: **local validator, real transactions**. Devnet: scripted, blocked on faucet funding.
+Last update: 2026-11-26. Scope frozen at V1.5 (`STARTUP-PACKAGE/`, archive excluded). No new features after this release; only fixes found during release verification.
 
 ## Gates
 | Gate | Status | Evidence |
 |---|---|---|
-| Technical (local chain) | **MET** — every economic step is a finalized local-validator tx of the real Anchor program | evidence/run-manifest.json (`technicalGate: MET_LOCAL_VALIDATOR`) |
-| UX (guided browser demo) | **MET** — full run through the UI, step-by-step and auto, failure + retry, mobile | evidence/ui-smoke.json, evidence/screenshots/ |
-| Devnet | NOT DONE — faucet rate-limited; `scripts/devnet.sh` ready | evidence/h02-toolchain.md |
-| Contest submission | PENDING (founder) — video < 3 min, public repo, portal form | evidence/rules.md |
+| Devnet deployment | **MET**: program `3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8`, upgrade authority = demo deployer; deployed bytes sha256 `94bb22a4…bbe687` equal `target/deploy/adn.so` | evidence/devnet-deploy.json, devnet-program-show.txt, devnet-deploy-output.txt |
+| Technical (Devnet) | **MET**: full 16-step guided run `run-20261125222532-6b1667` with real Devnet transactions; 9 economic/registry txs and 4 receipts re-verified on chain | evidence/devnet-run-manifest.json, devnet-demo-output.txt, devnet-verify-output.txt |
+| Technical (local validator) | **MET**: the same run on a fresh local validator | evidence/run-manifest.json |
+| UX (guided browser demo) | **MET**: full run through the UI, step-by-step and auto, failure + retry, mobile | evidence/ui-smoke.json, evidence/screenshots/ |
+| Repository hygiene | **MET**: no keys, wallets, API keys or secrets in the tree or the git history; dev tooling untracked | see "Release checks" |
+| Contest submission | PENDING (founder): video < 3 min, public repo, portal form | SUBMISSION.md, DEMO-SCRIPT.md, evidence/rules.md |
 
-## Task status (V1.3 IDs reconciled with V1.5)
-| Task | Status | What was reused / changed in V1.5 |
+## Devnet evidence (real, Explorer-verifiable)
+- **Deploy:** signature `2GXRCR1iGKVXnb75RZwRDmW8mK7PBbKgD4CVFMPMoWnqWLv3CV15eoJXumDLz6h5whT3jBLuyKVhKyjsuwgs2QRm`, slot 526297989. ProgramData `FQY21Vtkzy2LNntNoKBTYZrtdwrPiwmNpmoFEmAcPaw1`, rent 1.88535564 SOL.
+- **TEST mint:** `DKFLsvxjFa2KJetFquiUH3cr4hp5QRuuiGVGBPjwPMDN` (6 decimals, no value).
+- **Atomic 2-provider purchase:** `5mMZitFvrdNoPvFbUt2VaCqLGB9wP94tKr9nyB3RJknyiw57Z9pGUAHxFMQLvozP5qcBN1GXNT9zkMSH2H4S1dJn`.
+  - Agent −60000, NorthLab +24000, SouthSupply +24000, treasury +12000 base units.
+- **Bounty:**
+  - funded: `3fcNBE7q1odMESajkuvDG5F9v8mqHFNFXwK9HRAnSEVc6pY4jSTv4jJ98Zv4PebCg2LpJjHBnvvTx4fv7NZG1YLn`. Bounty `7fYFhB7RPPEEbZVrjTAyfiTJtasCfTAPTWijhUHNjckf`.
+  - two candidates submitted: `4tyoWTk1…`, `5GMsCA3T…`.
+  - accepted: `2JX1Ew6C7fcJBREs8HuSZy8hNABevty4CiLBuUfGZi1qyRFYGsURWhAAYh26AN5tvFsgxJRBowZHPDympqYFhcqv`. Vault −2000000, NorthLab +1600000, treasury +400000.
+- **Activation:** `3K3rfgombEDFMwL1…`.
+- **Resale:** `4iNcJoBrQtkbQt8UCaRMSP8Ha7nbxVVn4ENv13fggxkeVDiBWdgJVT7kLZkVstEejV8imfaGJts4tSVmo62hYiEV`. Second agent −30000, NorthLab +24000, treasury +6000.
+- **Refund:**
+  - funded: `4QpGbmuzMgfsZudR…`. Bounty `DttBnfLK1DgqbzXJkE6dgVDB76YwHdtbUqVgre79SY9j`.
+  - early refund rejected (`DeadlineNotReached`).
+  - refunded: `59dRrDWv32U1H281d2NiCsvKQb6RFQ4J6dP7oEi94DpgdPz6aJkSvDQiaDhL65fsfmEUHUhW68ccBM8vZqeeVyBG`. Requester +2000000, treasury 0.
+- **Receipts:**
+  - `8XxSMdacfG3UQTm1df76bL4hF6iyJJi88w91XKm7AwFK` (purchase)
+  - `AHDcfSJQGJp1n6t2FAp1n8ZVggfaWUcaYf9kzvZQfZHa` (purchase)
+  - `E145sspVaRUrYdWJsdLKvjcYyP4MDFPgxbNuryAxcvdb` (bounty)
+  - `G4TyaY8LVVWbTKjpoqEvZbPGgWQd13Yq6NfHeGWX3pLv` (resale)
+- **Earned this run:** NorthLab 1.648, SouthSupply 0.024, treasury 0.418 TEST.
+- **Devnet SOL** (founder-funded, 5 SOL): deploy ≈ 1.89 SOL rent + fees. Providers' rent and three run wallets came to about 0.15 SOL per run. The deployer had 2.75 SOL left after the run. The first deploy attempt with `--use-rpc` stalled on public RPC rate limits; its buffer was closed and the 1.885 SOL refunded.
+
+## Task status
+| Task | Status | Notes |
 |---|---|---|
-| H01 rules | DONE | Re-used evidence/rules.md (pre-event building allowed, AI allowed, open source mandatory, video < 3 min). Exact UTC deadline only in dashboard. |
-| H02 toolchain / x402 | DONE | Agave 4.1.2, Anchor 1.2.2, solana-dev skill + Solana docs MCP. x402: incompatible → direct Anchor (no x402 labels). |
-| H03 registry, H05 purchase, H06 adversarial, H09/H10 bounty | DONE (unchanged program) | 8-instruction ABI unchanged; 17 program tests pass on an isolated validator. |
-| H04 data + trust (R01/R13) | DONE | NEW: asset_trust sidecar (migration 004), validation TEXT_V1/BOUNTY_JSON_V2, per-asset verified snapshots (0600, outside repo). |
-| H07 API (R03/R05/R14) | DONE | NEW: shared service; prequote preflight (trust, bytes == chain hashes, snapshot) 422/503; post-payment corruption → exact restore, free retry; receipt-first reconciliation. |
-| H08/H11 agent + gap (R09/R15/R18) | DONE | NEW: typed tools (no generic signer), durable spend reservations, requirement v2 (no answer), bounded review re-run before accept, activation, **resale to a second agent**, separate refund requester/budget. |
-| H12 guided UI (R10/R17) | DONE | NEW: 8-section product UI, Run/Next/Pause/Reset, live balances, escrow, receipts, earnings, evidence. |
-| H13 rehearse/verify (R19) | DONE (local) | `npm run setup` from scratch, 2 headless runs + 1 UI run, all COMPLETE with exact deltas; full regression green. |
-| H14 freeze/deliver | DONE except founder actions | README, DEMO-SCRIPT.md, evidence manifest, screenshots. |
-| H16 tool facade | DONE (facade) | Typed tools + negative tests (T46/T47). MCP stdio server not implemented (SDK not installed) → labeled "MCP: not connected". |
-| H15 x402, H17 live LLM | SKIPPED (optional) | Labeled in UI/health; no claims. |
+| Rules re-check | DONE | Official FAQ re-read 2026-11-26, unchanged:<br>• Devnet accepted<br>• open source mandatory<br>• prior own Solana code allowed if disclosed in README<br>• AI allowed<br>• video under 3 min, strict<br>• 5-step submission form<br>• deadline 29 Nov, UTC hour in the dashboard (evidence/rules.md) |
+| Devnet deploy + full loop | DONE | `npm run devnet` (idempotent), `npm run start:devnet`, `npm run verify:devnet` |
+| UI final review | DONE | Fixes:<br>• Devnet status is read from evidence instead of the hard-coded "faucet blocked"<br>• deadlines in UTC everywhere<br>• JSON wrapping<br>• market card footer wrap<br>• logo size<br>All buttons are wired and covered by the browser smoke test. |
+| MCP | DONE (minimal, read-only) | `npm run mcp`: six read-only tools over the shared service. No keys, no signing, no paid bytes. T54 drives it with a real MCP client. The guided demo agent is unchanged. |
+| External LLM agent | NOT DONE (by decision) | Would add an API key and non-determinism to the main demo. The deterministic agent stays. |
+| Secret / history scan | DONE | See "Release checks". |
+| Demo script / submission texts | DONE | DEMO-SCRIPT.md (target 2:45), SUBMISSION.md |
 
-## Tests actually run (latest `npm test`, see evidence/test-summary.json)
-- Rust unit: 2/2 (split math, receipt = 254 B)
-- Anchor program (isolated local validator): 17/17 — T04–T06, T09–T17, T24–T31
-- App/API: 14/14 — T18–T22, T40–T47, T50, T52–T53, demo-route guards
-- Browser smoke: pass — T49 happy path, T50 privacy, T51 injected failure (snapshot removed → SNAPSHOT_UNAVAILABLE shown, no charge) and retry, mobile no horizontal scroll, 0 console errors
+## Release checks
+- **Git history:**
+  - no 64-byte keypair arrays in any revision;
+  - no API keys, bearer tokens or private-key blocks;
+  - author is the founder's own git identity.
+- **Untracked from now on:** `.agents/`, `.claude/`, `skills-lock.json` (third-party developer skill docs). They remain in older commits; they contain no secrets.
+- **Keys:** all keys live in `~/.config/adn-demo/` (0600, outside the repo). The program keypair is in the ignored `target/`.
+- **Dependency audit:** `npm audit --omit=dev` reports known advisories in transitive dependencies of the Solana JS stack:
+  - `bigint-buffer` via spl-token;
+  - `toml` via @anchor-lang/core;
+  - `stream-json` via web3.js/jayson.
 
-## Measured (local validator 4.1.2)
-Bundle 784 B (2 × purchase_unit), ~54–64k CU, fee 5,000 lamports; resale tx 571 B, ~25k CU; receipt deposit 2,658,720 lamports local (Devnet `solana rent 254` = 1,940,560). Full guided run ≈ 2.5 min (dominated by ~13 s local finality per tx).
+  No non-breaking fix exists. Exposure is limited: the app is loopback-only and parses only local, trusted inputs.
 
-## Fixes found during V1.5 verification
-- Run setup read new ATAs at finalized commitment → `confirmed` read-back.
-- SOL-spent figure lost between steps → passed explicitly.
-- Refund delta measured from before funding (net 0) → separate funding/refund deltas.
-- Reconciliation relied on signature history (unavailable for older local sigs) → receipt PDAs first.
-- Isolated test validator port collision → separate port block (18899).
-- Local validator purged ledger history after ~200 slots (old signatures unconfirmable) → `--limit-ledger-size 50000000`; added `npm run verify` (all manifest txs + receipts re-checked on chain: PASS).
-- UI: unsized check icons, price wrap, sticky header, inactive-listing clutter, mobile hero order.
+## Fixes found during release verification
+- **Disk exhaustion:** the local validator ledger grew about 5 GB/hour with `--limit-ledger-size 50000000` and filled the disk. The default is now 2M shreds (~30 min history), overridable with `ADN_LEDGER_SHREDS`.
+- **Public Devnet RPC rate limits (429):** one shared paced fetch with backoff for every Devnet connection. The deploy now uses TPU writes, not `--use-rpc`.
+- **Bootstrap after an interrupted first run:** it now reuses the mint recorded in the on-chain config instead of creating a second mint.
+- **Evidence per cluster:** `evidence/run-manifest.json` (local) and `evidence/devnet-run-manifest.json`. `npm run setup` no longer deletes Devnet runs.
 
-## Blockers / founder actions
-1. Devnet SOL (≈4.5) for deployer `Cu7ctAUxW25GsGGPVvNupujU81A9jvEZUGjo2sUdgVZ7` → `./scripts/devnet.sh` (optional; rules accept devnet or mainnet addresses, local is fine for the demo itself).
-2. Record video (< 3 min) per DEMO-SCRIPT.md; make GitHub repo public; submit on Dev3pack portal before the 29 Nov deadline (exact UTC hour in dashboard).
+## Earlier fixes (V1.5)
+- Confirmed read-back for new ATAs.
+- SOL-spent value now passed explicitly between steps.
+- Separate funding and refund deltas.
+- Receipt-first reconciliation.
+- Isolated test-validator ports.
+- UI polish.
 
 ## Divergences from spec
-- Single Node HTTP server + vanilla-JS UI instead of Next.js (spec allows reuse of working stack).
-- Simulation mode not implemented: real local chain is available, so no fallback was needed; UI never shows simulated data.
-- Reset = new isolated run (fresh agent wallets) on the same ledger; previous run's commissioned listing is withdrawn by its provider via a real `set_asset_active(false)` so the gap is real again. Full chain reset = `npm run setup`.
-- Agent run wallets are generated per run under `~/.config/adn-demo/runs/` (0600), funded with exactly their caps.
+- Single Node HTTP server and a vanilla-JS UI instead of Next.js.
+- No simulation mode: the UI never shows simulated data.
+- Reset starts a new isolated run on the same ledger. `npm run setup` is the full local reset.
+- Agent run wallets are generated per run under `~/.config/adn-demo/runs/<cluster>/` (0600) and funded with exactly their caps.
+
+## Founder actions remaining
+1. Record the video (< 3:00) per DEMO-SCRIPT.md.
+2. Publish the repository on GitHub (public).
+3. Fill in the Dev3pack form using SUBMISSION.md before the 29 Nov deadline (check the UTC hour in the dashboard).

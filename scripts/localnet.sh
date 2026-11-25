@@ -18,8 +18,9 @@ EXTRA=()
 if [ "$PORT" != "8899" ]; then
   EXTRA=(--faucet-port $((PORT + 1010)) --gossip-port $((PORT + 11)) --dynamic-port-range $((PORT + 20))-$((PORT + 120)))
 fi
-# Keep full local history so every signature in evidence stays confirmable (default 10k shreds purges after ~minutes).
-solana-test-validator "${RESET[@]}" --quiet --limit-ledger-size 50000000 --ledger "$LEDGER" --rpc-port "$PORT" "${EXTRA[@]}" \
+# The default (10k shreds) purges history within minutes; 2M shreds keeps roughly 30 min of
+# history (enough to verify a run right after it) in ~2-3 GB. Larger values grow ~5 GB/hour.
+solana-test-validator "${RESET[@]}" --quiet --limit-ledger-size "${ADN_LEDGER_SHREDS:-2000000}" --ledger "$LEDGER" --rpc-port "$PORT" "${EXTRA[@]}" \
   --upgradeable-program "$PROGRAM_ID" target/deploy/adn.so "$AUTH" > "$LEDGER.log" 2>&1 &
 echo $! > "$PIDFILE"
 for _ in $(seq 1 60); do solana -u "http://127.0.0.1:$PORT" cluster-version >/dev/null 2>&1 && break; sleep 1; done

@@ -13,15 +13,21 @@
     "test:ui": "tsx scripts/ui-smoke.ts",
     "cli": "tsx src/cli.ts",
     "server": "tsx src/api/server.ts",
-    "verify": "tsx scripts/verify-evidence.ts"
+    "verify": "tsx scripts/verify-evidence.ts",
+    "mcp": "tsx src/mcp/server.ts",
+    "devnet": "bash scripts/devnet.sh",
+    "start:devnet": "SOLANA_CLUSTER=devnet tsx src/api/server.ts",
+    "verify:devnet": "SOLANA_CLUSTER=devnet tsx scripts/verify-evidence.ts"
   },
   "dependencies": {
     "@anchor-lang/core": "1.2.2",
+    "@modelcontextprotocol/sdk": "1.32.2",
     "@solana/spl-token": "0.4.15",
     "@solana/web3.js": "1.99.0",
     "better-sqlite3": "13.2.0",
     "bs58": "6.0.0",
-    "tweetnacl": "1.0.3"
+    "tweetnacl": "1.0.3",
+    "zod": "4.1.12"
   },
   "devDependencies": {
     "@types/better-sqlite3": "9.6.0",

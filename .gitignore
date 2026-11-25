@@ -10,3 +10,8 @@ keys/
 data/*.db*
 *.sqlite*
 test-ledger*
+
+# local developer tooling (not part of the product)
+.agents/
+.claude/
+skills-lock.json

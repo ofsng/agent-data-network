@@ -1,10 +1,11 @@
 // Local operator CLI (reproducibility interface). Usage: npm run cli -- <command>
-import { Connection } from "@solana/web3.js";
-import { loadConfig } from "./config";
+import { connect, loadConfig } from "./config";
 import { bootstrap, wallets } from "./chain/ops";
 import { openDb, search } from "./data/store";
 import { createService } from "./api/service";
-import { DemoOrchestrator } from "./demo/orchestrator";
+import { DemoOrchestrator, manifestPath } from "./demo/orchestrator";
+import { relative } from "path";
+import { ROOT } from "./config";
 
 async function main() {
   const [cmd, ...args] = process.argv.slice(2);
@@ -15,7 +16,7 @@ async function main() {
 
   switch (cmd) {
     case "bootstrap": {
-      const mint = await bootstrap(cfg, new Connection(cfg.rpcUrl, "confirmed"), w);
+      const mint = await bootstrap(cfg, connect(cfg, "confirmed"), w);
       console.log(`mint ${mint.toBase58()} (TEST, 6 decimals); deployment saved to ${cfg.deploymentPath}`);
       break;
     }
@@ -33,7 +34,7 @@ async function main() {
       if (state.status === "error") throw new Error(state.error!.message);
       console.log(`run ${runId} (${state.mode})`);
       const s = await orch.runAll(runId, (m) => console.log("  " + m));
-      console.log(`evidence -> evidence/runs/${runId}.json and evidence/run-manifest.json (${s.status})`);
+      console.log(`evidence -> evidence/runs/${runId}.json and ${relative(ROOT, manifestPath(cfg.cluster))} (${s.status})`);
       break;
     }
     default:

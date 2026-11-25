@@ -6,7 +6,7 @@ import { getAccount } from "@solana/spl-token";
 import { randomBytes } from "crypto";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
-import { Config } from "../config";
+import { Config, connect } from "../config";
 import { BOUNTY_STATUS, ata, pda, split, toHex } from "../chain/adn";
 import { ChainUnavailable, readOnlyProgram, verifyReceipt } from "../chain/verify";
 import { AssetRow, Db, search, sha256hex } from "../data/store";
@@ -64,7 +64,7 @@ export interface Quote {
 
 export function createService(cfg: Config, db: Db) {
   if (!cfg.mint || !cfg.treasury) throw new Error("deployment not bootstrapped (no mint/treasury)");
-  const connection = new Connection(cfg.rpcUrl, "finalized");
+  const connection = connect(cfg, "finalized");
   const program = readOnlyProgram(connection);
   const mint = cfg.mint;
   const snapDir = snapshotDir(cfg.cluster);

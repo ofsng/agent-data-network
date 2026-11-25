@@ -1,16 +1,15 @@
-manifest run-20261125201719-6c5e67 (LOCAL_VALIDATOR) program 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8 via http://127.0.0.1:8899
-✓ tx   3jwZBxkxE7K2ePQ1… slot 2870 fee 5000  Provider withdraws previous run's commissioned listing (set_asset_active=false)
-✓ tx   64e3jscokpRVeaNe… slot 2902 fee 5000  Atomic two-provider purchase (2 × purchase_unit)
-✓ tx   2Y39crR7JBNDimht… slot 2936 fee 5000  Create funded bounty (reward → PDA vault)
-✓ tx   27gXcoW2wMk3uYwt… slot 3000 fee 5000  Provider submits candidate 1 (inactive asset, no payout)
-✓ tx   4gsZmYxoFdF285Rk… slot 3000 fee 5000  Provider submits candidate 2 (inactive asset, no payout)
-✓ tx   2oYC5asKuQacbm4z… slot 3034 fee 5000  Requester accepts reviewed submission (80/20 escrow payout)
-✓ tx   2HFtxyNtfQZcBCag… slot 3066 fee 5000  Provider activates commissioned unit for sale
-✓ tx   5vTMZFDYfSdWfEsW… slot 3098 fee 5000  Second agent buys the commissioned unit (purchase_unit)
-✓ tx   2UbXQFzavgrQmEFe… slot 3132 fee 5000  Separate requester funds a short-lived bounty
-✓ tx   44R8vCAYPABFHiGn… slot 3182 fee 5000  Expired bounty refunded in full (no fee)
-✓ rcpt BREieeRGvt9AsY7uGaJtwWJwXPQJtS9ZGWrcjwcwifs7 kind 0 amount 30000 = 24000 + 6000
-✓ rcpt A1VNu73DeLftjuZwdVShEEju86jdvf1oYB1upG82UJ54 kind 0 amount 30000 = 24000 + 6000
-✓ rcpt VL8bi3KruPmuk8CZRzVXd6a1AZTE8irZ423DETdEH3L kind 1 amount 2000000 = 1600000 + 400000
-✓ rcpt 3x74nZJfgoemaUPwFJaKDTXH1Xns7C9cstQVeMfeNZ53 kind 0 amount 30000 = 24000 + 6000
+manifest run-20261125223344-b5911a (LOCAL_VALIDATOR) program 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8 via http://127.0.0.1:8899
+✓ tx   5c5Rhn4pwnaSgNaB… slot 679 fee 5000  Atomic two-provider purchase (2 × purchase_unit)
+✓ tx   46u4odimc9Ma6Z87… slot 711 fee 5000  Create funded bounty (reward → PDA vault)
+✓ tx   2pNPqP8637a8KZXx… slot 775 fee 5000  Provider submits candidate 1 (inactive asset, no payout)
+✓ tx   5kuw3ZgCrA5RQEdS… slot 775 fee 5000  Provider submits candidate 2 (inactive asset, no payout)
+✓ tx   EK4c7k4wYVic8mGp… slot 807 fee 5000  Requester accepts reviewed submission (80/20 escrow payout)
+✓ tx   2UivEU7mpceUY1oU… slot 839 fee 5000  Provider activates commissioned unit for sale
+✓ tx   ZJHQFTS5sFjfUrau… slot 871 fee 5000  Second agent buys the commissioned unit (purchase_unit)
+✓ tx   4j7QcyYhMQTRsVQx… slot 905 fee 5000  Separate requester funds a short-lived bounty
+✓ tx   2Ta37gLKympPPWxf… slot 955 fee 5000  Expired bounty refunded in full (no fee)
+✓ rcpt 4BaSXZWL4TNobdtQKEHHmhbxqX1GzwUJ2PcHPPcMn8b9 kind 0 amount 30000 = 24000 + 6000
+✓ rcpt ANuUYRaNSkZ8fcepECSdRy3fYA8GaGB3Fj1eCEnu6xP kind 0 amount 30000 = 24000 + 6000
+✓ rcpt 9PniEFCFwoqC6dCyuoaWrfX6G2EQ9uj3GDa4N82ebyZu kind 1 amount 2000000 = 1600000 + 400000
+✓ rcpt 9tudMYDsMLaGXi2xL2QV1R9WpvoVCxwpbYYjY9LYeq49 kind 0 amount 30000 = 24000 + 6000
 ALL EVIDENCE VERIFIED ON CHAIN

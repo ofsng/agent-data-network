@@ -25,7 +25,7 @@ SUM+=("{\"suite\":\"Anchor program (local validator)\",\"passed\":$(count eviden
 echo "== app / API tests"
 npx ts-mocha -p ./tsconfig.json -t 1000000 'tests/app/**/*.ts' 2>&1 | filter > evidence/local-api-tests.txt
 grep -E "passing|failing" evidence/local-api-tests.txt
-SUM+=("{\"suite\":\"App/API security, trust, budget, resale\",\"passed\":$(count evidence/local-api-tests.txt passing),\"failed\":$(count evidence/local-api-tests.txt failing),\"ranAt\":\"$now\"}")
+SUM+=("{\"suite\":\"App/API/MCP security, trust, budget, resale\",\"passed\":$(count evidence/local-api-tests.txt passing),\"failed\":$(count evidence/local-api-tests.txt failing),\"ranAt\":\"$now\"}")
 
 echo "== browser smoke (full guided run through the UI, failure injection, mobile)"
 npx tsx scripts/ui-smoke.ts > /tmp/adn-ui.txt 2>&1; UI=$?

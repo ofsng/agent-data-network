@@ -55,6 +55,8 @@ export interface RunState {
 
 const now = () => new Date().toISOString();
 const T = (v: string | bigint | undefined) => { const n = BigInt(v ?? 0); const a = n < 0n ? -n : n; const f = (a % 1000000n).toString().padStart(6, "0").replace(/0+$/, ""); return `${n < 0n ? "−" : n > 0n ? "+" : ""}${a / 1000000n}${f ? "." + f : ""} TEST`; };
+/** Last complete run per cluster: localnet keeps the historical name. */
+export const manifestPath = (cluster: string) => join(ROOT, "evidence", cluster === "devnet" ? "devnet-run-manifest.json" : "run-manifest.json");
 const runsDir = (cluster: string) => join(homedir(), ".config/adn-demo/runs", cluster);
 
 export class DemoOrchestrator {
@@ -564,9 +566,11 @@ export class DemoOrchestrator {
       technicalGate: s.status === "complete" ? (s.mode === "LOCAL_VALIDATOR" ? "MET_LOCAL_VALIDATOR" : "MET_DEVNET") : "INCOMPLETE",
       uxGate: s.status === "complete" ? "GUIDED_RUN_COMPLETE" : "INCOMPLETE",
       limitations: [
-        "Local validator ledger: signatures are real but exist only on this machine's local chain (no public Explorer).",
+        s.mode === "DEVNET"
+          ? "Devnet: public test cluster; TEST tokens and Devnet SOL have no monetary value."
+          : "Local validator ledger: signatures are real but exist only on this machine's local chain (no public Explorer).",
         "Synthetic fixtures and a TEST mint with no monetary value; no real customers or revenue.",
-        "Deterministic rule-based agent using typed tools; no LLM. MCP stdio server and x402 not used in this run.",
+        "Deterministic rule-based agent using typed tools in-process; no LLM. The MCP stdio server exposes read-only tools only; x402 not used.",
         "Bounty review is a local trusted validator; the program cannot enforce it.",
         "Payment is atomic on-chain; off-chain delivery is a separate, retryable step.",
       ],
@@ -578,7 +582,7 @@ export class DemoOrchestrator {
     mkdirSync(dir, { recursive: true });
     const m = this.manifest(s);
     writeFileSync(join(dir, `${s.runId}.json`), JSON.stringify(m, null, 2) + "\n");
-    if (s.status === "complete") writeFileSync(join(ROOT, "evidence", "run-manifest.json"), JSON.stringify(m, null, 2) + "\n");
+    if (s.status === "complete") writeFileSync(manifestPath(s.cluster), JSON.stringify(m, null, 2) + "\n");
   }
 
   /** Public scene metadata for the UI. */

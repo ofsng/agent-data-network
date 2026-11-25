@@ -1,22 +1,31 @@
-# Demo video script (under 3:00, real product, English)
+# Demo video script (English, target 2:45, hard limit under 3:00)
 
-Setup before recording:
-1. Run `npm run setup`, then `npm start`.
-2. Open http://127.0.0.1:8787.
-3. Press **Reset demo** to get a fresh run.
-4. Record at 1440×900.
+Contest rule (official FAQ): under 3 minutes, strict; a real product demo, not a pitch deck; any public link (YouTube, Loom).
 
-The run takes about 2.5 minutes in real time, mostly waiting for local finality (about 13 s per transaction). Either use **Next step** and cut the waits, or speed up the waiting segments in editing, and say so on screen ("finality waits shortened").
+## Before recording
+1. Preferred: record on **Devnet** so every signature opens in Solana Explorer.
+   - Start the UI: `npm run start:devnet`.
+   - The public Devnet RPC rate-limits (HTTP 429). If that happens, set `SOLANA_RPC_URL` to a free Devnet RPC endpoint from any provider.
+   - Fallback: `npm start` (local validator). Then say "local validator" instead of "Devnet" in every line below.
+2. Open http://127.0.0.1:8787 at 1440×900 and press **Reset demo** for a fresh run.
+3. Press **Run full demo** once before recording to warm up, then **Reset demo** again.
+4. A full run takes about 3–4 minutes in real time, mostly waiting about 13 s for finality per transaction. Record it once in full, then cut the waits in editing. Show a small on-screen caption, "finality waits shortened". Never cut a result.
 
-| Time | Screen | Say |
+## Shot list
+| Time | Screen | Voice-over |
 |---|---|---|
-| 0:00–0:20 | Overview, badges visible | "AI agents need licensed, fragmented data. Paying is easy; proving *what* was licensed, paying every contributor fairly, and filling gaps is not. This is Agent Data Network, a real Anchor program running on a local Solana validator with synthetic data and a TEST token." |
-| 0:20–0:50 | Next step ×5 (publish → search → quote → sign → paid) | "Two providers publish metadata; the content stays private. The agent picks efficiency data from NorthLab and lead time from SouthSupply, gets an exact quote within its budget, and signs **one transaction with two purchase instructions**. Both providers and the platform are paid at once (80/20), or nothing happens." Point at the live balances: −0.06 / +0.024 / +0.024 / +0.012. |
-| 0:50–1:10 | Verify step; Transactions & receipts tab | "Each purchase wrote an immutable license receipt. The agent proves wallet ownership and gets the exact bytes, hash-checked against the receipt." |
-| 1:10–1:50 | Gap → bounty → submit → review | "The recycling certificate doesn't exist. Instead of hallucinating, the agent funds a 2 TEST bounty, locked in a vault owned by the program. NorthLab submits two candidates; the review shows pass/fail only, never the answer, so the requester can't take it without paying." Show the Bounties tab: one candidate FAIL, one PASS. |
-| 1:50–2:15 | Accept → deliver → activate → resale | "The requester signs: 1.6 to NorthLab, 0.4 to the platform, and only now is the answer released. NorthLab lists it, and a second agent buys it. Same work, **paid again**." Show the Provider earnings tab. |
-| 2:15–2:35 | Refund step | "If nobody answers, the program rejects early refunds and returns the full reward after the deadline, with no fee." |
-| 2:35–2:55 | Brief + Verification tab | "The final brief cites every fact's unit and receipt. Everything shown is a real local-chain transaction; tests cover rollback, replay, wrong accounts, leaks, budget caps and recovery." |
-| 2:55–3:00 | Logo | "Buy knowledge. Verify purchases. Fund what's missing." |
+| 0:00–0:15 | Overview with badges (DEVNET, SYNTHETIC DATA, TEST TOKEN) | "AI agents need small pieces of licensed data from many owners. Today they either scrape it or buy whole datasets. Agent Data Network lets an agent buy exactly the units it needs, pay every owner in one Solana transaction, and prove what it bought." |
+| 0:15–0:35 | Next step ×3: publish, search, quote | "Two providers publish data units. The program fixes each unit's price, version, content hash and license hash. The agent searches free metadata and gets an exact quote. Before quoting, the server checks the stored bytes still match the on-chain hashes." |
+| 0:35–1:00 | Sign + paid; point at Live balances | "One transaction, two purchase instructions. Both providers and the platform are paid at once, 80/20, or nothing happens. Two receipts are written on chain." Click a signature to open it in Explorer. |
+| 1:00–1:15 | Verify step; Transactions & receipts | "The agent checks its receipts on chain, signs a one-time challenge, and gets the exact bytes, hash-checked against the receipt. No receipt, no data." |
+| 1:15–1:50 | Gap → bounty → submit → review; Data bounties tab | "The recycling certificate doesn't exist anywhere. Instead of making it up, the agent funds a 2 TEST bounty, held in a vault owned by the program. The provider submits two candidates. The review shows only pass or fail, never the answer, so nobody can take the data without paying." |
+| 1:50–2:15 | Accept → deliver → activate → resale; Provider earnings | "The requester accepts. The vault pays 1.6 to the provider and 0.4 to the platform, and only then is the answer released. The provider lists it, a second agent buys it, and the provider is paid again for the same work. Missing data becomes an asset." |
+| 2:15–2:30 | Refund step | "If nobody answers, the program blocks an early refund and returns the full reward after the deadline, with no fee." |
+| 2:30–2:45 | Verification & evidence; Explorer tab | "Every number here comes from finalized transactions of one Anchor program. Tests cover rollback, replay, wrong accounts, leaks, budget caps and corrupted-data recovery. Agent Data Network: buy knowledge, prove it, fund what's missing." |
 
-Do not claim: Devnet/mainnet transactions (unless `scripts/devnet.sh` has actually been run), real revenue or customers, an LLM agent, x402 compatibility, or the truth of any data.
+## Do not claim
+- Mainnet, real money, customers or revenue.
+- An LLM agent. The agent is deterministic and rule-based.
+- x402 payments.
+- That the data is true. Receipts prove paid entitlement to exact bytes, not truth.
+- Devnet, if you recorded on the local validator.
