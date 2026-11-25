@@ -5,6 +5,7 @@ import { Connection, Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
 import { createMint, getAccount, getMint, getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
 import { Config, saveDeployment } from "../config";
 import { AssetRow, Db, canonicalBytes, markFinalized, putAssetBytes, sha256, sha256hex } from "../data/store";
+import { TrustDeclaration, putTrust, snapshotDir, validateUnit, writeSnapshot } from "../data/trust";
 import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID, ata, fromHex, loadKeypair, pda, programFor, toHex } from "./adn";
 
 export function wallets(cfg: Config) {
@@ -89,12 +90,15 @@ export interface NewAsset {
   license: Buffer;
   price: bigint;
   active: boolean;
+  trust: Partial<TrustDeclaration>;
 }
 
 /** Store immutable bytes, register on chain (if absent), then index after a finalized match. */
-export async function publishAsset(connection: Connection, db: Db, a: NewAsset, log = console.log) {
+export async function publishAsset(connection: Connection, db: Db, a: NewAsset, log = console.log, cluster = "localnet") {
   const assetId = Uint8Array.from(sha256(a.label).subarray(0, 16));
   const body = canonicalBytes(a.body);
+  // Trust gate first: invalid bytes/declarations are never stored or published.
+  const decl = validateUnit(body, a.license, { title: a.title, tags: a.tags, teaser: a.teaser }, a.trust);
   const contentHash = sha256(body);
   const licenseHash = sha256(a.license);
   const assetPda = pda.asset(a.provider.publicKey, assetId, 1);
@@ -112,6 +116,8 @@ export async function publishAsset(connection: Connection, db: Db, a: NewAsset, 
     license_hash: licenseHash.toString("hex"),
     price: a.price.toString(),
   });
+  putTrust(db, assetPda.toBase58(), decl);
+  writeSnapshot(snapshotDir(cluster), assetPda.toBase58(), body, a.license);
   const program = programFor(connection, a.provider);
   if (!(await connection.getAccountInfo(assetPda))) {
     const sig = await program.methods

@@ -89,6 +89,9 @@ export function openDb(path: string) {
   db.pragma("journal_mode = WAL");
   const exists = db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='assets'").get();
   if (!exists) db.exec(readFileSync(join(ROOT, "src/data/schema.sql"), "utf8"));
+  // Additive migrations (idempotent, no table resets).
+  for (const m of ["004-trust-sidecar.sql", "005-demo-runs.sql"])
+    db.transaction(() => db.exec(readFileSync(join(ROOT, "src/data/migrations", m), "utf8")))();
   return db;
 }
 export type Db = ReturnType<typeof openDb>;

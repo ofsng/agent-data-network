@@ -1,37 +1,22 @@
-// Local operator/agent CLI (authoritative action interface). Usage: npm run cli -- <command>
+// Local operator CLI (reproducibility interface). Usage: npm run cli -- <command>
 import { Connection } from "@solana/web3.js";
 import { loadConfig } from "./config";
-import { bootstrap, publishAsset, wallets } from "./chain/ops";
-import { loadFixtures, openDb, search } from "./data/store";
-import { Budget, runBounty, runPurchase, runRefund } from "./agent/agent";
+import { bootstrap, wallets } from "./chain/ops";
+import { openDb, search } from "./data/store";
+import { createService } from "./api/service";
+import { DemoOrchestrator } from "./demo/orchestrator";
 
 async function main() {
   const [cmd, ...args] = process.argv.slice(2);
   let cfg = loadConfig();
-  const connection = new Connection(cfg.rpcUrl, "confirmed");
   const db = openDb(cfg.dbPath);
   const w = wallets(cfg);
-  const fx = loadFixtures();
   console.log(`[${cfg.cluster}] program ${cfg.programId.toBase58()} rpc ${cfg.rpcUrl.replace(/api-key=[^&]+/, "api-key=***")}`);
 
   switch (cmd) {
     case "bootstrap": {
-      const mint = await bootstrap(cfg, connection, w);
+      const mint = await bootstrap(cfg, new Connection(cfg.rpcUrl, "confirmed"), w);
       console.log(`mint ${mint.toBase58()} (TEST, 6 decimals); deployment saved to ${cfg.deploymentPath}`);
-      break;
-    }
-    case "seed": {
-      const provider = { northlab: w.providerA, southsupply: w.providerB } as Record<string, typeof w.providerA>;
-      await Promise.all(
-        fx.rows.map((r) =>
-          publishAsset(connection, db, {
-            label: r.id, provider: provider[r.supplier_id], title: r.title, tags: r.tags, teaser: r.summary,
-            body: r.body, license: fx.license, price: BigInt(r.price), active: true,
-          }),
-        ),
-      );
-      const n = db.prepare("SELECT count(*) AS n FROM assets WHERE active=1 AND finalized_slot IS NOT NULL").get() as { n: number };
-      console.log(`seeded; ${n.n} finalized active assets indexed`);
       break;
     }
     case "search": {
@@ -41,23 +26,18 @@ async function main() {
       break;
     }
     case "demo": {
+      // Same orchestrator as the browser: new isolated run, every step on the real chain.
       cfg = loadConfig();
-      const budget = new Budget();
-      await runPurchase(cfg, connection, db, w, budget);
-      await runBounty(cfg, connection, db, w, budget, fx.license);
+      const orch = new DemoOrchestrator(createService(cfg, db), w);
+      const { runId, state } = await orch.createRun();
+      if (state.status === "error") throw new Error(state.error!.message);
+      console.log(`run ${runId} (${state.mode})`);
+      const s = await orch.runAll(runId, (m) => console.log("  " + m));
+      console.log(`evidence -> evidence/runs/${runId}.json and evidence/run-manifest.json (${s.status})`);
       break;
     }
-    case "demo-purchase":
-      await runPurchase(cfg, connection, db, w, new Budget());
-      break;
-    case "demo-bounty":
-      await runBounty(cfg, connection, db, w, new Budget(), fx.license);
-      break;
-    case "demo-refund":
-      await runRefund(cfg, connection, w, Number(args[0] ?? 45));
-      break;
     default:
-      console.log("commands: bootstrap | seed | search <q> [--tag t] | demo | demo-purchase | demo-bounty | demo-refund [waitSecs]");
+      console.log("commands: bootstrap | search <q> [--tag t] | demo");
   }
 }
 

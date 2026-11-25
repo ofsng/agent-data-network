@@ -1,0 +1,617 @@
+{
+  "runId": "run-20261125194938-a6ca49",
+  "mode": "LOCAL_VALIDATOR",
+  "cluster": "localnet",
+  "programId": "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8",
+  "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+  "mintLabel": "TEST (no monetary value)",
+  "createdAt": "2026-11-25T19:49:38.108Z",
+  "finalStep": "COMPLETE",
+  "status": "complete",
+  "steps": [
+    {
+      "step": "PUBLISHED",
+      "status": "done",
+      "durationMs": 65,
+      "summary": "12 units listed by 2 providers (0 newly registered, 12 reused finalized registrations)"
+    },
+    {
+      "step": "SEARCHED",
+      "status": "done",
+      "durationMs": 2,
+      "summary": "selected \"Solar inverter X100 technical profile\" and \"Solar inverter X100 stock and lead time\" from two independent providers (metadata only, no content yet)"
+    },
+    {
+      "step": "QUOTED",
+      "status": "done",
+      "durationMs": 5,
+      "summary": "quote 60000 base units (0.06 TEST) ≤ max spend 100000; est. 5322440 lamports SOL for fee + 2 receipt deposits"
+    },
+    {
+      "step": "PAYMENT_PENDING",
+      "status": "done",
+      "durationMs": 27,
+      "summary": "signed one transaction with 2 purchase_unit instructions (784 bytes); waiting for finality"
+    },
+    {
+      "step": "PURCHASED",
+      "status": "done",
+      "durationMs": 14054,
+      "summary": "finalized: agent -60000, NorthLab +24000, SouthSupply +24000, treasury +12000 base units; 2 receipt PDAs created"
+    },
+    {
+      "step": "VERIFIED",
+      "status": "done",
+      "durationMs": 58,
+      "summary": "2 receipts verified on-chain and 2 deliveries hash-matched (wallet-signed challenges, exact bytes)"
+    },
+    {
+      "step": "GAP",
+      "status": "done",
+      "durationMs": 1,
+      "summary": "no active unit carries the 'recycling' tag → the brief has a gap; public requirement v2 prepared (no answer included)"
+    },
+    {
+      "step": "BOUNTY_FUNDED",
+      "status": "done",
+      "durationMs": 13339,
+      "summary": "2 TEST locked in the bounty's PDA vault; status OPEN until 20:50:07 UTC"
+    },
+    {
+      "step": "SUBMITTED",
+      "status": "done",
+      "durationMs": 26686,
+      "summary": "NorthLab registered 2 inactive candidate units and submitted both; vault still 2 TEST (no payout on upload)"
+    },
+    {
+      "step": "REVIEWED",
+      "status": "done",
+      "durationMs": 6,
+      "summary": "local validator: candidate 1 FAIL (fixtureMatch); candidate 2 PASS — pass/fail only, answer not revealed"
+    },
+    {
+      "step": "ACCEPTED",
+      "status": "done",
+      "durationMs": 13351,
+      "summary": "vault -2000000, NorthLab +1600000, treasury +400000; bounty ACCEPTED with bounty receipt"
+    },
+    {
+      "step": "DELIVERED",
+      "status": "done",
+      "durationMs": 21,
+      "summary": "bounty receipt verified; full certificate delivered to the requester only now, hash-matched"
+    },
+    {
+      "step": "ACTIVATED",
+      "status": "done",
+      "durationMs": 13370,
+      "summary": "NorthLab activated the commissioned unit; it is now in the shared catalog at 0.03 TEST"
+    },
+    {
+      "step": "RESOLD",
+      "status": "done",
+      "durationMs": 14108,
+      "summary": "second agent paid 30000 base units; NorthLab earns again +24000, treasury +6000; new receipt verified"
+    },
+    {
+      "step": "REFUND_DEMONSTRATED",
+      "status": "done",
+      "durationMs": 34391,
+      "summary": "early refund rejected (DeadlineNotReached); after the deadline the requester got the full 2 TEST back, treasury +0"
+    },
+    {
+      "step": "COMPLETE",
+      "status": "done",
+      "durationMs": 0,
+      "summary": "research brief assembled with 3 source-linked findings; NorthLab earned 1648000, SouthSupply 24000, treasury 418000 base units"
+    }
+  ],
+  "transactions": [
+    {
+      "label": "Setup: mint 2.1 TEST to Research agent",
+      "step": "READY",
+      "signature": "36ehBSonXHvgRT34tMtRVTLBrru13gWG7Cgf6rjQBfDdu83Gdo6cqPfs7TE2tSLBn7buz1qhihtG9H3rLytkCbGS",
+      "slot": null,
+      "feeLamports": null,
+      "kind": "setup",
+      "explorer": null
+    },
+    {
+      "label": "Setup: mint 0.1 TEST to Second agent",
+      "step": "READY",
+      "signature": "5KYZEXoxEwGypSX9q8cNT67XZiG1aYKXgaQ15ax1WajdCCFvivh6cXE3o24xzHF67dDPVoeM5iH1D6BuhLWNhQ6u",
+      "slot": null,
+      "feeLamports": null,
+      "kind": "setup",
+      "explorer": null
+    },
+    {
+      "label": "Setup: mint 2 TEST to Refund requester",
+      "step": "READY",
+      "signature": "3eWhJoG5J4VYmBLB1Cr9PC3SjKyFChfN8Ed76UPu39P8RPKjzSGmoP7SvGkNRVNxPZN7sgj3XYRXnVtF1qfEWvVk",
+      "slot": null,
+      "feeLamports": null,
+      "kind": "setup",
+      "explorer": null
+    },
+    {
+      "label": "Atomic two-provider purchase (2 × purchase_unit)",
+      "step": "PAYMENT_PENDING",
+      "signature": "2Q1wybwH3m8MAxiq81KRcdLiovt8bHvFa6DBYvQc3JzksoCYmDhQdRH6WjAr2FXNk3J5tqGnrs6KBmDksV6ZBCN7",
+      "slot": 1663,
+      "feeLamports": 5000,
+      "kind": "economic",
+      "explorer": null
+    },
+    {
+      "label": "Create funded bounty (reward → PDA vault)",
+      "step": "GAP",
+      "signature": "47AHfVFFFYaHsocWuu4gyKWVwnExvk6GhvZgp2KP6oPVh3Uo4UitUimLLDVy8M5Q3tCLLHEhSjiwDH7WAkw9wvWL",
+      "slot": 1697,
+      "feeLamports": 5000,
+      "kind": "economic",
+      "explorer": null
+    },
+    {
+      "label": "Provider submits candidate 1 (inactive asset, no payout)",
+      "step": "BOUNTY_FUNDED",
+      "signature": "5qpDSmUXWULgpSEPUqXKikpdmeR62ZeY7qsnoSisfCzyF49MknsYvuqwasJ4eu6PHH5MKWuuxSQGiXoakZ4daXqj",
+      "slot": 1761,
+      "feeLamports": 5000,
+      "kind": "registry",
+      "explorer": null
+    },
+    {
+      "label": "Provider submits candidate 2 (inactive asset, no payout)",
+      "step": "BOUNTY_FUNDED",
+      "signature": "2w7pP49NX9YEY3UW4QhsJ2r35gbwfUzv2Ey14fezvkQL4sXjLb7vafKAhnT51yS9mtNvjAhVdGGMxthbH8kdfrrw",
+      "slot": 1761,
+      "feeLamports": 5000,
+      "kind": "registry",
+      "explorer": null
+    },
+    {
+      "label": "Requester accepts reviewed submission (80/20 escrow payout)",
+      "step": "REVIEWED",
+      "signature": "313SC2FUxho3Ln6wgsKPwr9Ed6Gt69S39zqiWribWSjNvsPVA6PCRvei7YL9FLQNqyKAH8DnDdGNZnmJJswy6ufE",
+      "slot": 1793,
+      "feeLamports": 5000,
+      "kind": "economic",
+      "explorer": null
+    },
+    {
+      "label": "Provider activates commissioned unit for sale",
+      "step": "DELIVERED",
+      "signature": "4QJCyvGvhvAyPWqSp8WnESHPdjqxKacwWRg5vPP8jNiCFWknGrbeiCVXUFfXXrHd9oQbdyFj6oyFsGSvyvpHCT1B",
+      "slot": 1825,
+      "feeLamports": 5000,
+      "kind": "registry",
+      "explorer": null
+    },
+    {
+      "label": "Second agent buys the commissioned unit (purchase_unit)",
+      "step": "ACTIVATED",
+      "signature": "5PLeFoNoLwo9HgKpJDSZkPd11qFAuaNQzwwesurddCiXgbGpT1ifhmpnKUXakRFyTZDPrPQJFHDFTPqzRddKJH7b",
+      "slot": 1857,
+      "feeLamports": 5000,
+      "kind": "economic",
+      "explorer": null
+    },
+    {
+      "label": "Separate requester funds a short-lived bounty",
+      "step": "RESOLD",
+      "signature": "5QSCa6gEKvs44DzrYuZjF6GhrAgEXXa7v86euDQmumdYkAJQxCb6c3Riq3nU9b61coDaqRFeg35TAXmjooiFyBq7",
+      "slot": 1891,
+      "feeLamports": 5000,
+      "kind": "economic",
+      "explorer": null
+    },
+    {
+      "label": "Expired bounty refunded in full (no fee)",
+      "step": "RESOLD",
+      "signature": "3YnJARgxu1D9MzP4ooDUGHfyYKuFGcY1aZxktsa22QZC2KbsuQYGWzoFob5LM4yRzQQJ1et8TYrGqAHqFHfWki5H",
+      "slot": 1941,
+      "feeLamports": 5000,
+      "kind": "economic",
+      "explorer": null
+    }
+  ],
+  "deltas": {
+    "purchase": {
+      "agent2": "0",
+      "refundRequester": "0",
+      "providerA": "24000",
+      "providerB": "24000",
+      "treasury": "12000",
+      "agent": "-60000"
+    },
+    "bountyFund": {
+      "agent2": "0",
+      "refundRequester": "0",
+      "providerA": "0",
+      "providerB": "0",
+      "treasury": "0",
+      "vault": "2000000",
+      "agent": "-2000000"
+    },
+    "bountyAccept": {
+      "agent2": "0",
+      "refundRequester": "0",
+      "providerA": "1600000",
+      "providerB": "0",
+      "treasury": "400000",
+      "vault": "-2000000",
+      "agent": "0"
+    },
+    "resale": {
+      "agent2": "-30000",
+      "refundRequester": "0",
+      "providerA": "24000",
+      "providerB": "0",
+      "treasury": "6000",
+      "agent": "0"
+    },
+    "refundFund": {
+      "agent2": "0",
+      "refundRequester": "-2000000",
+      "providerA": "0",
+      "providerB": "0",
+      "treasury": "0",
+      "agent": "0",
+      "vault": "2000000"
+    },
+    "refund": {
+      "agent2": "0",
+      "refundRequester": "2000000",
+      "providerA": "0",
+      "providerB": "0",
+      "treasury": "0",
+      "vault": "-2000000",
+      "agent": "0"
+    }
+  },
+  "receipts": [
+    {
+      "pda": "2FTQ14GxGY4EXsmVVT6tcwg9TgJmyQzg8iyqLQxtjYz5",
+      "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+      "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+      "asset": "2LNqm9r7epfkAxXjErzRRQ574VnLncrYx7sJeDDyYBNr",
+      "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+      "orderId": "91e960f9da114963915aa118eedd2142",
+      "version": 1,
+      "contentHash": "eee469de6ddedf5ca8be6ebdc340e2b1c99c426485ebda4c160dd58aeb44c3fa",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "amount": "30000",
+      "providerAmount": "24000",
+      "platformAmount": "6000",
+      "timestamp": 1795636194,
+      "kind": 0,
+      "finalizedSlot": 1665
+    },
+    {
+      "pda": "C3QtUzqGp7PNxvksYGyP7YwXsQGCk5U8C5tGi9VVNyx5",
+      "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+      "provider": "GpB87pmju8jM3haqYUeEH1kYLMGVAoDz9B66tXARsCpD",
+      "asset": "BHaGKJ1DUNn69tzV4HUtUBWBeT8RMUWqQkd72HugJTai",
+      "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+      "orderId": "91e960f9da114963915aa118eedd2142",
+      "version": 1,
+      "contentHash": "5861174f862d6975daa52fb574d5bb2c67c7cb5517d49bd25e5565d09990413f",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "amount": "30000",
+      "providerAmount": "24000",
+      "platformAmount": "6000",
+      "timestamp": 1795636194,
+      "kind": 0,
+      "finalizedSlot": 1665
+    },
+    {
+      "pda": "J1HTs5Cu8fHgLUaxTkVDi34s8VgDqcJqQDuNXMKfpRqZ",
+      "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+      "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+      "asset": "EPBkcd28Tbsu8mXExvZSSmWoyHP9yLtqNfiz4s6Ekzij",
+      "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+      "orderId": "d54028e28f90288762dc2240dafb54a1",
+      "version": 1,
+      "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "amount": "2000000",
+      "providerAmount": "1600000",
+      "platformAmount": "400000",
+      "timestamp": 1795636248,
+      "kind": 1,
+      "finalizedSlot": 1793
+    },
+    {
+      "pda": "D9dvZEi3UiGvAZgPRvgNwn9A3B2msygW6omhmN3bXpAC",
+      "buyer": "6qtMGokZ9SozD1aNZEzo4ehTuLTrpnd9HWmNNmtMw4P8",
+      "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+      "asset": "EPBkcd28Tbsu8mXExvZSSmWoyHP9yLtqNfiz4s6Ekzij",
+      "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+      "orderId": "120052a943c5ac9a3a0e51c5a6cee4a1",
+      "version": 1,
+      "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "amount": "30000",
+      "providerAmount": "24000",
+      "platformAmount": "6000",
+      "timestamp": 1795636275,
+      "kind": 0,
+      "finalizedSlot": 1858
+    }
+  ],
+  "bounties": [
+    {
+      "bountyPda": "3mwwYrzJDWaAJszgWUUbmkJassif9VuLQSyGeTeu1HSQ",
+      "bountyId": "d54028e28f90288762dc2240dafb54a1",
+      "requirementHash": "543084ee4e9e289e761d5a7e154b989872aa7ef1f2d177f1a46a9c05774dfe6a",
+      "deadline": 1795639807,
+      "signature": "47AHfVFFFYaHsocWuu4gyKWVwnExvk6GhvZgp2KP6oPVh3Uo4UitUimLLDVy8M5Q3tCLLHEhSjiwDH7WAkw9wvWL",
+      "slot": 1697,
+      "vault": "BFC9hoUkFTUpL4tLwDc8yQgvzhCER6dxE8GSvrTfaif8",
+      "outcome": "ACCEPTED",
+      "accept": {
+        "signature": "313SC2FUxho3Ln6wgsKPwr9Ed6Gt69S39zqiWribWSjNvsPVA6PCRvei7YL9FLQNqyKAH8DnDdGNZnmJJswy6ufE",
+        "slot": 1793,
+        "assetPda": "EPBkcd28Tbsu8mXExvZSSmWoyHP9yLtqNfiz4s6Ekzij",
+        "submissionPda": "3VCF2M3yXptjWhurGzk2CnoAJq37U8xm7Ef1GSKwE5Ln",
+        "bountyReceipt": "J1HTs5Cu8fHgLUaxTkVDi34s8VgDqcJqQDuNXMKfpRqZ"
+      }
+    },
+    {
+      "bountyPda": "FbxZ1jzg4HtbBUuuudD7QU2eemDxmV5MFXYqvGDvjVHg",
+      "deadline": 1795636309,
+      "earlyRefund": "DeadlineNotReached",
+      "waitingUntil": 1795636309,
+      "signature": "3YnJARgxu1D9MzP4ooDUGHfyYKuFGcY1aZxktsa22QZC2KbsuQYGWzoFob5LM4yRzQQJ1et8TYrGqAHqFHfWki5H",
+      "slot": 1941,
+      "createSignature": "5QSCa6gEKvs44DzrYuZjF6GhrAgEXXa7v86euDQmumdYkAJQxCb6c3Riq3nU9b61coDaqRFeg35TAXmjooiFyBq7",
+      "outcome": "REFUNDED"
+    }
+  ],
+  "reviews": [
+    {
+      "bountyPda": "3mwwYrzJDWaAJszgWUUbmkJassif9VuLQSyGeTeu1HSQ",
+      "submissionPda": "79r2LDfn2QvTatkWW6NE1hpNUiNUV8PJKtzdjKLwgfo3",
+      "assetPda": "82zTfRrB5t3nopcUrbSZX9mwTVeK1Z1eXwKTMa2dDnK6",
+      "requirementHash": "543084ee4e9e289e761d5a7e154b989872aa7ef1f2d177f1a46a9c05774dfe6a",
+      "contentHash": "a669c2565483d72ef4521a895a7a35d4f4743e5fd697e16dc3bba7bb29b7a5e7",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "checks": {
+        "schema": true,
+        "field": true,
+        "fixtureMatch": false,
+        "provenance": true,
+        "integrity": true,
+        "license": true,
+        "binding": true
+      },
+      "passed": false,
+      "preview": {
+        "equipment": "X100",
+        "field": "recycling_certificate",
+        "schemaId": "BOUNTY_JSON_V2",
+        "sourceLabel": "Synthetic bounty response / NorthLab",
+        "observedAt": 1795636222,
+        "byteLength": 52
+      },
+      "reviewedAt": "2026-11-25T19:50:49.028Z"
+    },
+    {
+      "bountyPda": "3mwwYrzJDWaAJszgWUUbmkJassif9VuLQSyGeTeu1HSQ",
+      "submissionPda": "3VCF2M3yXptjWhurGzk2CnoAJq37U8xm7Ef1GSKwE5Ln",
+      "assetPda": "EPBkcd28Tbsu8mXExvZSSmWoyHP9yLtqNfiz4s6Ekzij",
+      "requirementHash": "543084ee4e9e289e761d5a7e154b989872aa7ef1f2d177f1a46a9c05774dfe6a",
+      "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "checks": {
+        "schema": true,
+        "field": true,
+        "fixtureMatch": true,
+        "provenance": true,
+        "integrity": true,
+        "license": true,
+        "binding": true
+      },
+      "passed": true,
+      "preview": {
+        "equipment": "X100",
+        "field": "recycling_certificate",
+        "schemaId": "BOUNTY_JSON_V2",
+        "sourceLabel": "Synthetic bounty response / NorthLab",
+        "observedAt": 1795636222,
+        "byteLength": 64
+      },
+      "reviewedAt": "2026-11-25T19:50:49.031Z"
+    }
+  ],
+  "hashChecks": [
+    {
+      "receiptPda": "2FTQ14GxGY4EXsmVVT6tcwg9TgJmyQzg8iyqLQxtjYz5",
+      "receipt": {
+        "pda": "2FTQ14GxGY4EXsmVVT6tcwg9TgJmyQzg8iyqLQxtjYz5",
+        "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+        "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+        "asset": "2LNqm9r7epfkAxXjErzRRQ574VnLncrYx7sJeDDyYBNr",
+        "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+        "orderId": "91e960f9da114963915aa118eedd2142",
+        "version": 1,
+        "contentHash": "eee469de6ddedf5ca8be6ebdc340e2b1c99c426485ebda4c160dd58aeb44c3fa",
+        "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+        "amount": "30000",
+        "providerAmount": "24000",
+        "platformAmount": "6000",
+        "timestamp": 1795636194,
+        "kind": 0,
+        "finalizedSlot": 1665
+      },
+      "assetPda": "2LNqm9r7epfkAxXjErzRRQ574VnLncrYx7sJeDDyYBNr",
+      "title": "Solar inverter X100 technical profile",
+      "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+      "bytes": 58,
+      "contentHash": "eee469de6ddedf5ca8be6ebdc340e2b1c99c426485ebda4c160dd58aeb44c3fa",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "hashMatch": true
+    },
+    {
+      "receiptPda": "C3QtUzqGp7PNxvksYGyP7YwXsQGCk5U8C5tGi9VVNyx5",
+      "receipt": {
+        "pda": "C3QtUzqGp7PNxvksYGyP7YwXsQGCk5U8C5tGi9VVNyx5",
+        "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+        "provider": "GpB87pmju8jM3haqYUeEH1kYLMGVAoDz9B66tXARsCpD",
+        "asset": "BHaGKJ1DUNn69tzV4HUtUBWBeT8RMUWqQkd72HugJTai",
+        "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+        "orderId": "91e960f9da114963915aa118eedd2142",
+        "version": 1,
+        "contentHash": "5861174f862d6975daa52fb574d5bb2c67c7cb5517d49bd25e5565d09990413f",
+        "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+        "amount": "30000",
+        "providerAmount": "24000",
+        "platformAmount": "6000",
+        "timestamp": 1795636194,
+        "kind": 0,
+        "finalizedSlot": 1665
+      },
+      "assetPda": "BHaGKJ1DUNn69tzV4HUtUBWBeT8RMUWqQkd72HugJTai",
+      "title": "Solar inverter X100 stock and lead time",
+      "provider": "GpB87pmju8jM3haqYUeEH1kYLMGVAoDz9B66tXARsCpD",
+      "bytes": 42,
+      "contentHash": "5861174f862d6975daa52fb574d5bb2c67c7cb5517d49bd25e5565d09990413f",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "hashMatch": true
+    },
+    {
+      "receiptPda": "J1HTs5Cu8fHgLUaxTkVDi34s8VgDqcJqQDuNXMKfpRqZ",
+      "receipt": {
+        "pda": "J1HTs5Cu8fHgLUaxTkVDi34s8VgDqcJqQDuNXMKfpRqZ",
+        "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+        "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+        "asset": "EPBkcd28Tbsu8mXExvZSSmWoyHP9yLtqNfiz4s6Ekzij",
+        "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+        "orderId": "d54028e28f90288762dc2240dafb54a1",
+        "version": 1,
+        "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+        "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+        "amount": "2000000",
+        "providerAmount": "1600000",
+        "platformAmount": "400000",
+        "timestamp": 1795636248,
+        "kind": 1,
+        "finalizedSlot": 1793
+      },
+      "bytes": 64,
+      "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "hashMatch": true
+    },
+    {
+      "receiptPda": "D9dvZEi3UiGvAZgPRvgNwn9A3B2msygW6omhmN3bXpAC",
+      "bytes": 64,
+      "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+      "hashMatch": true
+    }
+  ],
+  "budgets": {
+    "agent": {
+      "role": "agent",
+      "buyer": "H3MK4GcjaLXJAVTJD5qAu1RkVv93XjedNjY4p7nRrGGA",
+      "tokenCap": "2100000",
+      "tokensCommitted": "2060000",
+      "tokensSpent": "2060000",
+      "tokensRemaining": "40000",
+      "solCapLamports": "50000000",
+      "solReservedLamports": "9283800",
+      "solActualLamports": "9218080",
+      "maxBounties": 1,
+      "intents": [
+        {
+          "intentId": "91e960f9da114963915aa118eedd2142",
+          "kind": "PURCHASE",
+          "tokens": "60000",
+          "state": "FINALIZED",
+          "signature": "2Q1wybwH3m8MAxiq81KRcdLiovt8bHvFa6DBYvQc3JzksoCYmDhQdRH6WjAr2FXNk3J5tqGnrs6KBmDksV6ZBCN7"
+        },
+        {
+          "intentId": "bounty:d54028e28f90288762dc2240dafb54a1",
+          "kind": "BOUNTY",
+          "tokens": "2000000",
+          "state": "FINALIZED",
+          "signature": "47AHfVFFFYaHsocWuu4gyKWVwnExvk6GhvZgp2KP6oPVh3Uo4UitUimLLDVy8M5Q3tCLLHEhSjiwDH7WAkw9wvWL"
+        }
+      ]
+    },
+    "agent2": {
+      "role": "agent2",
+      "buyer": "6qtMGokZ9SozD1aNZEzo4ehTuLTrpnd9HWmNNmtMw4P8",
+      "tokenCap": "100000",
+      "tokensCommitted": "30000",
+      "tokensSpent": "30000",
+      "tokensRemaining": "70000",
+      "solCapLamports": "10000000",
+      "solReservedLamports": "2663720",
+      "solActualLamports": "2663720",
+      "maxBounties": 0,
+      "intents": [
+        {
+          "intentId": "120052a943c5ac9a3a0e51c5a6cee4a1",
+          "kind": "PURCHASE",
+          "tokens": "30000",
+          "state": "FINALIZED",
+          "signature": "5PLeFoNoLwo9HgKpJDSZkPd11qFAuaNQzwwesurddCiXgbGpT1ifhmpnKUXakRFyTZDPrPQJFHDFTPqzRddKJH7b"
+        }
+      ]
+    },
+    "refundRequester": {
+      "role": "refundRequester",
+      "buyer": "8h8vhnFX4TC8cPMp8PTKJemfLRUkiF3SyDunDB2EpwpA",
+      "tokenCap": "2000000",
+      "tokensCommitted": "2000000",
+      "tokensSpent": "2000000",
+      "tokensRemaining": "0",
+      "solCapLamports": "10000000",
+      "solReservedLamports": "3961360",
+      "solActualLamports": "3895640",
+      "maxBounties": 1,
+      "intents": [
+        {
+          "intentId": "bounty:1260ca94e59e99cb3be9227b182a8abf",
+          "kind": "BOUNTY",
+          "tokens": "2000000",
+          "state": "FINALIZED",
+          "signature": "5QSCa6gEKvs44DzrYuZjF6GhrAgEXXa7v86euDQmumdYkAJQxCb6c3Riq3nU9b61coDaqRFeg35TAXmjooiFyBq7"
+        }
+      ]
+    }
+  },
+  "earnings": {
+    "providerA": {
+      "purchase": "24000",
+      "bounty": "1600000",
+      "resale": "24000",
+      "total": "1648000"
+    },
+    "providerB": {
+      "purchase": "24000",
+      "bounty": "0",
+      "resale": "0",
+      "total": "24000"
+    },
+    "treasury": {
+      "purchase": "12000",
+      "bounty": "400000",
+      "resale": "6000",
+      "refund": "0",
+      "total": "418000"
+    }
+  },
+  "tests": [],
+  "technicalGate": "MET_LOCAL_VALIDATOR",
+  "uxGate": "GUIDED_RUN_COMPLETE",
+  "limitations": [
+    "Local validator ledger: signatures are real but exist only on this machine's local chain (no public Explorer).",
+    "Synthetic fixtures and a TEST mint with no monetary value; no real customers or revenue.",
+    "Deterministic rule-based agent using typed tools; no LLM. MCP stdio server and x402 not used in this run.",
+    "Bounty review is a local trusted validator; the program cannot enforce it.",
+    "Payment is atomic on-chain; off-chain delivery is a separate, retryable step."
+  ]
+}
