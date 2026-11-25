@@ -1,7 +1,13 @@
 id,hypothesis,method,pass_criterion,status
-E01,Atomic settlement,Devnet two-provider bundle,one signature two receipts exact deltas,PENDING
-E02,Escrow controls,Devnet accept and expired refund,correct terminal states and amounts,PENDING
+E01,Atomic settlement,local chain or Devnet two-provider bundle,one signature two receipts exact deltas,PENDING
+E02,Escrow controls,local chain or Devnet accept and expired refund,correct terminal states and amounts,PENDING
 E03,Delivery integrity,wrong buyer and changed bytes,deny both and allow retry,PENDING
 E04,x402 compatibility,actual facilitator full bundle,verified same transaction or direct fallback,PENDING
 E05,Buyer demand,post-event online self-service opt-in pilot,independent repeat paid usage after legal gate,DEFERRED
 E06,Costs,measure actual receipt rent and tx fees,record exact lamports and buyer total,PENDING
+E07,Trust and migration,fixture validity and migration leakage tests,known hashes preserved invalid data rejected,PENDING
+E08,Recovery,prequote corruption and paid recovery,fail closed and free verified retry,PENDING
+E09,Bounty review,public requirements and private validator,answer not returned and exact review bound,PENDING
+E10,External agent integration,actual tool trace if time,verified genuine client or explicitly skipped,OPTIONAL
+E11,Repeat data revenue,activate accepted asset and purchase with second buyer,new receipt and correct split,PENDING
+E12,Reproducible demo,two independent guided runs,correct mode and evidence no stale state,PENDING

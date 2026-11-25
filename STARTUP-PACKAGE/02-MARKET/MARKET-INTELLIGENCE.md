@@ -12,3 +12,7 @@ Verified = public documentation observed; not independently tested. Unknown ≠ 
 Market sizing: no reliable market-wide count of buyers or paid units. Bottom-up gross volume = reachable organizations × active adoption × paid retrievals per organization per month × average price × 12. Platform revenue = gross × effective take rate. Illustrative scenario only: 100 reachable orgs × 10% × 1,000 × $0.03 × 12 = $3,600 GMV/year and $720 gross platform revenue. TAM/SAM/SOM counts unknown; do not label this TAM. No measured conversion or demand.
 
 Opportunity matrix: multi-provider atomic receipt = strong technical demo, untested demand; funded gaps = strong complementary demo, off-chain quality risk; general search = crowded, low differentiation; payment-only = commoditized. Prioritize first two. Online research: maintain dated source links, screenshots or quotes where allowed; compare real product documentation and public issue threads; no invented customers. Human interviews optional after event, never a build gate.
+
+
+## V1.4 feedback review
+Uploaded V1.3-FEEDBACK.txt is a qualitative review, not independent competitor verification or measured market demand. It highlights quality, rent, delivery, actual agent integration, bounty fairness and rights. Prior source dates and competitor observations retained, not newly verified. No global-first claim; compare funded demand and unique supply after online pilot.

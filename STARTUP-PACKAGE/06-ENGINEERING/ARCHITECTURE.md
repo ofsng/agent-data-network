@@ -1,33 +1,23 @@
-# Architecture
-One Anchor workspace + one Node/Next.js app + SQLite + local demo CLI. Program state is the financial authority; SQL is content cache/index, never source of paid status. No facilitator or platform custody required for P0. Devnet and local validator configs separate. No production credentials.
-
+# Architecture — V1.5 local-first demo
+One existing Anchor workspace + one existing web app (prefer Next.js Node, reuse working stack) + SQLite or an already-working equivalent local store + local demo driver. No cloud accounts, separate services, queue, vector DB, user signup, production auth/hosting or mainnet. Browser and orchestration server bind to loopback. Separate synthetic sandbox from existing state. Anchor remains financial authority in actual chain modes; SQLite indexes exact bytes and run state, never overrides chain result.
 ```mermaid
 flowchart LR
-  P[Provider CLI] --> S[Private immutable data store / SQLite]
-  S --> Q[Metadata search and quote API]
-  A[Agent CLI] --> Q
-  A --> W[Buyer signs exact transaction]
-  P --> C[Anchor program]
-  W --> C
-  C --> R[DataAsset and Receipt PDAs]
-  C --> V[Bounty PDA and SPL vault]
-  C --> T[Provider and treasury ATAs]
-  R --> G[Finalized receipt verifier]
-  A --> G
-  G --> S
-  G --> A
+ U[Browser guided demo] --> O[Local orchestrator / budget guard]
+ M[External agent / MCP adapter] --> O
+ O --> Q[Metadata search / quote / trust]
+ Q --> S[Private fixture store + verified snapshot]
+ O --> A[Chain adapter]
+ A --> C[Anchor: local validator or Devnet]
+ C --> R[Registry / receipts / vault / balances]
+ R --> D[Receipt + wallet proof verifier]
+ D --> S
+ O --> E[Actual run trace / evidence]
 ```
-## Components and setup
-`programs/adn/` instructions/accounts/errors; `tests/anchor/` local validator; `app/` pages and Node API routes; `src/chain/` PDA derivation, IDL, exact tx builder, finalized decoder, RPC retry; `src/data/` CSV importer, hashing, SQLite migrations, metadata ranking; `src/auth/` wallet challenge/nonce verification; `scripts/` bootstrap mint/ATAs, seed, demo CLI, verify, expire/refund; `tests/` integration/E2E; `evidence/` sanitized artifacts; `PROJECT-STATE.md`. Use lockfiles. Keep demo keys outside repo with chmod 600, separate buyer/providerA/providerB/treasury/admin, disposable Devnet only. Public keys and program ID permissible. Node server single persistent process; local SQLite WAL, foreign_keys ON, no serverless ephemeral disk. No arbitrary upload/network URL ingest. If Next.js complexity blocks, local Node API + static read-only page acceptable; preserve all program flows.
-
-## Canonical data
-CSV fixtures private at runtime (source intentionally synthetic, no real secrecy claim). Normalize CRLF→LF and Unicode NFC at ingestion, UTF-8 exact body bytes; preserve after hashing. License file normalize likewise, do not hash JSON wrapper or hash hex. Use SHA-256 raw bytes for on-chain arrays, lowercase hex in API/SQL. asset_id random 16 bytes or deterministic fixture SHA256(label) first 16 bytes with recorded mapping, version 1. Requirement hash = SHA-256 of exact UTF-8 canonical sorted-key JSON (no whitespace, NFC strings; schema string fields only). Body fixture JSON optional; bounty validator reads structured keys against spec in fixtures/bounty.json. Store immutable bytes first; register via signed CLI; only index finalized asset whose on-chain fields match. Deactivation never deletes sold bytes.
-
-## Quote, agent and recovery
-Search title/tags only; exact token overlap lowercase, sort score desc then fixture ID; no-match if required tag missing. Quote selects two distinct providers, validates chain snapshots and expected spend, expiry 120s, random order ID. Agent checks total tokens (purchases plus escrow commitments) against local per-run limit 2,100,000 base units and SOL fee/deposit budget separately. Precreate ATAs outside atomic purchase. Sign once after simulation, persist signature/order before submit where possible. `getSignatureStatuses` with history + finalized PDA read; on timeout show PENDING, never issue new order ID blindly. If blockhash definitely expired and no receipt/transaction landed, rebuild same order ID; existing receipt precludes duplicate. If chain state exists but SQL write crashed, recover from PDA and tx, verify payload; SQL cache upsert idempotent. If RPC unavailable return 503; do not authorize on stale cache. Store exact receipt linkage and verified time; no private bodies in logs. Bounty: requirement preview safe, funding tx, provider registers inactive asset, submission signed, local requester validates fixture, acceptance/refund as spec. No blanket public auto-signing or model-controlled budget.
-
-## x402 decision tree (H02 ≤45 minutes)
-Check current official spec and chosen facilitator /supported, exact network and mint, simulation policy, fee payer isolation, multi-payee handling and extra program/receipt instructions. Test full intended bundle including receipt rent and finality, not merely a plain transfer. If incompatible or unavailable: direct buyer-signed Anchor is P0; optionally HTTP 402 response with clearly labeled custom payment metadata (not standard x402). Do NOT advertise x402 headers/compliance unless genuine end-to-end reference-client/facilitator test passes. Never accept an independent standard transfer as proof of atomic purchase. Direct Anchor fallback is approved architecture; do not implement insecure custom facilitator in 2 days. Solana Skills are dev tooling, distinct from product MCP integration (P1).
-
-## API / security
-See API.md and Anchor spec. Delivery verifies fresh finalized receipt and challenge, constant-size inputs, nonce one-time with atomic SQLite consume; TLS if protected preview, rate limit, no public signing. Reject unsupported cluster and program. API errors redact keys/body. Incident: stop demo actions, retain evidence, rotate disposable keys, do not upgrade while evidence is being judged without recording changes. No production readiness claim.
+## Implementation boundaries
+- `programs/adn`: unchanged V1.4 ABI; local validator tests. `src/chain`: IDL, PDA derivation, tx construction, actual RPC, decode, mode. `src/data`: fixture import, immutable bytes, trust, search, local backup. `src/agent`: deterministic step driver, typed tool facade, bounded budget. `src/demo`: scenario/run state, reset, event log, mode-specific evidence. `app/`: UI and loopback API. Reuse equivalent existing paths.
+- Modes: `LOCAL_CHAIN` default (actual local validator + Anchor); `DEVNET` optional (actual RPC + same program); `SIMULATION` isolated deterministic state machine for UI fallback only. Mode fixed at run creation. Never invent signatures, fake RPC, Explorer links or claim simulated transfers as actual. Simulation tests prove simulation only, not contract. Label every screen and artifact with mode; require explicit simulation selection or clearly announce fallback before run.
+- Store original fixture bytes, hashes, metadata and separate verified snapshot. Keep sidecar migration 004 if SQLite exists. Simpler demo persistence allowed (single-process SQLite or atomic file journal) if equivalent evidence, recovery and idempotency tests pass; no rewrite of a working DB. No full disaster-recovery architecture. Existing paid data retained; only reset isolated new demo sandbox.
+- Demo commands: `demo:setup`, `demo:start`, `demo:test`, `demo:reset` (adapt to actual package manager, document exact commands). Setup checks pinned dependencies, builds program, starts/reuses isolated local validator, creates test mint/ATAs, seeds known fixture assets. Start launches app + run driver; reset uses new run IDs/wallets/bounties or dedicated disposable validator ledger, never historical Devnet or repository state. Devnet optional explicit mode, no repeated faucet polling.
+- Browser action allowlist: start, advance/auto-run, reset, inspect, negative-test toggles. No generic sign or private key endpoint. Local demo endpoints accept only preconfigured fixture actions, enforce loopback/CSRF or local CLI bridge and run token; operator starts a run with explicit cap. Never expose browser to public internet. Keys restricted and ignored by git; not in client bundle or evidence.
+- Every purchase, bounty and refund uses fresh run-specific IDs, actual finality (local finalized or equivalent documented actual commitment), exact integer amounts; pending persists and reconciles without duplicate charge. Payment atomically moves tokens + receipts, not off-chain data. Delivery validates receipt and buyer challenge, hash, then releases bytes; prepay and preaccept show metadata only. Snapshot restores exact bytes. No production promises.
+- Real external agent via local MCP if available; deterministic controller uses same tools and produces evidence, not model reasoning. x402 adapter capability preview may show quote/HTTP 402 but no claim of compliant facilitator or settlement unless separately tested. No production secrets, external dependency required for core demo.

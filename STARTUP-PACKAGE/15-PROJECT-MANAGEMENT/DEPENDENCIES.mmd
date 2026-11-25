@@ -1,41 +1,26 @@
 flowchart TD
-  H01["H01 Confirm contest rules"]
-  H02["H02 Toolchain / mint / x402 spike"]
-  H03["H03 Config and immutable registry"]
-  H04["H04 Private data store and seed"]
-  H05["H05 Atomic purchase and receipt"]
-  H06["H06 Adversarial purchase tests"]
-  H07["H07 Quote and delivery verification API"]
-  H08["H08 Purchase demo CLI"]
-  H09["H09 Bounty funding and submission"]
-  H10["H10 Bounty accept and expiry refund"]
-  H11["H11 Gap-to-data agent demo"]
-  H12["H12 Minimal evidence UI"]
-  H13["H13 Devnet deployment and integrated verification"]
-  H14["H14 Submission and demo freeze"]
-  H15["H15 Optional x402 transport"]
-  H16["H16 Optional product MCP / third unit"]
-  B01["B01 Post-event online product validation"]
-  B02["B02 Post-event commercial and scale review"]
   H01 --> H02
   H02 --> H03
   H02 --> H04
   H03 --> H05
+  H04 --> H05
   H05 --> H06
-  H04 --> H07
   H05 --> H07
-  H06 --> H08
+  H04 --> H07
   H07 --> H08
+  H16 --> H08
   H03 --> H09
+  H04 --> H09
   H09 --> H10
-  H05 --> H10
+  H07 --> H10
+  H08 --> H11
   H10 --> H11
-  H07 --> H11
-  H07 --> H12
-  H08 --> H13
-  H11 --> H13
+  H11 --> H12
+  H06 --> H12
   H12 --> H13
   H13 --> H14
   H13 --> H15
-  H13 --> H16
+  H07 --> H16
+  H13 --> H17
+  H16 --> H17
   B01 --> B02

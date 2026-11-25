@@ -1,5 +1,5 @@
 # Sources | accessed 25 Nov 2026
-Public evidence, not runtime testing. Exact SDK and facilitator versions must be recorded during build.
+Inherited V1.4 public research; no new external verification performed in V1.5. Not runtime testing. Exact SDK and facilitator versions must be recorded during build.
 | ID | URL | Finding |
 |---|---|---|
 | S01 | https://solana.com/developers/docs/intro/coding-with-agents | Official skill and MCP setup for Claude Code. |
@@ -19,3 +19,7 @@ Public evidence, not runtime testing. Exact SDK and facilitator versions must be
 | S15 | https://tr.superteam.fun/dev3pack | Event announced 27–29 Nov 2026; detailed submission rules not established. |
 | S16 | https://hack.dev3pack.xyz/ | Official global event portal; verify rules, precise time, eligibility and deliverables. |
 | S17 | https://www.anchor-lang.com/docs/tokens/basics/create-token-account | PDA token authority, ATA creation. |
+
+
+## V1.4 input
+`V1.3-FEEDBACK.txt` supplied in conversation, 25 Nov 2026; qualitative assessment, not external verification. Existing source register carried forward unchanged; exact SDK/rules/rent verified at implementation. No new web claims in V1.4 delta.

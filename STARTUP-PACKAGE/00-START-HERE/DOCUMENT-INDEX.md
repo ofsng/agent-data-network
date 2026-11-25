@@ -1,48 +1,55 @@
-# Document index & status
-All active files are V1.3 plans/specifications unless specified; implementation TODO. Archive superseded.
-| File | Reader | Purpose / related source | Priority / status |
-|---|---|---|---|
-| `00-START-HERE/CONSISTENCY-AUDIT.md` | Founder / developer | CONSISTENCY AUDIT · README/decisions | P0; Prepared; runtime unverified |
-| `00-START-HERE/DOCUMENT-INDEX.md` | Founder / developer | DOCUMENT INDEX · README/decisions | P0; Prepared; runtime unverified |
-| `00-START-HERE/FINAL-DELIVERY-REPORT.md` | Founder / developer | FINAL DELIVERY REPORT · README/decisions | P0; Prepared; runtime unverified |
-| `00-START-HERE/START-HERE-BUSINESS.md` | Founder / developer | START HERE BUSINESS · README/decisions | P0; Prepared; runtime unverified |
-| `00-START-HERE/START-HERE-DEVELOPMENT.md` | Founder / developer | START HERE DEVELOPMENT · README/decisions | P0; Prepared; runtime unverified |
-| `01-STRATEGY/BUSINESS-PLAN.md` | Founder | BUSINESS PLAN · README/decisions | Reference; Prepared; runtime unverified |
-| `01-STRATEGY/STRATEGIC-DECISIONS.md` | Founder | STRATEGIC DECISIONS · README/decisions | Reference; Prepared; runtime unverified |
-| `02-MARKET/MARKET-INTELLIGENCE.md` | Founder / business | MARKET INTELLIGENCE · README/decisions | Reference; Prepared; runtime unverified |
-| `03-BUSINESS-MODEL/MODEL.md` | Founder / finance | MODEL · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/Business-Canvases.pdf` | Presenter / judges | Business Canvases · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/Business-Canvases.pptx` | Presenter / judges | Business Canvases · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/DEMO-SUBMISSION.md` | Presenter / judges | DEMO SUBMISSION · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/Hackathon-Pitch.pdf` | Presenter / judges | Hackathon Pitch · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/Hackathon-Pitch.pptx` | Presenter / judges | Hackathon Pitch · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/ONE-PAGER.md` | Presenter / judges | ONE PAGER · README/decisions | Reference; Prepared; runtime unverified |
-| `04-PITCH-DECKS/SPEAKER-NOTES.md` | Presenter / judges | SPEAKER NOTES · README/decisions | Reference; Prepared; runtime unverified |
-| `05-PRODUCT/PRD.md` | Developer / product | PRD · README/decisions | P0; Prepared; runtime unverified |
-| `05-PRODUCT/fixtures/LICENSE.txt` | Developer / product | LICENSE · README/decisions | P0; Prepared; runtime unverified |
-| `05-PRODUCT/fixtures/README.md` | Developer / product | README · README/decisions | P0; Prepared; runtime unverified |
-| `05-PRODUCT/fixtures/bounty.json` | Developer / product | bounty · README/decisions | P0; Prepared; runtime unverified |
-| `05-PRODUCT/fixtures/hash-manifest.json` | Developer / product | hash manifest · README/decisions | P0; Prepared; runtime unverified |
-| `05-PRODUCT/fixtures/synthetic-units.csv` | Developer / product | synthetic units · README/decisions | P0; Prepared; runtime unverified |
-| `06-ENGINEERING/ANCHOR-PROGRAM-SPEC.md` | Developer | ANCHOR PROGRAM SPEC · README/decisions | P0; Prepared; runtime unverified |
-| `06-ENGINEERING/API.md` | Developer | API · README/decisions | P0; Prepared; runtime unverified |
-| `06-ENGINEERING/ARCHITECTURE.md` | Developer | ARCHITECTURE · README/decisions | P0; Prepared; runtime unverified |
-| `06-ENGINEERING/schema.sql` | Developer | schema · README/decisions | P0; Prepared; runtime unverified |
-| `08-DEVELOPMENT/EXECUTION-GUIDE.md` | Developer / QA | EXECUTION GUIDE · README/decisions | P0; Prepared; runtime unverified |
-| `08-DEVELOPMENT/TASK-SPECS.md` | Developer / QA | TASK SPECS · README/decisions | P0; Prepared; runtime unverified |
-| `08-DEVELOPMENT/TEST-MATRIX.md` | Developer / QA | TEST MATRIX · README/decisions | P0; Prepared; runtime unverified |
-| `09-GO-TO-MARKET/GTM-PLAYBOOK.md` | Founder | GTM PLAYBOOK · README/decisions | Reference; Prepared; runtime unverified |
-| `10-BRAND/BRAND-WEBSITE.md` | Designer / developer | BRAND WEBSITE · README/decisions | Reference; Prepared; runtime unverified |
-| `11-FINANCE/COST-TRACKER.csv` | Founder / finance | COST TRACKER · README/decisions | Reference; Evidence collection, pending |
-| `11-FINANCE/MODEL-GUIDE.md` | Founder / finance | MODEL GUIDE · README/decisions | Reference; Prepared; runtime unverified |
-| `12-LEGAL-OPERATIONS/OPERATIONS-LEGAL.md` | Founder / developer | OPERATIONS LEGAL · README/decisions | Reference; Prepared; runtime unverified |
-| `14-VALIDATION/EXPERIMENT-LOG.csv` | Founder / QA | EXPERIMENT LOG · README/decisions | Reference; Evidence collection, pending |
-| `14-VALIDATION/VALIDATION.md` | Founder / QA | VALIDATION · README/decisions | Reference; Prepared; runtime unverified |
-| `15-PROJECT-MANAGEMENT/BACKLOG.json` | Developer / founder | BACKLOG · README/decisions | P0; Prepared; runtime unverified |
-| `15-PROJECT-MANAGEMENT/DEPENDENCIES.mmd` | Developer / founder | DEPENDENCIES · README/decisions | P0; Prepared; runtime unverified |
-| `15-PROJECT-MANAGEMENT/EXECUTION-ROADMAP.md` | Developer / founder | EXECUTION ROADMAP · README/decisions | P0; Prepared; runtime unverified |
-| `15-PROJECT-MANAGEMENT/MASTER-BACKLOG.csv` | Developer / founder | MASTER BACKLOG · README/decisions | P0; Prepared; runtime unverified |
-| `17-REFERENCES/SOURCES.md` | All | SOURCES · README/decisions | Reference; Prepared; runtime unverified |
-| `ARCHIVE/V1.2-SUPERSEDED.zip` | Post-event only | V1.2 SUPERSEDED · README/decisions | Reference; Archived; not active |
-| `CLAUDE-CODE-PROMPT.md` | All | CLAUDE CODE PROMPT · README/decisions | P0; Prepared; runtime unverified |
-| `README.md` | All | README · README/decisions | P0; Prepared; runtime unverified |
+# V1.5 document index
+All active documents prepared, runtime pending. Archive historical only.
+| File | Role / status |
+|---|---|
+| `00-START-HERE/CONSISTENCY-AUDIT.md` | Active specification / template or presentation; runtime not verified |
+| `00-START-HERE/DOCUMENT-INDEX.md` | Active specification / template or presentation; runtime not verified |
+| `00-START-HERE/FINAL-DELIVERY-REPORT.md` | Active specification / template or presentation; runtime not verified |
+| `00-START-HERE/START-HERE-BUSINESS.md` | Active specification / template or presentation; runtime not verified |
+| `00-START-HERE/START-HERE-DEVELOPMENT.md` | Active specification / template or presentation; runtime not verified |
+| `00-START-HERE/UPGRADE-V1.4-TO-V1.5.md` | Active specification / template or presentation; runtime not verified |
+| `01-STRATEGY/BUSINESS-PLAN.md` | Active specification / template or presentation; runtime not verified |
+| `01-STRATEGY/STRATEGIC-DECISIONS.md` | Active specification / template or presentation; runtime not verified |
+| `02-MARKET/MARKET-INTELLIGENCE.md` | Active specification / template or presentation; runtime not verified |
+| `03-BUSINESS-MODEL/MODEL.md` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/Business-Canvases.pdf` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/Business-Canvases.pptx` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/DEMO-SUBMISSION.md` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/Hackathon-Pitch.pdf` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/Hackathon-Pitch.pptx` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/ONE-PAGER.md` | Active specification / template or presentation; runtime not verified |
+| `04-PITCH-DECKS/SPEAKER-NOTES.md` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/DEMO-EXPERIENCE.md` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/PRD.md` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/fixtures/LICENSE.txt` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/fixtures/README.md` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/fixtures/bounty.json` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/fixtures/hash-manifest.json` | Active specification / template or presentation; runtime not verified |
+| `05-PRODUCT/fixtures/synthetic-units.csv` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/AGENT-INTEGRATION-SPEC.md` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/ANCHOR-PROGRAM-SPEC.md` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/API.md` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/ARCHITECTURE.md` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/DATA-TRUST-SPEC.md` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/POST-HACKATHON-SCALING.md` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/migrations/004-trust-sidecar.sql` | Active specification / template or presentation; runtime not verified |
+| `06-ENGINEERING/schema.sql` | Active specification / template or presentation; runtime not verified |
+| `08-DEVELOPMENT/EXECUTION-GUIDE.md` | Active specification / template or presentation; runtime not verified |
+| `08-DEVELOPMENT/TASK-SPECS.md` | Active specification / template or presentation; runtime not verified |
+| `08-DEVELOPMENT/TEST-MATRIX.md` | Active specification / template or presentation; runtime not verified |
+| `09-GO-TO-MARKET/GTM-PLAYBOOK.md` | Active specification / template or presentation; runtime not verified |
+| `10-BRAND/BRAND-WEBSITE.md` | Active specification / template or presentation; runtime not verified |
+| `11-FINANCE/COST-TRACKER.csv` | Active specification / template or presentation; runtime not verified |
+| `11-FINANCE/MODEL-GUIDE.md` | Active specification / template or presentation; runtime not verified |
+| `12-LEGAL-OPERATIONS/OPERATIONS-LEGAL.md` | Active specification / template or presentation; runtime not verified |
+| `14-VALIDATION/EXPERIMENT-LOG.csv` | Active specification / template or presentation; runtime not verified |
+| `14-VALIDATION/VALIDATION.md` | Active specification / template or presentation; runtime not verified |
+| `15-PROJECT-MANAGEMENT/BACKLOG.json` | Active specification / template or presentation; runtime not verified |
+| `15-PROJECT-MANAGEMENT/DEPENDENCIES.mmd` | Active specification / template or presentation; runtime not verified |
+| `15-PROJECT-MANAGEMENT/EXECUTION-ROADMAP.md` | Active specification / template or presentation; runtime not verified |
+| `15-PROJECT-MANAGEMENT/MASTER-BACKLOG.csv` | Active specification / template or presentation; runtime not verified |
+| `17-REFERENCES/SOURCES.md` | Active specification / template or presentation; runtime not verified |
+| `17-REFERENCES/V1.3-FEEDBACK.txt` | Active specification / template or presentation; runtime not verified |
+| `ARCHIVE/V1.4-SUPERSEDED.zip` | Historical only; not active |
+| `CLAUDE-CODE-PROMPT.md` | Active specification / template or presentation; runtime not verified |
+| `README.md` | Active specification / template or presentation; runtime not verified |

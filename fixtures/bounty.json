@@ -1,8 +1,12 @@
 {
   "requirement": {
+    "schemaVersion": "2",
     "equipment": "X100",
     "field": "recycling_certificate",
-    "requiredValue": "FICT-RECYCLE-2026"
+    "format": "JSON",
+    "issuer": "FICT-RECYCLE",
+    "license": "SYNTHETIC-DEMO",
+    "criteria": "nonempty fictional certificate identifier; exact fixture check by local validator"
   },
   "solution": {
     "equipment": "X100",
@@ -10,5 +14,9 @@
   },
   "rewardBaseUnits": "2000000",
   "provider": "northlab",
-  "synthetic": true
+  "synthetic": true,
+  "privateValidationFixture": {
+    "expectedValue": "FICT-RECYCLE-2026",
+    "invalidValue": "WRONG"
+  }
 }

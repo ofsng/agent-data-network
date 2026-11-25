@@ -1,0 +1,469 @@
+# **Agent Data Network V1.3 — Proje incelemesi ve feedback**
+
+ZIP'in içindeki Agent Data Network (ADN) projesini iş modeli, ürün vizyonu, teknik mimari, Solana entegrasyonu, rekabet avantajı, hackathon stratejisi ve startup potansiyeli açısından inceledim.
+
+Öncelikle önemli bir ayrım: Bu ZIP, çalışan bir yazılımdan ziyade kapsamlı bir **startup ve yazılım geliştirme spesifikasyonu** içeriyor. Projenin ne yapacağı, nasıl geliştirileceği, hangi testlerden geçeceği ve nasıl sunulacağı planlanmış. Henüz çalışan smart contract, uygulama kaynak kodu veya doğrulanmış blockchain işlemleri bulunmuyor.
+
+Genel değerlendirmem: Projenin fikri güçlü, teknik planlaması olgun ve hackathon için ilgi çekici. Ancak hackathon başarısı ile sürdürülebilir bir startup olma potansiyelini ayrı değerlendirmek gerekiyor.
+
+# **1. Proje tam olarak nedir?**
+
+**Agent Data Network, insanların ve kurumların sahip oldukları bilgileri yapay zekâ ajanlarına satabilmelerini sağlayan, Solana tabanlı bir veri ticareti protokolü.**
+
+Temel fikir şu:
+
+- İnsanlar, uzmanlar veya şirketler sisteme lisanslı veri ekler.
+- Yapay zekâ ajanları ihtiyaç duydukları bilgiyi arar.
+- Bütün bir veri setini satın almak yerine yalnızca gerekli bilgi birimlerini satın alır.
+- Solana üzerinden veri sağlayıcılarına otomatik ödeme yapılır.
+- Satın alınan verinin versiyonu, lisansı ve ödeme kanıtı blockchain üzerinde kayıt altına alınır.
+- İhtiyaç duyulan bilgi sistemde yoksa ajan, o bilginin üretilmesi için ödüllü görev (bounty) oluşturabilir.
+
+Projenin İngilizce tek cümlelik tanımını şu şekilde yapardım:
+
+> Agent Data Network is a Solana-native data commerce protocol that enables AI agents to discover, purchase, verify and commission licensed information.
+
+Bu nedenle ADN yalnızca bir veri pazaryeri değil. Yapay zekâ ajanlarının bilgi satın alabileceği ve eksik bilgilerin üretilmesini finanse edebileceği bir ekonomik altyapı olmayı hedefliyor.
+
+## **2. Gerçek hayatta nasıl çalışacak?**
+
+ZIP'te başlangıç sektörü olarak teknik ve endüstriyel ekipmanlar, özellikle güneş enerjisi ekipmanları örneklenmiş.
+
+Bir satın alma araştırması yapan AI ajanının güneş paneli hakkında üç bilgiye ihtiyaç duyduğunu düşünelim.
+
+| İhtiyaç duyulan bilgi | Sağlayıcı        | Durum              |
+| --------------------- | ---------------- | ------------------ |
+| Enerji verimliliği    | Teknik uzman A   | Mevcut             |
+| Tedarik süresi        | Veri sağlayıcı B | Mevcut             |
+| Geri dönüşüm bilgisi  | Henüz yok        | Bounty oluşturulur |
+
+Ajan ilk iki bilgiyi satın alıyor. İki farklı sağlayıcı tek bir Solana işlemi içinde ödeme alıyor. Her veri için ayrı bir dijital satın alma makbuzu oluşturuluyor.
+
+Üçüncü bilgi bulunamadığında ajan ödüllü bir görev açıyor. Bir uzman gerekli bilgiyi sağlıyor, talep sahibi doğruluyor ve akıllı kontrat ödemeyi gerçekleştiriyor.
+
+\#chatgpt-mermaid-\_r_2q5\_{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:16px;fill:rgb(237, 237, 237);}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#chatgpt-mermaid-\_r_2q5\_ .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#chatgpt-mermaid-\_r_2q5\_ .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#chatgpt-mermaid-\_r_2q5\_ .error-icon{fill:rgb(48, 48, 48);}#chatgpt-mermaid-\_r_2q5\_ .error-text{fill:rgb(237, 237, 237);stroke:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ .edge-thickness-normal{stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .edge-thickness-thick{stroke-width:3.5px;}#chatgpt-mermaid-\_r_2q5\_ .edge-pattern-solid{stroke-dasharray:0;}#chatgpt-mermaid-\_r_2q5\_ .edge-thickness-invisible{stroke-width:0;fill:none;}#chatgpt-mermaid-\_r_2q5\_ .edge-pattern-dashed{stroke-dasharray:3;}#chatgpt-mermaid-\_r_2q5\_ .edge-pattern-dotted{stroke-dasharray:2;}#chatgpt-mermaid-\_r_2q5\_ .marker{fill:rgb(175, 175, 175);stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2q5\_ .marker.cross{stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2q5\_ svg{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:16px;}#chatgpt-mermaid-\_r_2q5\_ p{margin:0;}#chatgpt-mermaid-\_r_2q5\_ .label{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ .cluster-label text{fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ .cluster-label span{color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ .cluster-label span p{background-color:transparent;}#chatgpt-mermaid-\_r_2q5\_ .label text,#chatgpt-mermaid-\_r_2q5\_ span{fill:rgb(237, 237, 237);color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ .node rect,#chatgpt-mermaid-\_r_2q5\_ .node circle,#chatgpt-mermaid-\_r_2q5\_ .node ellipse,#chatgpt-mermaid-\_r_2q5\_ .node polygon,#chatgpt-mermaid-\_r_2q5\_ .node path{fill:rgb(19, 33, 54);stroke:rgb(31, 78, 148);stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .rough-node .label text,#chatgpt-mermaid-\_r_2q5\_ .node .label text,#chatgpt-mermaid-\_r_2q5\_ .image-shape .label,#chatgpt-mermaid-\_r_2q5\_ .icon-shape .label{text-anchor:middle;}#chatgpt-mermaid-\_r_2q5\_ .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .rough-node .label,#chatgpt-mermaid-\_r_2q5\_ .node .label,#chatgpt-mermaid-\_r_2q5\_ .image-shape .label,#chatgpt-mermaid-\_r_2q5\_ .icon-shape .label{text-align:center;}#chatgpt-mermaid-\_r_2q5\_ .node.clickable{cursor:pointer;}#chatgpt-mermaid-\_r_2q5\_ .root .anchor path{fill:rgb(175, 175, 175)!important;stroke-width:0;stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2q5\_ .arrowheadPath{fill:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2q5\_ .edgePath .path{stroke:rgb(175, 175, 175);stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .flowchart-link{stroke:rgb(175, 175, 175);fill:none;}#chatgpt-mermaid-\_r_2q5\_ .edgeLabel{background-color:rgb(14, 14, 14);text-align:center;}#chatgpt-mermaid-\_r_2q5\_ .edgeLabel p{background-color:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2q5\_ .edgeLabel rect{opacity:0.5;background-color:rgb(14, 14, 14);fill:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2q5\_ .labelBkg{background-color:rgba(14, 14, 14, 0.5);}#chatgpt-mermaid-\_r_2q5\_ .cluster rect{fill:rgb(48, 48, 48);stroke:rgba(255, 255, 255, 0.15);stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .cluster text{fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ .cluster span{color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:12px;background:rgb(48, 48, 48);border:1px solid rgba(255, 255, 255, 0.15);border-radius:2px;pointer-events:none;z-index:100;}#chatgpt-mermaid-\_r_2q5\_ .flowchartTitleText{text-anchor:middle;font-size:18px;fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2q5\_ rect.text{fill:none;stroke-width:0;}#chatgpt-mermaid-\_r_2q5\_ .icon-shape,#chatgpt-mermaid-\_r_2q5\_ .image-shape{background-color:rgb(14, 14, 14);text-align:center;}#chatgpt-mermaid-\_r_2q5\_ .icon-shape p,#chatgpt-mermaid-\_r_2q5\_ .image-shape p{background-color:rgb(14, 14, 14);padding:2px;}#chatgpt-mermaid-\_r_2q5\_ .icon-shape .label rect,#chatgpt-mermaid-\_r_2q5\_ .image-shape .label rect{opacity:0.5;background-color:rgb(14, 14, 14);fill:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2q5\_ .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#chatgpt-mermaid-\_r_2q5\_ .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#chatgpt-mermaid-\_r_2q5\_ .node .neo-node{stroke:rgb(31, 78, 148);}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node rect,#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].cluster rect,#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node polygon{stroke:url(#chatgpt-mermaid-\_r_2q5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].swimlane.cluster rect{filter:none;}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node path{stroke:url(#chatgpt-mermaid-\_r_2q5\_-gradient);stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node .neo-line path{stroke:rgb(31, 78, 148);filter:none;}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node circle{stroke:url(#chatgpt-mermaid-\_r_2q5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].node circle .state-start{fill:#000000;}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].icon-shape .icon{fill:url(#chatgpt-mermaid-\_r_2q5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2q5\_ [data-look="neo"].icon-shape .icon-neo path{stroke:url(#chatgpt-mermaid-\_r_2q5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2q5\_ .node text{font-size:14px;font-weight:600;letter-spacing:normal;fill:rgb(153, 206, 255);}#chatgpt-mermaid-\_r_2q5\_ .edgeLabels text{font-size:13px;font-weight:600;letter-spacing:-0.08px;fill:rgb(153, 206, 255);}#chatgpt-mermaid-\_r_2q5\_ .node tspan[font-weight="normal"],#chatgpt-mermaid-\_r_2q5\_ .edgeLabels tspan[font-weight="normal"]{font-weight:600;}#chatgpt-mermaid-\_r_2q5\_ .edgeLabel .label rect{opacity:1;rx:13px;ry:13px;fill:rgb(0, 14, 26);stroke:rgb(26, 62, 95);stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .node rect,#chatgpt-mermaid-\_r_2q5\_ .node circle,#chatgpt-mermaid-\_r_2q5\_ .node ellipse,#chatgpt-mermaid-\_r_2q5\_ .node polygon,#chatgpt-mermaid-\_r_2q5\_ .node path{fill:rgb(0, 40, 77);stroke:rgba(255, 255, 255, 0.1);stroke-width:1px;}#chatgpt-mermaid-\_r_2q5\_ .node rect{rx:16px;ry:16px;}#chatgpt-mermaid-\_r_2q5\_ .mermaid-decision .label-container{fill:rgb(0, 14, 26);stroke:rgb(26, 62, 95);stroke-dasharray:2px,2px;}#chatgpt-mermaid-\_r_2q5\_ .edgePaths .flowchart-link{stroke:rgb(175, 175, 175);stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;}#chatgpt-mermaid-\_r_2q5\_ .marker{fill:rgb(175, 175, 175);stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2q5\_ :root{--mermaid-font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";}AI Agent bilgiye ihtiyaç duyarADN veri kataloğunda aramaBilgi mevcut mu?Veri birimini seçSolana üzerinden atomiködemeSağlayıcı geliri ve platformkomisyonuOn-chain satın alma makbuzuVerinin doğrulanması veteslimiÖdüllü veri talebi oluşturAkıllı kontratta ödülü kilitleUzman bilgiyi üretirTalep sahibi onaylarUzman ödeme alırYeni veri kataloğa eklenebilirEvetHayır
+
+Bence projenin en değerli tarafı son aşama. Sistem yalnızca mevcut verinin ticaretini yapmıyor; aynı zamanda talebe bağlı olarak yeni veri üretimini teşvik ediyor.
+
+# **3. Teknik mimari**
+
+V1.3'ün en önemli kararı, Solana'yı sonradan eklenmiş bir ödeme yöntemi olarak değil, sistemin finansal otoritesi olarak konumlandırması.
+
+| Teknoloji         | Kullanım amacı                                |
+| ----------------- | --------------------------------------------- |
+| Solana            | Ödeme ve işlem altyapısı                      |
+| Rust & Anchor     | Akıllı kontratlar                             |
+| SPL Token         | Veri satın alma ve ödül ödemeleri             |
+| PDA               | Veri kayıtları, makbuzlar ve bounty hesapları |
+| Next.js & Node.js | Uygulama ve API                               |
+| SQLite            | Veri depolama ve indeksleme                   |
+| SHA-256           | Veri ve lisans bütünlüğü                      |
+| Ed25519           | Cüzdan sahipliği doğrulaması                  |
+| x402              | Opsiyonel ödeme protokolü                     |
+| MCP               | Gelecekte AI ajan entegrasyonu                |
+
+### **On-chain ve off-chain ayrımı**
+
+| Blockchain üzerinde | Blockchain dışında   |
+| ------------------- | -------------------- |
+| Veri kimliği        | Verinin kendisi      |
+| Veri hash'i         | Arama motoru         |
+| Lisans hash'i       | Lisans metni         |
+| Fiyat               | Metadata             |
+| Sağlayıcı kimliği   | Agent logic          |
+| Satın alma makbuzu  | Veri teslimi         |
+| Bounty escrow       | Veri kalite kontrolü |
+
+Bu ayrım doğru bir mimari karar. Verinin tamamını blockchain'e kaydetmek hem maliyet hem de gizlilik açısından gereksiz olurdu.
+
+### **Smart contract yapısı**
+
+Projede sekiz temel akıllı kontrat fonksiyonu planlanmış:
+
+| Fonksiyon                | Görevi                          |
+| ------------------------ | ------------------------------- |
+| `initialize_config`      | Sistem yapılandırması           |
+| `register_data_asset`    | Veri kaydetme                   |
+| `set_asset_active`       | Veriyi satışa açma veya kapatma |
+| `purchase_unit`          | Veri satın alma                 |
+| `create_bounty`          | Ödüllü veri talebi oluşturma    |
+| `submit_bounty_solution` | Veri talebine çözüm gönderme    |
+| `accept_bounty_solution` | Çözümü onaylama ve ödeme        |
+| `refund_expired_bounty`  | Süresi dolan ödülü iade etme    |
+
+Özellikle ödemenin ve satın alma makbuzunun aynı işlem içerisinde oluşturulması teknik açıdan değerli.
+
+İki sağlayıcıdan yapılan satın almanın bir kısmı başarısız olursa diğer kısmı da geri alınacak. Böylece yarım kalmış ödeme veya eksik makbuz oluşması önlenecek.
+
+Ancak bu özellik henüz uygulanmış ve test edilmiş değil.
+
+# **4. İş modeli**
+
+Sistem her başarılı işlemden %20 komisyon almayı planlıyor.
+
+\#chatgpt-mermaid-\_r_2qu\_{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:16px;fill:rgb(237, 237, 237);}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#chatgpt-mermaid-\_r_2qu\_ .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#chatgpt-mermaid-\_r_2qu\_ .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#chatgpt-mermaid-\_r_2qu\_ .error-icon{fill:rgb(48, 48, 48);}#chatgpt-mermaid-\_r_2qu\_ .error-text{fill:rgb(237, 237, 237);stroke:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ .edge-thickness-normal{stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .edge-thickness-thick{stroke-width:3.5px;}#chatgpt-mermaid-\_r_2qu\_ .edge-pattern-solid{stroke-dasharray:0;}#chatgpt-mermaid-\_r_2qu\_ .edge-thickness-invisible{stroke-width:0;fill:none;}#chatgpt-mermaid-\_r_2qu\_ .edge-pattern-dashed{stroke-dasharray:3;}#chatgpt-mermaid-\_r_2qu\_ .edge-pattern-dotted{stroke-dasharray:2;}#chatgpt-mermaid-\_r_2qu\_ .marker{fill:rgb(175, 175, 175);stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2qu\_ .marker.cross{stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2qu\_ svg{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:16px;}#chatgpt-mermaid-\_r_2qu\_ p{margin:0;}#chatgpt-mermaid-\_r_2qu\_ .label{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ .cluster-label text{fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ .cluster-label span{color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ .cluster-label span p{background-color:transparent;}#chatgpt-mermaid-\_r_2qu\_ .label text,#chatgpt-mermaid-\_r_2qu\_ span{fill:rgb(237, 237, 237);color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ .node rect,#chatgpt-mermaid-\_r_2qu\_ .node circle,#chatgpt-mermaid-\_r_2qu\_ .node ellipse,#chatgpt-mermaid-\_r_2qu\_ .node polygon,#chatgpt-mermaid-\_r_2qu\_ .node path{fill:rgb(19, 33, 54);stroke:rgb(31, 78, 148);stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .rough-node .label text,#chatgpt-mermaid-\_r_2qu\_ .node .label text,#chatgpt-mermaid-\_r_2qu\_ .image-shape .label,#chatgpt-mermaid-\_r_2qu\_ .icon-shape .label{text-anchor:middle;}#chatgpt-mermaid-\_r_2qu\_ .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .rough-node .label,#chatgpt-mermaid-\_r_2qu\_ .node .label,#chatgpt-mermaid-\_r_2qu\_ .image-shape .label,#chatgpt-mermaid-\_r_2qu\_ .icon-shape .label{text-align:center;}#chatgpt-mermaid-\_r_2qu\_ .node.clickable{cursor:pointer;}#chatgpt-mermaid-\_r_2qu\_ .root .anchor path{fill:rgb(175, 175, 175)!important;stroke-width:0;stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2qu\_ .arrowheadPath{fill:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2qu\_ .edgePath .path{stroke:rgb(175, 175, 175);stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .flowchart-link{stroke:rgb(175, 175, 175);fill:none;}#chatgpt-mermaid-\_r_2qu\_ .edgeLabel{background-color:rgb(14, 14, 14);text-align:center;}#chatgpt-mermaid-\_r_2qu\_ .edgeLabel p{background-color:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2qu\_ .edgeLabel rect{opacity:0.5;background-color:rgb(14, 14, 14);fill:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2qu\_ .labelBkg{background-color:rgba(14, 14, 14, 0.5);}#chatgpt-mermaid-\_r_2qu\_ .cluster rect{fill:rgb(48, 48, 48);stroke:rgba(255, 255, 255, 0.15);stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .cluster text{fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ .cluster span{color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:12px;background:rgb(48, 48, 48);border:1px solid rgba(255, 255, 255, 0.15);border-radius:2px;pointer-events:none;z-index:100;}#chatgpt-mermaid-\_r_2qu\_ .flowchartTitleText{text-anchor:middle;font-size:18px;fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2qu\_ rect.text{fill:none;stroke-width:0;}#chatgpt-mermaid-\_r_2qu\_ .icon-shape,#chatgpt-mermaid-\_r_2qu\_ .image-shape{background-color:rgb(14, 14, 14);text-align:center;}#chatgpt-mermaid-\_r_2qu\_ .icon-shape p,#chatgpt-mermaid-\_r_2qu\_ .image-shape p{background-color:rgb(14, 14, 14);padding:2px;}#chatgpt-mermaid-\_r_2qu\_ .icon-shape .label rect,#chatgpt-mermaid-\_r_2qu\_ .image-shape .label rect{opacity:0.5;background-color:rgb(14, 14, 14);fill:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2qu\_ .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#chatgpt-mermaid-\_r_2qu\_ .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#chatgpt-mermaid-\_r_2qu\_ .node .neo-node{stroke:rgb(31, 78, 148);}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node rect,#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].cluster rect,#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node polygon{stroke:url(#chatgpt-mermaid-\_r_2qu\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].swimlane.cluster rect{filter:none;}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node path{stroke:url(#chatgpt-mermaid-\_r_2qu\_-gradient);stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node .neo-line path{stroke:rgb(31, 78, 148);filter:none;}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node circle{stroke:url(#chatgpt-mermaid-\_r_2qu\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].node circle .state-start{fill:#000000;}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].icon-shape .icon{fill:url(#chatgpt-mermaid-\_r_2qu\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2qu\_ [data-look="neo"].icon-shape .icon-neo path{stroke:url(#chatgpt-mermaid-\_r_2qu\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2qu\_ .node text{font-size:14px;font-weight:600;letter-spacing:normal;fill:rgb(153, 206, 255);}#chatgpt-mermaid-\_r_2qu\_ .edgeLabels text{font-size:13px;font-weight:600;letter-spacing:-0.08px;fill:rgb(153, 206, 255);}#chatgpt-mermaid-\_r_2qu\_ .node tspan[font-weight="normal"],#chatgpt-mermaid-\_r_2qu\_ .edgeLabels tspan[font-weight="normal"]{font-weight:600;}#chatgpt-mermaid-\_r_2qu\_ .edgeLabel .label rect{opacity:1;rx:13px;ry:13px;fill:rgb(0, 14, 26);stroke:rgb(26, 62, 95);stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .node rect,#chatgpt-mermaid-\_r_2qu\_ .node circle,#chatgpt-mermaid-\_r_2qu\_ .node ellipse,#chatgpt-mermaid-\_r_2qu\_ .node polygon,#chatgpt-mermaid-\_r_2qu\_ .node path{fill:rgb(0, 40, 77);stroke:rgba(255, 255, 255, 0.1);stroke-width:1px;}#chatgpt-mermaid-\_r_2qu\_ .node rect{rx:16px;ry:16px;}#chatgpt-mermaid-\_r_2qu\_ .mermaid-decision .label-container{fill:rgb(0, 14, 26);stroke:rgb(26, 62, 95);stroke-dasharray:2px,2px;}#chatgpt-mermaid-\_r_2qu\_ .edgePaths .flowchart-link{stroke:rgb(175, 175, 175);stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;}#chatgpt-mermaid-\_r_2qu\_ .marker{fill:rgb(175, 175, 175);stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2qu\_ :root{--mermaid-font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";}AI Agent - 100 birim ödemeADN Smart ContractVeri sağlayıcısıADN geliri%80%20
+
+Hem normal veri satışlarında hem de bounty ödemelerinde aynı model kullanılacak.
+
+| İşlem hacmi (aylık) | ADN brüt geliri | Sağlayıcı geliri |
+| ------------------- | --------------- | ---------------- |
+| 1.000 $             | 200 $           | 800 $            |
+| 10.000 $            | 2.000 $         | 8.000 $          |
+| 100.000 $           | 20.000 $        | 80.000 $         |
+| 1.000.000 $         | 200.000 $       | 800.000 $        |
+| 10.000.000 $        | 2.000.000 $     | 8.000.000 $      |
+
+*Bu tablo benim oluşturduğum varsayımsal ticari senaryodur. Gerçek gelir veya finansal tahmin değildir. Altyapı, operasyon, destek ve diğer giderler düşülmemiştir.*
+
+Komisyon modeli başlangıç için mantıklı. Fakat düşük fiyatlı mikro veri satışlarının tek başına yeterli gelir yaratması zor olabilir.
+
+Örneğin 0,03 dolarlık bir veri satışından platform yalnızca 0,006 dolar kazanır. Bu durumda çok yüksek işlem hacmine veya daha değerli veri kategorilerine ihtiyaç duyulur.
+
+Uzun vadede enterprise API, premium veri paketleri ve kurumsal veri talepleri de değerlendirilebilir.
+
+# **5. Projenin rekabet avantajı**
+
+ZIP'in içerisinde rakip analizi de yapılmış. Dokümanlarda yer alan rakipleri şu şekilde özetleyebilirim. Bu tablo bağımsız, güncel bir rakip doğrulaması değil, paketteki araştırmanın özetidir.
+
+| Rakip              | Odak alanı                   | ADN'nin hedeflediği fark                            |
+| ------------------ | ---------------------------- | --------------------------------------------------- |
+| ipto.ai            | AI ajanlarına veri satışı    | On-chain makbuz ve çoklu sağlayıcı ödemesi          |
+| DataBazaar         | Veri pazaryeri ve bounty     | Solana tabanlı escrow                               |
+| Ocean Protocol     | Merkeziyetsiz veri ekonomisi | Ajan odaklı küçük bilgi birimleri                   |
+| x402               | İnternet üzerinden ödeme     | Veri lisanslama ve talep üretimi                    |
+| Geleneksel API'ler | Bilgi erişimi                | Birden fazla sağlayıcıyı ortak altyapıda buluşturma |
+| Web araması        | Ücretsiz bilgi keşfi         | Lisanslı ve satın alma kanıtı bulunan bilgi         |
+
+Burada önemli bir nokta var: Projenin tek tek özellikleri tamamen benzersiz değil. Blockchain ile veri satışı, mikro ödemeler ve bounty sistemleri daha önce düşünülmüş konseptler.
+
+Ancak bunları tek bir ajan odaklı protokol altında birleştirmek iyi bir farklılaşma stratejisi olabilir.
+
+**ADN'nin asıl rekabet avantajı smart contract değil, zaman içerisinde oluşturabileceği veri ve talep ağı olmalı.**
+
+## **6. En güçlü özellik: Data Bounty**
+
+Projenin en potansiyelli özelliğinin bounty sistemi olduğunu düşünüyorum.
+
+Çünkü klasik veri pazaryerleri şu soruyla başlıyor:
+
+*Elimizde hangi veriler var ve bunları kime satabiliriz?*
+
+ADN bunun tersini de mümkün kılıyor:
+
+*AI ajanları hangi bilgilere ihtiyaç duyuyor ve bu bilgiyi kim üretebilir?*
+
+\#chatgpt-mermaid-\_r_2r5\_{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:16px;fill:rgb(237, 237, 237);}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#chatgpt-mermaid-\_r_2r5\_ .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#chatgpt-mermaid-\_r_2r5\_ .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#chatgpt-mermaid-\_r_2r5\_ .error-icon{fill:rgb(48, 48, 48);}#chatgpt-mermaid-\_r_2r5\_ .error-text{fill:rgb(237, 237, 237);stroke:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ .edge-thickness-normal{stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .edge-thickness-thick{stroke-width:3.5px;}#chatgpt-mermaid-\_r_2r5\_ .edge-pattern-solid{stroke-dasharray:0;}#chatgpt-mermaid-\_r_2r5\_ .edge-thickness-invisible{stroke-width:0;fill:none;}#chatgpt-mermaid-\_r_2r5\_ .edge-pattern-dashed{stroke-dasharray:3;}#chatgpt-mermaid-\_r_2r5\_ .edge-pattern-dotted{stroke-dasharray:2;}#chatgpt-mermaid-\_r_2r5\_ .marker{fill:rgb(175, 175, 175);stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2r5\_ .marker.cross{stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2r5\_ svg{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:16px;}#chatgpt-mermaid-\_r_2r5\_ p{margin:0;}#chatgpt-mermaid-\_r_2r5\_ .label{font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ .cluster-label text{fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ .cluster-label span{color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ .cluster-label span p{background-color:transparent;}#chatgpt-mermaid-\_r_2r5\_ .label text,#chatgpt-mermaid-\_r_2r5\_ span{fill:rgb(237, 237, 237);color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ .node rect,#chatgpt-mermaid-\_r_2r5\_ .node circle,#chatgpt-mermaid-\_r_2r5\_ .node ellipse,#chatgpt-mermaid-\_r_2r5\_ .node polygon,#chatgpt-mermaid-\_r_2r5\_ .node path{fill:rgb(19, 33, 54);stroke:rgb(31, 78, 148);stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .rough-node .label text,#chatgpt-mermaid-\_r_2r5\_ .node .label text,#chatgpt-mermaid-\_r_2r5\_ .image-shape .label,#chatgpt-mermaid-\_r_2r5\_ .icon-shape .label{text-anchor:middle;}#chatgpt-mermaid-\_r_2r5\_ .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .rough-node .label,#chatgpt-mermaid-\_r_2r5\_ .node .label,#chatgpt-mermaid-\_r_2r5\_ .image-shape .label,#chatgpt-mermaid-\_r_2r5\_ .icon-shape .label{text-align:center;}#chatgpt-mermaid-\_r_2r5\_ .node.clickable{cursor:pointer;}#chatgpt-mermaid-\_r_2r5\_ .root .anchor path{fill:rgb(175, 175, 175)!important;stroke-width:0;stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2r5\_ .arrowheadPath{fill:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2r5\_ .edgePath .path{stroke:rgb(175, 175, 175);stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .flowchart-link{stroke:rgb(175, 175, 175);fill:none;}#chatgpt-mermaid-\_r_2r5\_ .edgeLabel{background-color:rgb(14, 14, 14);text-align:center;}#chatgpt-mermaid-\_r_2r5\_ .edgeLabel p{background-color:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2r5\_ .edgeLabel rect{opacity:0.5;background-color:rgb(14, 14, 14);fill:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2r5\_ .labelBkg{background-color:rgba(14, 14, 14, 0.5);}#chatgpt-mermaid-\_r_2r5\_ .cluster rect{fill:rgb(48, 48, 48);stroke:rgba(255, 255, 255, 0.15);stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .cluster text{fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ .cluster span{color:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";font-size:12px;background:rgb(48, 48, 48);border:1px solid rgba(255, 255, 255, 0.15);border-radius:2px;pointer-events:none;z-index:100;}#chatgpt-mermaid-\_r_2r5\_ .flowchartTitleText{text-anchor:middle;font-size:18px;fill:rgb(237, 237, 237);}#chatgpt-mermaid-\_r_2r5\_ rect.text{fill:none;stroke-width:0;}#chatgpt-mermaid-\_r_2r5\_ .icon-shape,#chatgpt-mermaid-\_r_2r5\_ .image-shape{background-color:rgb(14, 14, 14);text-align:center;}#chatgpt-mermaid-\_r_2r5\_ .icon-shape p,#chatgpt-mermaid-\_r_2r5\_ .image-shape p{background-color:rgb(14, 14, 14);padding:2px;}#chatgpt-mermaid-\_r_2r5\_ .icon-shape .label rect,#chatgpt-mermaid-\_r_2r5\_ .image-shape .label rect{opacity:0.5;background-color:rgb(14, 14, 14);fill:rgb(14, 14, 14);}#chatgpt-mermaid-\_r_2r5\_ .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#chatgpt-mermaid-\_r_2r5\_ .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#chatgpt-mermaid-\_r_2r5\_ .node .neo-node{stroke:rgb(31, 78, 148);}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node rect,#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].cluster rect,#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node polygon{stroke:url(#chatgpt-mermaid-\_r_2r5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].swimlane.cluster rect{filter:none;}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node path{stroke:url(#chatgpt-mermaid-\_r_2r5\_-gradient);stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node .neo-line path{stroke:rgb(31, 78, 148);filter:none;}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node circle{stroke:url(#chatgpt-mermaid-\_r_2r5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].node circle .state-start{fill:#000000;}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].icon-shape .icon{fill:url(#chatgpt-mermaid-\_r_2r5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2r5\_ [data-look="neo"].icon-shape .icon-neo path{stroke:url(#chatgpt-mermaid-\_r_2r5\_-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#chatgpt-mermaid-\_r_2r5\_ .node text{font-size:14px;font-weight:600;letter-spacing:normal;fill:rgb(153, 206, 255);}#chatgpt-mermaid-\_r_2r5\_ .edgeLabels text{font-size:13px;font-weight:600;letter-spacing:-0.08px;fill:rgb(153, 206, 255);}#chatgpt-mermaid-\_r_2r5\_ .node tspan[font-weight="normal"],#chatgpt-mermaid-\_r_2r5\_ .edgeLabels tspan[font-weight="normal"]{font-weight:600;}#chatgpt-mermaid-\_r_2r5\_ .edgeLabel .label rect{opacity:1;rx:13px;ry:13px;fill:rgb(0, 14, 26);stroke:rgb(26, 62, 95);stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .node rect,#chatgpt-mermaid-\_r_2r5\_ .node circle,#chatgpt-mermaid-\_r_2r5\_ .node ellipse,#chatgpt-mermaid-\_r_2r5\_ .node polygon,#chatgpt-mermaid-\_r_2r5\_ .node path{fill:rgb(0, 40, 77);stroke:rgba(255, 255, 255, 0.1);stroke-width:1px;}#chatgpt-mermaid-\_r_2r5\_ .node rect{rx:16px;ry:16px;}#chatgpt-mermaid-\_r_2r5\_ .mermaid-decision .label-container{fill:rgb(0, 14, 26);stroke:rgb(26, 62, 95);stroke-dasharray:2px,2px;}#chatgpt-mermaid-\_r_2r5\_ .edgePaths .flowchart-link{stroke:rgb(175, 175, 175);stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;}#chatgpt-mermaid-\_r_2r5\_ .marker{fill:rgb(175, 175, 175);stroke:rgb(175, 175, 175);}#chatgpt-mermaid-\_r_2r5\_ :root{--mermaid-font-family:-apple-system-body,ui-sans-serif,-apple-system,system-ui,"Segoe UI","Helvetica","Apple Color Emoji","Arial",sans-serif,"Segoe UI Emoji","Segoe UI Symbol";}Daha fazla AI ajanıDaha fazla veri talebiDaha fazla ödüllü görevDaha fazla veri üreticisiDaha fazla değerli veriDaha başarılı ajanaraştırmaları
+
+Bu döngü gerçekten çalışırsa bir network effect oluşturabilir.
+
+Ayrıca aynı bilgi, lisans koşulları izin verdiği sürece, üretildikten sonra başka ajanlara tekrar satılabilir. Böylece uzmanlar bir defa ürettikleri bilgiden birden fazla gelir elde edebilir.
+
+Bu özellik ADN'yi bir veri mağazasından, **talebe dayalı bilgi üretim ağına** dönüştürebilir.
+
+# **7. Projenin güçlü yönleri**
+
+| Özellik                    | Puanım    |
+| -------------------------- | --------- |
+| Temel fikir                | 8.5/10    |
+| AI ve Web3 uyumu           | 9/10      |
+| Solana kullanım gerekçesi  | 9/10      |
+| Teknik mimari planı        | 8.5/10    |
+| Dokümantasyon              | 9.5/10    |
+| Hackathon potansiyeli      | 9/10      |
+| İş modeli                  | 7/10      |
+| Rekabet avantajı           | 6.5/10    |
+| Ölçeklenebilirlik tasarımı | 6/10      |
+| Pazarda doğrulanmış talep  | Henüz yok |
+
+Bunlar mevcut dokümantasyon üzerinden yaptığım öznel değerlendirmeler, çalışan ürünün performans puanları değil.
+
+### **Solana gerçekten bir probleme çözüm sunuyor**
+
+Birçok Web3 projesinde blockchain kullanımı zorunlu olmadığı halde sisteme dahil ediliyor.
+
+ADN'de ise atomik ödeme, escrow, bağımsız işlem doğrulama ve lisanslı satın alma kanıtları için somut kullanım alanları var.
+
+### **Gereksiz token çıkarılmamış**
+
+Projenin kendi yatırım token'ını çıkarmaması doğru bir karar.
+
+Ürünün değer önerisi token fiyatına veya spekülasyona bağlı değil.
+
+### **Teknik dokümantasyon oldukça kapsamlı**
+
+ZIP içerisinde 44 dosya kaydı bulunuyor. Aktif geliştirme planı 12 ürün gereksinimi, 18 geliştirme ve iş görevi, 39 test senaryosu, API sözleşmesi, veritabanı şeması, Anchor spesifikasyonu, finansal model, risk değerlendirmesi ve sunum materyalleri içeriyor.
+
+Özellikle başarısız işlem, yetkisiz erişim, tekrar ödeme, yanlış cüzdan, hash uyuşmazlığı ve escrow iadesi gibi senaryoların önceden düşünülmüş olması olumlu.
+
+### **Kapsam kontrolü yapılmış**
+
+Hackathon versiyonunda gerçek müşteri verileri, mainnet, karmaşık vektör veritabanları, kendi kripto para birimi ve zorunlu x402 entegrasyonu kapsam dışında bırakılmış.
+
+Bu kararlar projenin tamamlanabilme ihtimalini artırıyor.
+
+# **8. Kritik problemler ve feedback**
+
+Burası projenin gelişimi açısından en önemli bölüm.
+
+## **Problem 1 — Veri kalitesi nasıl garanti edilecek?**
+
+**Kritiklik: 10/10**
+
+Blockchain bir verinin değiştirilmediğini kanıtlayabilir. Fakat verinin doğru olduğunu kanıtlamaz.
+
+Bir sağlayıcı yanlış bilgi yüklerse sistem o yanlış bilginin hash'ini de başarıyla doğrulayabilir.
+
+Bu yüzden ileride aşağıdaki mekanizmalara ihtiyaç var: sağlayıcı itibarı, kaynak doğrulaması, veri güncellik skoru, alıcı değerlendirmeleri, bağımsız doğrulayıcılar ve hatalı bilgiye ilişkin iade politikaları.
+
+ADN'nin uzun vadede en değerli teknolojisi ödeme altyapısından ziyade güvenilir bilgi değerlendirme altyapısı olabilir.
+
+## **Problem 2 — Çok küçük veri birimlerinin maliyeti**
+
+**Kritiklik: 9/10**
+
+Her satın alınan veri için ayrı ve kalıcı bir PDA oluşturulması planlanıyor.
+
+Dokümana göre bir satın alma makbuzu yaklaşık 254 byte büyüklüğünde.
+
+Bu tasarım hackathon için iyi. Ancak milyonlarca veri satın alımı gerçekleştiğinde her işlem için SOL cinsinden hesap depozitosu ayırmak ciddi bir ekonomik problem oluşturabilir.
+
+Üstelik mevcut tasarımda bu makbuzların kapatılarak depozitonun geri alınması mümkün değil.
+
+| Veri satın alma sayısı | Makbuzların ham boyutu |
+| ---------------------- | ---------------------- |
+| 1.000                  | 254 KB                 |
+| 100.000                | 25,4 MB                |
+| 1.000.000              | 254 MB                 |
+| 100.000.000            | 25,4 GB                |
+
+Bu tablo hesap altyapısının ek depolama maliyetlerini içermiyor.
+
+İleride Merkle tree, state compression, toplu makbuzlar ve periyodik settlement gibi tasarımların araştırılmasını öneririm.
+
+Hackathon sırasında değiştirmeye gerek yok. Ancak ticari ürün öncesi çözülmeli.
+
+## **Problem 3 — Ödeme atomik ama veri teslimi değil**
+
+**Kritiklik: 9/10**
+
+Mevcut mimaride kullanıcı Solana üzerinden ödeme yapıyor. Ardından API satın alma makbuzunu kontrol edip veriyi teslim ediyor.
+
+Peki ödeme gerçekleşir ancak sunucu çökerse veya veri silinmişse?
+
+Kullanıcı ödeme yapmış olur fakat bilgiye erişemez.
+
+Doküman bu riski kabul ediyor. Yeniden teslim talebi ücretsiz olsa da satın alma için doğrudan iade mekanizması bulunmuyor.
+
+Uzun vadede şifrelenmiş veri depolama, güvenilir yedekleme, teslim garantisi ve teslim başarısızlığı için iade mekanizması tasarlanmalı.
+
+Mevcut haliyle sistem tamamen merkeziyetsiz değil. Finansal işlemler on-chain, veri erişimi ise merkezi bir sunucuya bağlı.
+
+## **Problem 4 — AI ajanları henüz gerçekten entegre değil**
+
+**Kritiklik: 8/10**
+
+Projenin adı Agent Data Network. Ancak mevcut MVP'de gerçek bir LLM veya bağımsız AI ajan entegrasyonu yerine deterministic controller bulunuyor.
+
+Yani ajan davranışı önceden tanımlanmış kurallarla gerçekleştirilecek.
+
+Hackathon için bu anlaşılabilir. Fakat ürünün vizyonunun gerçekten kanıtlanabilmesi için ileride harici bir ajanın ADN'yi keşfedebilmesi, araç olarak kullanabilmesi ve belirli bütçeler dahilinde satın alma yapabilmesi gerekiyor.
+
+Ben olsam hackathon sonrasındaki ilk entegrasyonlardan biri olarak MCP server ve agent SDK geliştirirdim.
+
+Örneğin ajanlara şu araçlar sunulabilir:
+
+```
+search_data()
+get_data_quote()
+purchase_data()
+verify_receipt()
+retrieve_data()
+create_bounty()
+```
+
+Böylece ADN ayrı bir web sitesinden ziyade AI ajanlarının doğrudan kullanabildiği altyapıya dönüşebilir.
+
+## **Problem 5 — Bounty sisteminde üretici riski**
+
+**Kritiklik: 8/10**
+
+Mevcut tasarımda veri üreticisi bilgiyi sağlıyor, talep sahibi bilgiyi inceliyor ve ödemeyi onaylıyor.
+
+Peki talep sahibi doğru bilgiyi aldıktan sonra ödemeyi onaylamazsa?
+
+Mevcut tasarım buna karşı ticari seviyede bir koruma sunmuyor. Süre dolunca ödül talep sahibine iade ediliyor.
+
+Üretici açısından bu ciddi bir risk.
+
+İleride objektif kabul kriterleri, otomatik doğrulama, uyuşmazlık çözümü ve güvenli veri önizlemesi düşünülmeli.
+
+Hackathon sırasında kullanılan sentetik ve deterministik doğrulama yöntemi, gerçek dünyadaki karmaşık veri taleplerine doğrudan ölçeklenemez.
+
+## **Problem 6 — Pazar çok geniş**
+
+**Kritiklik: 8.5/10**
+
+ADN teorik olarak her türlü bilgiye hizmet edebilir: finansal veriler, teknik veriler, akademik araştırmalar, ürün bilgileri, coğrafi veriler, sektörel istatistikler vb.
+
+Ancak başlangıçta herkese hizmet etmeye çalışmak iki taraflı pazaryerinin cold start problemini büyütür.
+
+Bir tarafta yeterli veri olmadığı için alıcı gelmez; diğer tarafta alıcı olmadığı için veri sağlayıcısı gelmez.
+
+Ben başlangıçta endüstriyel satın alma ve teknik veri araştırması üzerine yoğunlaşırdım. ZIP'te seçilen güneş enerjisi ekipmanları örneği bu açıdan mantıklı.
+
+| Potansiyel sektör            | Benim değerlendirmem |
+| ---------------------------- | -------------------- |
+| Endüstriyel ekipman verileri | 9/10                 |
+| Tedarik zinciri verileri     | 9/10                 |
+| Uzman teknik bilgisi         | 8.5/10               |
+| Pazar araştırmaları          | 8/10                 |
+| Finansal veriler             | 8/10                 |
+| Genel internet bilgileri     | 4/10                 |
+
+Bu puanlar pazar araştırmasıyla doğrulanmış sonuçlar değil, farklılaşma potansiyeline ilişkin değerlendirmem.
+
+Ücretsiz şekilde internette bulunabilen bilgileri satmak yerine erişimi zor, güncel ve ekonomik değeri yüksek bilgilere odaklanmak daha mantıklı.
+
+## **Problem 7 — Lisanslama ve veri sahipliği**
+
+**Kritiklik: 8/10**
+
+Bir kişinin veri yükleyebilmesi, o veriyi satma hakkına sahip olduğu anlamına gelmiyor.
+
+Ayrıca satın alma makbuzu oluşturulması:
+
+- Verinin telif haklarının satın alındığını,
+- Verinin gerçekten doğru olduğunu,
+- Sağlayıcının verinin sahibi olduğunu,
+- Alıcının lisans koşullarına uyacağını
+
+garanti etmez.
+
+Mevcut dokümanlar bu ayrımı doğru şekilde yapmış. Ancak ticari sürümde lisans yönetimi ve veri yayınlama haklarının doğrulanması önemli bir operasyon haline gelecek.
+
+# **9. Startup olarak nasıl konumlandırırdım?**
+
+Ürünü yalnızca bir **AI Data Marketplace** olarak tanıtmazdım. Bu tanım fazla genel ve rakipler tarafından kolayca kullanılabilir.
+
+Bunun yerine:
+
+## **The Knowledge Economy for AI Agents**
+
+*Buy knowledge. Verify purchase. Fund what is missing.*
+
+ADN'yi AI ajanlarının bilgi ekonomisi için bir ticaret altyapısı olarak konumlandırırdım.
+
+| Katman                  | İşlev                                     |
+| ----------------------- | ----------------------------------------- |
+| Discovery Layer         | Bilgiyi bulmak                            |
+| Commerce Layer          | Bilgiyi satın almak                       |
+| Verification Layer      | Satın alma ve veri bütünlüğünü doğrulamak |
+| Demand Layer            | Eksik bilginin üretimini finanse etmek    |
+| Reputation Layer        | Gelecekte veri kalitesini değerlendirmek  |
+| Agent Integration Layer | Harici AI ajanlarını bağlamak             |
+
+İlk dört katman V1.3 vizyonunda mevcut. Son iki katmanı uzun vadeli ürün stratejisi olarak öneriyorum.
+
+Böylece ADN yalnızca bir pazaryeri değil, başka uygulamaların üzerine ürün geliştirebileceği bir protokol olabilir.
+
+# **10. Hackathon stratejisi**
+
+Hackathon için projeyi gereksiz yere büyütmezdim.
+
+Dokümanda belirtilen 48 saatlik geliştirme hedefi ve yaklaşık 20,25 saatlik aktif iş tahmini oldukça iyimser. Özellikle Anchor geliştirme, entegrasyon testleri ve Devnet deploy aşamaları beklenenden uzun sürebilir.
+
+Benim önceliklendirmem şöyle olurdu:
+
+| Özellik                       | Öncelik  |
+| ----------------------------- | -------- |
+| Solana smart contract         | P0       |
+| İki sağlayıcıya atomik ödeme  | P0       |
+| On-chain satın alma makbuzu   | P0       |
+| Hash doğrulamalı veri teslimi | P0       |
+| Bounty escrow                 | P0       |
+| Bounty ödeme ve iade          | P0       |
+| Basit agent demo              | P0       |
+| Minimal dashboard             | P1       |
+| Gerçek LLM entegrasyonu       | P1       |
+| x402 entegrasyonu             | P1       |
+| MCP server                    | P2       |
+| Reputation system             | P2       |
+| Gelişmiş veri arama           | P2       |
+| Token                         | Gereksiz |
+
+Jüriye çok sayıda yarım özellik göstermektense iki eksiksiz işlem göstermek daha etkili olur.
+
+### **Demo 1 — AI Agent buys knowledge**
+
+Ajan iki farklı sağlayıcıdan veri bulur. Tek Solana işlemi gerçekleştirir. Sağlayıcılar otomatik ödeme alır. İki ayrı satın alma makbuzu oluşur. Ajan veri bütünlüğünü doğrular ve araştırma sonucunu sunar.
+
+### **Demo 2 — AI Agent funds missing knowledge**
+
+Ajan ihtiyaç duyduğu bir bilgiyi bulamaz. Bounty oluşturur. Ödül smart contract içerisinde kilitlenir. Uzman bilgiyi sisteme ekler. Talep sahibi onaylar. Ödeme gerçekleşir ve veri yeniden satışa açılabilir.
+
+Bu iki senaryo hem teknik yetkinliği hem de ürünün ekonomik vizyonunu göstermek için yeterli.
+
+# **11. Uzun vadeli ürün yol haritası önerim**
+
+| Versiyon | Hedef                                                             |
+| -------- | ----------------------------------------------------------------- |
+| V1.3     | Çalışan Solana hackathon MVP                                      |
+| V1.4     | MCP ve gerçek AI agent SDK                                        |
+| V1.5     | Güvenli veri yayınlama ve sağlayıcı onboarding                    |
+| V2.0     | Reputation ve veri kalite sistemi                                 |
+| V2.1     | Düşük maliyetli toplu settlement                                  |
+| V2.2     | Gelişmiş bounty ve uyuşmazlık çözümü                              |
+| V3.0     | Çok sayıda AI uygulamasının kullanabildiği veri ticaret protokolü |
+
+Uzun vadeli vizyon, insanların yalnızca veri yüklediği bir web sitesi yapmak değil; geliştiricilerin kendi AI uygulamalarına entegre edebileceği ortak bir bilgi ekonomisi altyapısı oluşturmak olmalı.
+
+# **12. Projeye yatırımcı gözüyle bakış**
+
+Bir yatırımcı olsaydım fikir ilgimi çekerdi. Ancak yatırım kararı öncesinde beş temel sorunun cevabını arardım.
+
+| Soru                                         | Mevcut durum                |
+| -------------------------------------------- | --------------------------- |
+| Teknoloji çalışıyor mu?                      | Henüz kanıtlanmadı          |
+| AI ajanları gerçekten bilgi satın alıyor mu? | Doğrulanmadı                |
+| Benzersiz veri arzı oluşturulabilir mi?      | Hipotez                     |
+| Birim ekonomi sürdürülebilir mi?             | Ölçülmedi                   |
+| Rakiplerin kopyalamasını ne zorlaştırıyor?   | Henüz güçlü bir bariyer yok |
+
+Projenin yatırım açısından en büyük avantajı AI ve blockchain'in kesişiminde bulunması değil. Başarılı olması halinde iki taraflı bir bilgi ekonomisi yaratabilmesi.
+
+En büyük dezavantajı ise teknolojiyi geliştirmenin, insanların gerçekten para ödeyeceği bir veri ağı oluşturmaktan daha kolay olabilmesi.
+
+# **13. Genel puanım**
+
+| Kategori                  | Puan       |
+| ------------------------- | ---------- |
+| Hackathon projesi olarak  | **9/10**   |
+| Teknik proje planı olarak | **9/10**   |
+| Startup fikri olarak      | **8/10**   |
+| Mevcut iş modeli olarak   | **7/10**   |
+| Yenilikçilik              | **8/10**   |
+| Uzun vadeli potansiyel    | **8.5/10** |
+| Ticari lansmana hazırlık  | **2/10**   |
+| Genel değerlendirme       | **8.3/10** |
+
+# **14. Sonuç ve önerim**
+
+Ben olsam bu projeyi geliştirmeye devam ederdim. V1.3 mimarisini tamamen değiştirmez ve hackathon öncesinde daha fazla özellik eklemezdim.
+
+Özellikle şu üç özelliği projenin merkezinde tutardım:
+
+**Atomic Multi-Provider Settlement:** Birden fazla veri sağlayıcısına güvenilir ödeme.
+
+**Verifiable Data Entitlement:** Satın alınan bilgi ve lisans versiyonunun doğrulanabilir kanıtı.
+
+**Demand-Driven Data Production:** AI ajanlarının ihtiyaç duyduğu yeni bilgilerin üretimini finanse etmesi.
+
+Bunların birleşimi projenin gerçek kimliğini oluşturuyor.
+
+Bence ADN'nin ulaşabileceği en değerli vizyon şu:
+
+> İnsanların sahip oldukları bilgiyi ekonomik bir varlığa dönüştürebildiği, AI ajanlarının ise ihtiyaç duydukları bilgiyi keşfedebildiği, satın alabildiği ve üretilmesini finanse edebildiği bir bilgi ekonomisi.
+
+Bu vizyonun startup olarak karşılık bulup bulmayacağını belirleyecek şey ise veri kalitesi, benzersiz veri arzı, gerçek alıcı talebi ve sürdürülebilir işlem ekonomisi olacak.
+
+**İnceleme kapsamı ve sınırlamalar:** Değerlendirmemi ZIP'in aktif V1.3 strateji, ürün, mimari, Anchor, API, SQL, finans, validasyon ve geliştirme dokümanları üzerinden yaptım. Arşivlenmiş eski sürümleri aktif projeye dahil etmedim. Sunumların görsel tasarımını ayrıca denetlemedim. Çalışan uygulama bulunmadığı için smart contract derlemesi, güvenlik testi ve gerçek Solana işlemi gerçekleştirmedim. Rakipleri bağımsız olarak araştırmadım. Verdiğim puanlar, ek finansal senaryolar ve gelecek sürüm önerileri benim değerlendirmelerimdir.

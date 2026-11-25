@@ -9,3 +9,5 @@ bounty vault deposit,lamports,,RPC balance,PENDING
 bounty accept fee,lamports,,getTransaction meta.fee,PENDING
 refund fee,lamports,,getTransaction meta.fee,PENDING
 cash spend,TRY,,actual receipts,PENDING
+backup storage,bytes,,protected snapshot size,PENDING
+external agent cost,provider-reported units,,actual usage if P1,PENDING

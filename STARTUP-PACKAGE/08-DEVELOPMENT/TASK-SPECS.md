@@ -1,183 +1,191 @@
-# Implementation task specifications
+# V1.5 task specifications
+Template statuses TODO; reconcile actual completed work. No invented duration or restart. H15/H17 live integrations optional; H16 facade P0. All P0 chain claims require actual local/Devnet evidence.
 
-All tasks TODO. H01–H14 P0; H15/H16 optional; B01/B02 after event. Effort optimistic hands-on hours, not elapsed guarantee. Before each task read PRD/Anchor/API as relevant; commit code/test evidence and update PROJECT-STATE.md. No implementation performed by this documentation package.
+## H01 — Rules and repository reconciliation
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: None; Requirements: setup/commercial
+- Implementation: Inspect repo and actual evidence; verify contest window/AI disclosure/chain requirement; preserve prior working state.
+- Deliverable: PROJECT-STATE.md + evidence/rules.md
+- Acceptance: Rules recorded and old task evidence reconciled; unresolved eligibility disclosed.
+- Tests: T01
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H01 — Confirm contest rules
-- Epic: Engineering / Day 1 · Priority P0 · Owner Founder / coding agent · Effort 0.5 h (0 = unestimated later).
-- Objective / implementation: Check official portal: coding window, AI disclosure, team eligibility, deadlines/time zone, source/video/track; record organizer evidence. Do not code outside allowed window.
-- Prerequisites and dependencies: None; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: setup/validation.
-- Affected components / output: evidence/rules.md.
-- Acceptance: Rules evidence or explicit unresolved blocker; no invented requirement.
-- Test requirements: T01.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
 
-## H02 — Toolchain / mint / x402 spike
-- Epic: Engineering / Day 1 · Priority P0 · Owner Founder / coding agent · Effort 1.5 h (0 = unestimated later).
-- Objective / implementation: Install official skills/MCP; record revision; pin mutually compatible Rust, Anchor, Solana CLI and TS versions; run hello build/local validator; fund disposable Devnet wallets; verify 6-decimal legacy mint or create TEST mint; check actual x402 full-bundle compatibility for max 45 min.
-- Prerequisites and dependencies: H01; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: setup/validation.
-- Affected components / output: evidence/toolchain.md.
-- Acceptance: Build and local validator work; mint/funding recorded; direct Anchor fallback chosen if x402 unproven.
-- Test requirements: T02, T03.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+## H02 — Local runtime and toolchain
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H01; Requirements: setup/commercial
+- Implementation: Reuse installed Solana Skills/docs MCP and Anchor; build local validator, disposable 6-decimal test mint, funded accounts; timebox external setup, do not block UI on Devnet.
+- Deliverable: evidence/toolchain.md
+- Acceptance: Actual local runtime available or explicit blocker; isolated fallback labeled.
+- Tests: T02, T03
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H03 — Config and immutable registry
-- Epic: Engineering / Day 1 · Priority P0 · Owner Founder / coding agent · Effort 1.5 h (0 = unestimated later).
-- Objective / implementation: Implement initializer authorization, Config, DataAsset seed derivation, register and set_asset_active; validate price/hash/version/mint/authority. Generate IDL.
-- Prerequisites and dependencies: H02; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R01, R11.
-- Affected components / output: programs/adn registry + tests.
-- Acceptance: Only permitted initializer/provider succeeds; terms immutable; inactive toggles work.
-- Test requirements: T04, T05, T06.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
 
-## H04 — Private data store and seed
-- Epic: Engineering / Day 1 · Priority P0 · Owner Founder / coding agent · Effort 1 h (0 = unestimated later).
-- Objective / implementation: Apply SQLite schema, normalize fixture bytes, generate deterministic fixture IDs/hashes; map real test provider wallets, precreate ATAs; implement import and metadata-only search. Register via H03 when available.
-- Prerequisites and dependencies: H02; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R01, R02.
-- Affected components / output: src/data + seed evidence.
-- Acceptance: 12 rows, correct hashes, no raw bodies in search; A01+B01 selection; missing tag yields gap.
-- Test requirements: T07, T08.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+## H03 — Registry and immutable assets
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H02; Requirements: R01, R11
+- Implementation: Reuse 8-instruction ABI; verify initializer and provider constraints, asset PDA and status.
+- Deliverable: program + IDL
+- Acceptance: Actual registry and authorization tests pass.
+- Tests: T04, T05, T06
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
+
+## H04 — Fixture store and trust
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H02; Requirements: R01, R02, R13
+- Implementation: Import 12 unchanged fixtures and sidecars, immutable private bytes, deterministic metadata search and verified snapshot.
+- Deliverable: fixture store
+- Acceptance: 12 hashes match; source/schema labels, no raw body and gap works.
+- Tests: T07, T08, T40, T41
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
 
 ## H05 — Atomic purchase and receipt
-- Epic: Engineering / Day 1 · Priority P0 · Owner Founder / coding agent · Effort 3 h (0 = unestimated later).
-- Objective / implementation: Implement purchase_unit and receipt PDA with exact signed expected terms, timestamp, checked split and ATA checks. Construct two instructions same tx, one fee payer; serialize, simulate, measure size. If necessary use tested v0 ALT; never split required demo.
-- Prerequisites and dependencies: H03; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R03, R04.
-- Affected components / output: program settlement + tx builder.
-- Acceptance: One tx for two distinct providers; exact 24k each and 12k treasury; two receipts; fits 1232 bytes.
-- Test requirements: T09, T10, T11, T12.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H03, H04; Requirements: R03, R04
+- Implementation: Two purchase_unit instructions in one actual local transaction; verify exact split and two PDAs; standalone unit for later resale.
+- Deliverable: chain settlement service
+- Acceptance: Actual -60000/+24000/+24000/+12000, two receipts, size and fee measured.
+- Tests: T09, T10, T11, T12
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H06 — Adversarial purchase tests
-- Epic: Engineering / Day 1 · Priority P0 · Owner Founder / coding agent · Effort 1.5 h (0 = unestimated later).
-- Objective / implementation: Test duplicate receipt, wrong signer/mint/ATA, changed terms, inactive, insufficient funds, second instruction failure; assert first transfer and receipt rolled back; verify actual token balance deltas.
-- Prerequisites and dependencies: H05; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R04, R11.
-- Affected components / output: tests/anchor purchase.
-- Acceptance: No partial transfer or receipt, including deliberate second failure; fee exception documented.
-- Test requirements: T13, T14, T15, T16, T17.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
 
-## H07 — Quote and delivery verification API
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 2 h (0 = unestimated later).
-- Objective / implementation: Create search/quote/receipt/challenge/delivery/health routes, 120s quote, wallet proof 60s one-use nonce, finalized program/PDA verification, exact bytes, hash compare, SQL reconciliation.
-- Prerequisites and dependencies: H04, H05; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R02, R03, R05.
-- Affected components / output: src/chain + API + auth.
-- Acceptance: Unpaid/wrong buyer/forged receipt/replay denied; fresh nonce same receipt free; timeout pending not recharged.
-- Test requirements: T18, T19, T20, T21, T22.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+## H06 — Critical payment negative tests
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H05; Requirements: R04, R11
+- Implementation: Wrong mint/ATA, second instruction fail, duplicate, expired/deactivated, insufficient balance; keep actual evidence.
+- Deliverable: anchor test results
+- Acceptance: No partial movement/receipt or duplicate; network fees distinguished.
+- Tests: T13, T14, T15, T16, T17
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H08 — Purchase demo CLI
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 0.75 h (0 = unestimated later).
-- Objective / implementation: Wire deterministic agent search→quote→budget→sign→finalized→deliver→source report; save tx signature and receipts; assert exact deltas and hashes.
-- Prerequisites and dependencies: H06, H07; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R05, R09.
-- Affected components / output: scripts/demo-purchase.
-- Acceptance: Real two-provider Devnet tx when deployment ready; local test first; no mock success.
-- Test requirements: T23.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+
+## H07 — Quote and receipt-gated delivery
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H05, H04; Requirements: R03, R05, R14
+- Implementation: Preflight exact content/license and snapshot; quote, wallet challenge, finalized receipt gate, retry and recover.
+- Deliverable: delivery service
+- Acceptance: Unauthorized/mismatch blocked, exact recovery no second charge.
+- Tests: T18, T19, T20, T21, T22, T42, T43
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
+
+## H08 — Deterministic purchase agent
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H07, H16; Requirements: R09
+- Implementation: Use typed facade search/quote/purchase/verify/retrieve; display actual trace and source facts.
+- Deliverable: purchase driver
+- Acceptance: Actual tool calls, two receipts, no hardcoded success.
+- Tests: T23
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
 
 ## H09 — Bounty funding and submission
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 1.5 h (0 = unestimated later).
-- Objective / implementation: Implement Bounty PDA and vault ATA, transfer reward, deadline; submit inactive asset by owning provider; hash canonical requirement; enforce no transfer on submission.
-- Prerequisites and dependencies: H03; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R06, R07.
-- Affected components / output: program bounty open + submit.
-- Acceptance: 2 TEST locked, no payout upon submit; wrong requester/provider/expired submission rejected.
-- Test requirements: T24, T25, T26.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H03, H04; Requirements: R06, R07
+- Implementation: Use existing bounty PDA/vault, public requirement hash, inactive submission and bounded review.
+- Deliverable: bounty service
+- Acceptance: Funded OPEN, no payout on submit, invalid submission rejected.
+- Tests: T24, T25, T26, T44
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H10 — Bounty accept and expiry refund
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 2 h (0 = unestimated later).
-- Objective / implementation: Implement requester acceptance with selected submission + expected hashes, exact reward split and bounty receipt; expiry refund; terminal guards; tests for races/unauthorized and unsolicited vault surplus.
-- Prerequisites and dependencies: H09, H05; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R08.
-- Affected components / output: program bounty settle + tests.
-- Acceptance: 1.6 TEST provider, 0.4 treasury, receipt; independent full refund; no double payout.
-- Test requirements: T27, T28, T29, T30, T31.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
 
-## H11 — Gap-to-data agent demo
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 1 h (0 = unestimated later).
-- Objective / implementation: CLI funds bounded missing-tag bounty; provider registers solution; deterministic required-field review, requester signs acceptance, deliver via bounty receipt, provider activates; separate expired refund demo.
-- Prerequisites and dependencies: H10, H07; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R06, R07, R08, R09.
-- Affected components / output: scripts/demo-bounty.
-- Acceptance: End-to-end gap, funding, review, acceptance, delivery, catalog activation and refund evidence.
-- Test requirements: T32, T33.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+## H10 — Bounty accept and refund
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H09, H07; Requirements: R08, R15
+- Implementation: Requester signs after deterministic review; accept receipt and split; separate expiry refund; wrong signer/replay/race negative cases.
+- Deliverable: bounty settlement/tests
+- Acceptance: Actual payout 1.6/0.4 TEST; separate refund 2 TEST, no commission.
+- Tests: T27, T28, T29, T30, T31, T45
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H12 — Minimal evidence UI
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 1 h (0 = unestimated later).
-- Objective / implementation: Catalog, receipts, bounty and evidence views; real cluster/mint status, pending/finalized, Explorer links, explicit synthetic badge. Read-only acceptable; CLI actions documented.
-- Prerequisites and dependencies: H07; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R10.
-- Affected components / output: app/ dashboard.
-- Acceptance: No raw payload, no keys, no fake balances, accessible responsive screen.
-- Test requirements: T34.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
 
-## H13 — Devnet deployment and integrated verification
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 1.5 h (0 = unestimated later).
-- Objective / implementation: Run build/test, deploy once after rule clearance, initialize config, seed and run both demos, measure receipt rent, tx size/CU, actual deltas; check no secrets, persist sanitized evidence.
-- Prerequisites and dependencies: H08, H11, H12; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R12.
-- Affected components / output: evidence/devnet.json + PROJECT-STATE.
-- Acceptance: Real program ID and finalized signatures, receipt hashes and balance evidence; disclose unavailable network.
-- Test requirements: T35, T36.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+## H11 — Gap-to-data and resale driver
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H08, H10; Requirements: R09, R15, R18
+- Implementation: Use gap to fund, accept, retrieve, activate and second buyer purchases via existing instruction.
+- Deliverable: complete driver
+- Acceptance: Full chain-backed lifecycle and new buyer receipt; distinct budget.
+- Tests: T32, T52
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H14 — Submission and demo freeze
-- Epic: Engineering / Day 2 · Priority P0 · Owner Founder / coding agent · Effort 1.5 h (0 = unestimated later).
-- Objective / implementation: Freeze core, run smoke, record video per portal rules, update English pitch with real evidence only, package README/reproduction and limitations.
-- Prerequisites and dependencies: H13; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: R12.
-- Affected components / output: submission assets.
-- Acceptance: Submission checklist complete or explicit portal blocker; no false claims.
-- Test requirements: T37.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
 
-## H15 — Optional x402 transport
-- Epic: Engineering / Day 2 · Priority P1 · Owner Founder / coding agent · Effort 1 h (0 = unestimated later).
-- Objective / implementation: Only if H02 full compatibility passed: use reference SDK/facilitator, verify exact complete two-receipt transaction and buyer binding; no duplicate payment path. Otherwise skip.
-- Prerequisites and dependencies: H13; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: setup/validation.
-- Affected components / output: optional x402 evidence.
-- Acceptance: End-to-end verified full transaction or explicitly omitted.
-- Test requirements: T38.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+## H12 — Polished guided browser UI
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H11, H06; Requirements: R10, R17
+- Implementation: One browser guided journey with actual step state, balances, evidence, mode, error and reset; no new design framework.
+- Deliverable: browser demo
+- Acceptance: All scenes usable, no fake success or private prepay data.
+- Tests: T34, T49, T50, T51
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
 
-## H16 — Optional product MCP / third unit
-- Epic: Engineering / Day 2 · Priority P1 · Owner Founder / coding agent · Effort 1 h (0 = unestimated later).
-- Objective / implementation: Expose metadata search or verified read tool with same auth; OR test third unit within size/compute budget. Do not risk core.
-- Prerequisites and dependencies: H13; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: setup/validation.
-- Affected components / output: optional evidence.
-- Acceptance: Verified optional feature only; no registry claim unless published.
-- Test requirements: T39.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+
+## H13 — Rehearse and verify
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H12; Requirements: R12, R19
+- Implementation: Two clean runs; local chain evidence, negative tests, isolated reset and fallback modes; optional Devnet only if ready.
+- Deliverable: evidence/run-manifest.json
+- Acceptance: Technical and UX gates separately recorded; actual evidence manifest, no secret.
+- Tests: T35, T36, T53, T54, T55
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
+
+## H14 — Freeze and deliver
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H13; Requirements: R12, R19
+- Implementation: Document exact commands, test results, limitations, screenshots; update pitch with actual proof if available; no unauthorized submission.
+- Deliverable: README + PROJECT-STATE + demo evidence
+- Acceptance: Single-session handoff, truthful state, final rehearsal.
+- Tests: T37
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
+
+## H15 — Optional x402 live compatibility
+- Priority / owner: P1 / Founder / coding agent
+- Dependencies: H13; Requirements: R20
+- Implementation: Reuse verified integration or short bounded spike only if core passes; otherwise direct Anchor with explicit not-connected/preview.
+- Deliverable: transport evidence
+- Acceptance: Actual full atomic settlement via compatible x402 or clearly omitted.
+- Tests: T38, T56
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
+
+## H16 — Shared agent tools and spend guard
+- Priority / owner: P0 / Founder / coding agent
+- Dependencies: H07; Requirements: R16, R20
+- Implementation: Implement typed tool facade and durable serialized cap; optional stdio MCP handshake if SDK ready; use same functions for deterministic driver.
+- Deliverable: tool facade
+- Acceptance: Actual calls and cap/replay/access tests, MCP state accurately labeled.
+- Tests: T33, T39, T46, T47
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
+
+## H17 — Optional external AI agent
+- Priority / owner: P1 / Founder / coding agent
+- Dependencies: H13, H16; Requirements: R16, R20
+- Implementation: Use installed external client only if available; actual tool trace or label deterministic. No new credentials or long setup.
+- Deliverable: agent evidence
+- Acceptance: Actual external trace or explicit not-connected.
+- Tests: T48
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
 
 ## B01 — Post-event online product validation
-- Epic: Business / Post-event · Priority Later · Owner Founder / coding agent · Effort 0 h (0 = unestimated later).
-- Objective / implementation: AI desk research and opt-in product analytics; actual paid demand after legal approval.
-- Prerequisites and dependencies: None; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: setup/validation.
-- Affected components / output: market evidence.
-- Acceptance: Document actual evidence, not AI estimates.
-- Test requirements: post-event evidence.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+- Priority / owner: Later / Founder / coding agent
+- Dependencies: None; Requirements: setup/commercial
+- Implementation: AI desk research and opt-in product analytics; actual paid demand after legal approval.
+- Deliverable: market evidence
+- Acceptance: Document actual evidence, not AI estimates
+- Tests: 
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
+
 
 ## B02 — Post-event commercial and scale review
-- Epic: Business / Post-event · Priority Later · Owner Founder / coding agent · Effort 0 h (0 = unestimated later).
-- Objective / implementation: Re-estimate rent, fees, legal rights, refunds, security audit, commercial pricing and compressed receipts; revise archived finance model.
-- Prerequisites and dependencies: B01; rule clearance applies to all implementation. Inputs: active specs, configured Devnet or local validator and synthetic fixtures as relevant. Requirements: setup/validation.
-- Affected components / output: commercial review.
-- Acceptance: Separate commercial GO decision.
-- Test requirements: post-event evidence.
-- DoD: deliverable exists, acceptance checked against actual output, test evidence recorded, no leaked secrets, no unresolved critical security issue, status updated; failed checks stay blocked.
-- Risks: time/toolchain/RPC, incorrect authority or amount where relevant. Follow documented fallback; never substitute simulated results for Devnet.
+- Priority / owner: Later / Founder / coding agent
+- Dependencies: B01; Requirements: setup/commercial
+- Implementation: Post-event commercial gates G5–G7: rent compression/batching, delivery/refund, bounty dispute/producer risk, rights, independent quality, actual demand and compliance. Use POST-HACKATHON-SCALING; no real sales without separate approval.
+- Deliverable: commercial review
+- Acceptance: Separate commercial GO decision
+- Tests: 
+- Done: record actual diff, commands, results, mode and blockers in PROJECT-STATE; no fabricated pass. Preserve prior evidence and test affected behavior. Use local disposable fixtures, no real funds.
