@@ -12,7 +12,8 @@
     "test:app": "ts-mocha -p ./tsconfig.json -t 1000000 'tests/app/**/*.ts'",
     "test:ui": "tsx scripts/ui-smoke.ts",
     "cli": "tsx src/cli.ts",
-    "server": "tsx src/api/server.ts"
+    "server": "tsx src/api/server.ts",
+    "verify": "tsx scripts/verify-evidence.ts"
   },
   "dependencies": {
     "@anchor-lang/core": "1.2.2",

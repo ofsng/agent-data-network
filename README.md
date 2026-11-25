@@ -46,6 +46,12 @@ Full regression, with the app running. It runs the Rust unit tests, the program 
 npm test
 ```
 
+Re-verify every transaction and receipt in `evidence/run-manifest.json` against the chain:
+
+```bash
+npm run verify
+```
+
 `npm run setup` is also the full reset. It wipes only the local ledger, the local SQLite cache, the local snapshots and local run evidence; it never touches the keys.
 
 ## The demo story (one browser session)
@@ -104,7 +110,7 @@ Every number shown comes from the run's actual state.
 - `evidence/run-manifest.json` is the last complete run. It contains real local signatures, slots, fees, decoded receipts, balance deltas, hash checks, the review reports, budgets, gates and limitations. `evidence/runs/` holds every run.
 - `evidence/test-summary.json`, `local-anchor-tests.txt`, `local-api-tests.txt` and `ui-smoke.json` are the test results. `evidence/screenshots/` holds the UI screenshots from the smoke run.
 - `evidence/rules.md` records the contest rules, and `evidence/h02-toolchain.md` the toolchain and the x402 decision.
-- Local signatures exist only on the local ledger. They have no Explorer link; verify one with `solana confirm -v -u localhost <signature>`.
+- Local signatures exist only on the local ledger. They have no Explorer link; verify them all with `npm run verify` (uses `getTransaction` + decoded receipt accounts; the validator keeps full history via `--limit-ledger-size`).
 
 ### Devnet (optional)
 Fund the deployer with about 4.5 Devnet SOL. To get its address:

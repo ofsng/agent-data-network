@@ -40,6 +40,7 @@ Bundle 784 B (2 × purchase_unit), ~54–64k CU, fee 5,000 lamports; resale tx 5
 - Refund delta measured from before funding (net 0) → separate funding/refund deltas.
 - Reconciliation relied on signature history (unavailable for older local sigs) → receipt PDAs first.
 - Isolated test validator port collision → separate port block (18899).
+- Local validator purged ledger history after ~200 slots (old signatures unconfirmable) → `--limit-ledger-size 50000000`; added `npm run verify` (all manifest txs + receipts re-checked on chain: PASS).
 - UI: unsized check icons, price wrap, sticky header, inactive-listing clutter, mobile hero order.
 
 ## Blockers / founder actions

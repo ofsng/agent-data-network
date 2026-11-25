@@ -18,7 +18,8 @@ EXTRA=()
 if [ "$PORT" != "8899" ]; then
   EXTRA=(--faucet-port $((PORT + 1010)) --gossip-port $((PORT + 11)) --dynamic-port-range $((PORT + 20))-$((PORT + 120)))
 fi
-solana-test-validator "${RESET[@]}" --quiet --ledger "$LEDGER" --rpc-port "$PORT" "${EXTRA[@]}" \
+# Keep full local history so every signature in evidence stays confirmable (default 10k shreds purges after ~minutes).
+solana-test-validator "${RESET[@]}" --quiet --limit-ledger-size 50000000 --ledger "$LEDGER" --rpc-port "$PORT" "${EXTRA[@]}" \
   --upgradeable-program "$PROGRAM_ID" target/deploy/adn.so "$AUTH" > "$LEDGER.log" 2>&1 &
 echo $! > "$PIDFILE"
 for _ in $(seq 1 60); do solana -u "http://127.0.0.1:$PORT" cluster-version >/dev/null 2>&1 && break; sleep 1; done
