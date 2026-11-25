@@ -1,0 +1,26 @@
+[
+    {
+        "suite": "Rust unit (split math, receipt size)",
+        "passed": 2,
+        "failed": 0,
+        "ranAt": "2026-11-25T20:13:12Z"
+    },
+    {
+        "suite": "Anchor program (local validator)",
+        "passed": 17,
+        "failed": 0,
+        "ranAt": "2026-11-25T20:13:12Z"
+    },
+    {
+        "suite": "App/API security, trust, budget, resale",
+        "passed": 14,
+        "failed": 0,
+        "ranAt": "2026-11-25T20:13:12Z"
+    },
+    {
+        "suite": "Browser smoke (UI run, failure/retry, privacy, mobile)",
+        "passed": 1,
+        "failed": 0,
+        "ranAt": "2026-11-25T20:13:12Z"
+    }
+]

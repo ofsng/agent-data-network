@@ -4,8 +4,13 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "start": "bash scripts/start.sh",
+    "demo": "tsx src/cli.ts demo",
+    "test": "bash scripts/test-all.sh",
     "test:anchor": "ts-mocha -p ./tsconfig.json -t 1000000 'tests/anchor/**/*.ts'",
     "test:app": "ts-mocha -p ./tsconfig.json -t 1000000 'tests/app/**/*.ts'",
+    "test:ui": "tsx scripts/ui-smoke.ts",
     "cli": "tsx src/cli.ts",
     "server": "tsx src/api/server.ts"
   },
@@ -24,6 +29,7 @@
     "@types/node": "22.20.7",
     "chai": "4.5.0",
     "mocha": "10.8.2",
+    "playwright-core": "1.65.1",
     "ts-mocha": "10.1.0",
     "tsx": "4.23.15",
     "typescript": "5.9.3"

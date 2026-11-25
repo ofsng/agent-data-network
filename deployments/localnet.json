@@ -1,7 +1,7 @@
 {
   "cluster": "localnet",
   "programId": "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8",
-  "mint": "8MVKw3gw3cLWcDXXW2GXe27dsq5c865k1hpYEhuYxqM3",
+  "mint": "7X5xJnVVHPJ2qbC2mSL5xgvYPBDfeydH4bhExiPygndX",
   "treasury": "k3fiTTbTdJV5CT8cJHw6KBFzsFyoUWpxSePtBsD8Qj7",
   "mintLabel": "TEST (custom Devnet/local demo mint, 6 decimals, no monetary value)",
   "wallets": {
@@ -12,5 +12,5 @@
     "requester": "BYJzQqCc3yZdCUn5EQtBwhDfGwaRpxcQRJ6wiomRw2mr",
     "treasury": "k3fiTTbTdJV5CT8cJHw6KBFzsFyoUWpxSePtBsD8Qj7"
   },
-  "createdAt": "2026-11-25T19:38:26.964Z"
+  "createdAt": "2026-11-25T19:57:38.172Z"
 }

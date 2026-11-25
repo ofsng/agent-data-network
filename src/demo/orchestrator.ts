@@ -54,6 +54,7 @@ export interface RunState {
 }
 
 const now = () => new Date().toISOString();
+const T = (v: string | bigint | undefined) => { const n = BigInt(v ?? 0); const a = n < 0n ? -n : n; const f = (a % 1000000n).toString().padStart(6, "0").replace(/0+$/, ""); return `${n < 0n ? "−" : n > 0n ? "+" : ""}${a / 1000000n}${f ? "." + f : ""} TEST`; };
 const runsDir = (cluster: string) => join(homedir(), ".config/adn-demo/runs", cluster);
 
 export class DemoOrchestrator {
@@ -326,7 +327,7 @@ export class DemoOrchestrator {
       const q = await t.get_data_quote(s.data.search.selected.map((x: any) => x.assetPda), maxSpend, "bundle");
       s.data.quote = q;
       s.data.quoteMaxSpend = maxSpend.toString();
-      return `quote ${q.total} base units (${Number(q.total) / 1e6} TEST) ≤ max spend ${maxSpend}; est. ${q.estimatedSolLamports} lamports SOL for fee + 2 receipt deposits`;
+      return `quote ${T(q.total).replace("+", "")} for 2 units (≤ agent max spend ${T(maxSpend).replace("+", "")}); est. ${(Number(q.estimatedSolLamports) / 1e9).toFixed(4)} SOL for fee + 2 receipt deposits; preflight passed`;
     },
 
     async PAYMENT_PENDING(s) {
@@ -345,7 +346,7 @@ export class DemoOrchestrator {
       const after = await this.balances(s);
       s.deltas.purchase = this.delta(s.data.prePurchase, after);
       const d = s.deltas.purchase;
-      return `finalized: agent ${d.agent}, NorthLab +${d.providerA}, SouthSupply +${d.providerB}, treasury +${d.treasury} base units; 2 receipt PDAs created`;
+      return `finalized in one transaction: agent ${T(d.agent)}, NorthLab ${T(d.providerA)}, SouthSupply ${T(d.providerB)}, treasury ${T(d.treasury)}; 2 license receipts created`;
     },
 
     async VERIFIED(s) {
@@ -446,7 +447,7 @@ export class DemoOrchestrator {
       this.svc.db.prepare("UPDATE bounties SET state='ACCEPTED', winner_submission=? WHERE pda=?").run(fresh.submissionPda, b.bountyPda);
       s.data.accept = { signature: sig, slot, assetPda: chosen.assetPda, submissionPda: fresh.submissionPda, bountyReceipt: pda.bountyReceipt(bounty, asset).toBase58() };
       const d = s.deltas.bountyAccept;
-      return `vault ${d.vault}, NorthLab +${d.providerA}, treasury +${d.treasury}; bounty ACCEPTED with bounty receipt`;
+      return `escrow released: vault ${T(d.vault)} → NorthLab ${T(d.providerA)}, treasury ${T(d.treasury)}; bounty ACCEPTED, bounty receipt written`;
     },
 
     async DELIVERED(s) {
@@ -483,7 +484,7 @@ export class DemoOrchestrator {
       const got = await t.retrieve_data(p.receipts[0]);
       s.data.resale = { quote: q, ...p, ...st, receipt: rec, delivery: { bytes: got.bytes, contentHash: got.contentHash, hashMatch: got.contentHash === rec.contentHash } };
       const d = s.deltas.resale;
-      return `second agent paid ${-BigInt(d.agent2)} base units; NorthLab earns again +${d.providerA}, treasury +${d.treasury}; new receipt verified`;
+      return `second agent paid ${T(-BigInt(d.agent2))}; NorthLab earns again ${T(d.providerA)}, treasury ${T(d.treasury)}; new receipt verified, data delivered`;
     },
 
     async REFUND_DEMONSTRATED(s) {
@@ -519,7 +520,7 @@ export class DemoOrchestrator {
       const post = await this.balances(s, { vault: b.bountyPda });
       s.deltas.refund = this.delta(funded, post);
       Object.assign(s.data.refund, { signature: sig, slot, createSignature: b.signature });
-      return `early refund rejected (DeadlineNotReached); after the deadline the requester got the full 2 TEST back, treasury +${s.deltas.refund.treasury}`;
+      return `early refund rejected by the program (DeadlineNotReached); after the deadline the requester got ${T(s.deltas.refund.refundRequester)} back, platform fee ${T(s.deltas.refund.treasury).replace("+", "")}`;
     },
 
     async COMPLETE(s) {
@@ -537,7 +538,7 @@ export class DemoOrchestrator {
         spend: { purchases: s.data.quote.total, bounty: POLICY.bountyReward.toString(), cap: POLICY.agentTokenCap.toString() },
         caveat: "Facts are synthetic fixtures. Receipts prove paid entitlement to exact bytes/version/license, not truth, ownership or consumption. Agent is a deterministic rule-based driver, not an LLM.",
       };
-      return `research brief assembled with ${s.data.report.findings.length} source-linked findings; NorthLab earned ${s.data.earnings.providerA.total}, SouthSupply ${s.data.earnings.providerB.total}, treasury ${s.data.earnings.treasury.total} base units`;
+      return `brief with ${s.data.report.findings.length} source-linked findings; earned this run: NorthLab ${T(s.data.earnings.providerA.total)}, SouthSupply ${T(s.data.earnings.providerB.total)}, treasury ${T(s.data.earnings.treasury.total)}`;
     },
   };
 

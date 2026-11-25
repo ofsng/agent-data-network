@@ -1,41 +1,53 @@
-# PROJECT-STATE — Agent Data Network V1.3 (Devnet hackathon build)
+# PROJECT-STATE — Agent Data Network V1.5 (single-session hackathon demo)
 
-Last update: 2026-11-25. Cluster for evidence: local validator only (Devnet blocked on funding). Reproduce: ./scripts/local-e2e.sh
+Last update: 2026-11-25. Active spec: `STARTUP-PACKAGE/` V1.5 (archive excluded). Runtime: **local validator, real transactions**. Devnet: scripted, blocked on faucet funding.
 
-| Task | Status | Actual changes | Tests / result | Evidence |
-|---|---|---|---|---|
-| H01 rules | DONE (hour unknown) | evidence/rules.md | T01 pass: pre-event building allowed, AI allowed, open source mandatory, video < 3 min | evidence/rules.md |
-| H02 toolchain/mint/x402 | DONE except Devnet funding | Agave 4.1.2, Anchor 1.2.2, skill + MCP installed, workspace | T02 pass; T03 local mint pass, x402 → direct Anchor | evidence/h02-toolchain.md |
-| H03 config/registry | DONE (local) | programs/adn/src/lib.rs | T04 T05 T06 pass (local validator) | evidence/local-anchor-tests.txt |
-| H04 data store/seed | DONE (local) | src/data/store.ts, schema, fixtures, seed CLI | T07 12/12 manifest match; T08 A01/B01 top, no body, gap=true | evidence/localnet-demo-output.txt |
-| H05 atomic purchase | DONE (local) | purchase_unit, src/chain/adn.ts bundle builder | T09 T10 T11 T12 pass; 784 B, 54,832 CU, fee 5000 lamports, receipt rent 2,658,720 lamports | evidence/local-anchor-tests.txt |
-| H06 adversarial purchase | DONE (local) | tests/anchor | T13 T14 T15 T16 T17 pass; failed-tx network fee 5000 lamports | evidence/local-anchor-tests.txt |
-| H07 API | DONE (local) | src/api/server.ts, src/chain/verify.ts, reconcileQuotes | T18 T19 T20 T21 T22 pass | evidence/local-api-tests.txt |
-| H08 purchase CLI | DONE (local) | src/agent/agent.ts, src/cli.ts | T23 local: exact deltas, 2 receipts, 2 hash-verified deliveries | evidence/localnet-purchase.json |
-| H09 bounty fund/submit | DONE (local) | create_bounty, submit_bounty_solution | T24 T25 T26 pass | |
-| H10 accept/refund | DONE (local) | accept_bounty_solution, refund_expired_bounty | T27 T28 T29 T30 T31 pass | |
-| H11 gap demo | DONE (local) | runBounty/runRefund | T32 local (gap→fund→wrong rejected→accept→deliver→activate→gap false); T33 pass | evidence/localnet-bounty.json, localnet-refund.json |
-| H12 UI | DONE (local) | src/api/dashboard.html (read-only) | T34 visual check desktop; leak scan clean | |
-| H13 Devnet | BLOCKED (funding) | scripts/devnet.sh ready; dry run exits `BLOCKED: deployer needs >= 4.0 Devnet SOL (has 0)` | T35 pending | |
-| H14 submission | IN PROGRESS | README with reproduction, disclosure, limitations | T37 pending (video, portal) | README.md |
-| H15 x402 | SKIPPED | spec incompatible (see H02) | T38 omitted | |
-| H16 MCP/3rd unit | TODO (optional) | | | |
+## Gates
+| Gate | Status | Evidence |
+|---|---|---|
+| Technical (local chain) | **MET** — every economic step is a finalized local-validator tx of the real Anchor program | evidence/run-manifest.json (`technicalGate: MET_LOCAL_VALIDATOR`) |
+| UX (guided browser demo) | **MET** — full run through the UI, step-by-step and auto, failure + retry, mobile | evidence/ui-smoke.json, evidence/screenshots/ |
+| Devnet | NOT DONE — faucet rate-limited; `scripts/devnet.sh` ready | evidence/h02-toolchain.md |
+| Contest submission | PENDING (founder) — video < 3 min, public repo, portal form | evidence/rules.md |
 
-## Blockers
-- Devnet faucet rate-limited: deployer `Cu7ctAUxW25GsGGPVvNupujU81A9jvEZUGjo2sUdgVZ7` needs ≈3 SOL; buyer `8PwMwNm9LSoPFEJG2gdTWdcFGvjx2CtPWWLx6DCmEjam`, requester `BYJzQqCc3yZdCUn5EQtBwhDfGwaRpxcQRJ6wiomRw2mr`, providerA `B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm`, providerB `GpB87pmju8jM3haqYUeEH1kYLMGVAoDz9B66tXARsCpD` need ≈0.3 SOL each (treasury `k3fiTTbTdJV5CT8cJHw6KBFzsFyoUWpxSePtBsD8Qj7` 0.05).
-- Exact UTC submission hour only in Dev3pack dashboard.
+## Task status (V1.3 IDs reconciled with V1.5)
+| Task | Status | What was reused / changed in V1.5 |
+|---|---|---|
+| H01 rules | DONE | Re-used evidence/rules.md (pre-event building allowed, AI allowed, open source mandatory, video < 3 min). Exact UTC deadline only in dashboard. |
+| H02 toolchain / x402 | DONE | Agave 4.1.2, Anchor 1.2.2, solana-dev skill + Solana docs MCP. x402: incompatible → direct Anchor (no x402 labels). |
+| H03 registry, H05 purchase, H06 adversarial, H09/H10 bounty | DONE (unchanged program) | 8-instruction ABI unchanged; 17 program tests pass on an isolated validator. |
+| H04 data + trust (R01/R13) | DONE | NEW: asset_trust sidecar (migration 004), validation TEXT_V1/BOUNTY_JSON_V2, per-asset verified snapshots (0600, outside repo). |
+| H07 API (R03/R05/R14) | DONE | NEW: shared service; prequote preflight (trust, bytes == chain hashes, snapshot) 422/503; post-payment corruption → exact restore, free retry; receipt-first reconciliation. |
+| H08/H11 agent + gap (R09/R15/R18) | DONE | NEW: typed tools (no generic signer), durable spend reservations, requirement v2 (no answer), bounded review re-run before accept, activation, **resale to a second agent**, separate refund requester/budget. |
+| H12 guided UI (R10/R17) | DONE | NEW: 8-section product UI, Run/Next/Pause/Reset, live balances, escrow, receipts, earnings, evidence. |
+| H13 rehearse/verify (R19) | DONE (local) | `npm run setup` from scratch, 2 headless runs + 1 UI run, all COMPLETE with exact deltas; full regression green. |
+| H14 freeze/deliver | DONE except founder actions | README, DEMO-SCRIPT.md, evidence manifest, screenshots. |
+| H16 tool facade | DONE (facade) | Typed tools + negative tests (T46/T47). MCP stdio server not implemented (SDK not installed) → labeled "MCP: not connected". |
+| H15 x402, H17 live LLM | SKIPPED (optional) | Labeled in UI/health; no claims. |
+
+## Tests actually run (latest `npm test`, see evidence/test-summary.json)
+- Rust unit: 2/2 (split math, receipt = 254 B)
+- Anchor program (isolated local validator): 17/17 — T04–T06, T09–T17, T24–T31
+- App/API: 14/14 — T18–T22, T40–T47, T50, T52–T53, demo-route guards
+- Browser smoke: pass — T49 happy path, T50 privacy, T51 injected failure (snapshot removed → SNAPSHOT_UNAVAILABLE shown, no charge) and retry, mobile no horizontal scroll, 0 console errors
+
+## Measured (local validator 4.1.2)
+Bundle 784 B (2 × purchase_unit), ~54–64k CU, fee 5,000 lamports; resale tx 571 B, ~25k CU; receipt deposit 2,658,720 lamports local (Devnet `solana rent 254` = 1,940,560). Full guided run ≈ 2.5 min (dominated by ~13 s local finality per tx).
+
+## Fixes found during V1.5 verification
+- Run setup read new ATAs at finalized commitment → `confirmed` read-back.
+- SOL-spent figure lost between steps → passed explicitly.
+- Refund delta measured from before funding (net 0) → separate funding/refund deltas.
+- Reconciliation relied on signature history (unavailable for older local sigs) → receipt PDAs first.
+- Isolated test validator port collision → separate port block (18899).
+- UI: unsized check icons, price wrap, sticky header, inactive-listing clutter, mobile hero order.
+
+## Blockers / founder actions
+1. Devnet SOL (≈4.5) for deployer `Cu7ctAUxW25GsGGPVvNupujU81A9jvEZUGjo2sUdgVZ7` → `./scripts/devnet.sh` (optional; rules accept devnet or mainnet addresses, local is fine for the demo itself).
+2. Record video (< 3 min) per DEMO-SCRIPT.md; make GitHub repo public; submit on Dev3pack portal before the 29 Nov deadline (exact UTC hour in dashboard).
 
 ## Divergences from spec
-- Initializer pinning: checked against the program's upgrade authority (ProgramData), not a compile-time key.
-- Treasury-alias in purchase is rejected by Anchor's duplicate-mutable-account check (error 2040) before the custom AliasedAccounts check.
-- Deadline/expiry boundaries: purchase requires now < expires_at; accept requires now < deadline; refund requires now >= deadline.
-
-## Measured (local validator)
-Bundle 784 B, 54,832–63,832 CU, fee 5000 lamports, receipt rent 2,658,720 lamports (local) / 1,940,560 (Devnet `solana rent 254`). Program .so 370,960 B → Devnet program-data rent 1.88535564 SOL.
-
-## Fixes found during verification
-- Evidence JSON/logs initially contained paid bodies (served by /api/v1/evidence) → now hashes + byte length only; saved logs redact the buyer report; leak scan in local-e2e.sh.
-- Refund demo deadline used finalized block time (~13 s stale) → early refund was actually late; now confirmed time + 45 s window, and the script asserts DeadlineNotReached.
-
-## Next action
-Founder funds Devnet deployer with ≈4.5 SOL → run ./scripts/devnet.sh → record T35 evidence → video (<3 min) and portal submission (T37). Make repo public before submission.
+- Single Node HTTP server + vanilla-JS UI instead of Next.js (spec allows reuse of working stack).
+- Simulation mode not implemented: real local chain is available, so no fallback was needed; UI never shows simulated data.
+- Reset = new isolated run (fresh agent wallets) on the same ledger; previous run's commissioned listing is withdrawn by its provider via a real `set_asset_active(false)` so the gap is real again. Full chain reset = `npm run setup`.
+- Agent run wallets are generated per run under `~/.config/adn-demo/runs/` (0600), funded with exactly their caps.

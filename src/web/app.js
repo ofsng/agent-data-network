@@ -252,7 +252,7 @@ function balancesCard() {
   const html = rows.map((k) => {
     const cur = r.balances.current[k] ?? "0"; const d = big(cur) - big(r.balances.start[k] ?? "0");
     const changed = app.lastBalances[k] !== undefined && app.lastBalances[k] !== cur;
-    return `<tr class="${changed ? "flash" : ""}"><td>${esc(role(k))}</td><td class="r num">${fmtTest(cur)}</td><td class="r num ${deltaCls(d)}">${d === 0n ? "—" : fmtTest(d, { sign: true })}</td></tr>`;
+    return `<tr class="${changed ? "flash" : ""}"><td>${esc(role(k))}</td><td class="r num">${fmtTest(cur).replace(" TEST", "")}</td><td class="r num ${deltaCls(d)}">${d === 0n ? "—" : fmtTest(d, { sign: true }).replace(" TEST", "")}</td></tr>`;
   }).join("");
   rows.forEach((k) => (app.lastBalances[k] = r.balances.current[k]));
   return `<div class="card"><h2>Live balances <span class="faint">finalized</span></h2><div class="table-wrap"><table><thead><tr><th>Wallet</th><th class="r">TEST</th><th class="r">Δ this run</th></tr></thead><tbody>${html}</tbody></table></div></div>`;
@@ -305,9 +305,12 @@ function renderMarket() {
   const d = app.run?.data ?? {};
   const bought = new Set([...(d.quote?.items ?? []).map((i) => i.assetPda), ...(d.resale?.quote?.items ?? []).map((i) => i.assetPda)]);
   const q = app.marketQuery.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
-  const items = app.catalog.filter((u) => !q.length || q.some((t) => [...u.title.toLowerCase().split(/[^a-z0-9]+/), ...u.tags].includes(t)));
+  const matched = app.catalog.filter((u) => !q.length || q.some((t) => [...u.title.toLowerCase().split(/[^a-z0-9]+/), ...u.tags].includes(t)));
+  const hidden = matched.filter((u) => !u.active).length;
+  const items = matched.filter((u) => u.active || app.showInactive).sort((a, b) => Number(b.active) - Number(a.active) || Number(bought.has(b.assetPda)) - Number(bought.has(a.assetPda)) || a.title.localeCompare(b.title));
   return `<div class="view-head"><div><h1>Data marketplace</h1><p>Free metadata only. Each unit's exact bytes stay private until a buyer holds a valid on-chain receipt. Source and rights are provider declarations; accuracy is never verified in this demo.</p></div></div>
-    <form class="search" id="marketForm" role="search"><label class="sr-only" for="mq">Search metadata</label><input id="mq" placeholder="Search title or tags, e.g. inverter x100 lead time" value="${esc(app.marketQuery)}"><button class="btn" type="submit">Search</button></form>
+    <form class="search" id="marketForm" role="search"><label class="sr-only" for="mq">Search metadata</label><input id="mq" placeholder="Search title or tags, e.g. inverter x100 lead time" value="${esc(app.marketQuery)}"><button class="btn" type="submit">Search</button><button class="btn ghost" type="button" data-action="inactive">${app.showInactive ? "Hide" : "Show"} inactive (${hidden})</button></form>
+    <p class="faint" style="margin:-6px 0 12px;font-size:12.5px">${matched.filter((u) => u.active).length} active listings · inactive units are bounty candidates or withdrawn listings from earlier runs (past receipts stay valid).</p>
     <div class="units">${items.map((u) => `<article class="card unit ${bought.has(u.assetPda) ? "bought" : ""} ${u.active ? "" : "inactive"}">
       <div style="display:flex;justify-content:space-between;gap:8px;align-items:start"><h3>${esc(u.title)}</h3><span class="price num">${fmtTest(u.price)}</span></div>
       <div class="muted" style="font-size:13px">${esc(u.teaser)}</div>
@@ -430,12 +433,13 @@ function toast(msg) {
 // ---------------- events ----------------
 document.addEventListener("click", async (e) => {
   const v = e.target.closest("[data-view]");
-  if (v) { app.view = v.dataset.view; history.replaceState(null, "", `#${app.view}`); render(); $("#main").scrollIntoView({ block: "start" }); return; }
+  if (v) { app.view = v.dataset.view; history.replaceState(null, "", `#${app.view}`); render(); window.scrollTo(0, 0); return; }
   const c = e.target.closest("[data-copy]");
   if (c) { try { await navigator.clipboard.writeText(c.dataset.copy); toast("Copied " + short(c.dataset.copy, 6, 6)); } catch { toast(c.dataset.copy); } return; }
   const a = e.target.closest("[data-action]");
   if (a?.dataset.action === "run") runAll();
   if (a?.dataset.action === "new") newRun();
+  if (a?.dataset.action === "inactive") { app.showInactive = !app.showInactive; render(); }
   if (a?.dataset.action === "manifest") {
     const m = await api("GET", `/api/demo/runs/${app.runId}/evidence`);
     const url = URL.createObjectURL(new Blob([JSON.stringify(m, null, 2)], { type: "application/json" }));

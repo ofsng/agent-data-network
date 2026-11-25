@@ -176,16 +176,17 @@ export async function reconcileQuotes(connection: Connection, db: Db) {
   const out: Record<string, string> = {};
   for (const q of pending) {
     let state = "UNKNOWN";
-    if (q.tx_signature) {
+    // Receipt PDAs are the authoritative proof that the purchase landed.
+    const items = JSON.parse(q.items_json) as { assetPda: string }[];
+    const receipts = await Promise.all(
+      items.map((i) => connection.getAccountInfo(pda.receipt(new PublicKey(q.buyer), fromHex(q.order_id), new PublicKey(i.assetPda)), "finalized")),
+    );
+    if (receipts.every(Boolean)) state = "FINALIZED";
+    else if (q.tx_signature) {
       const st = (await connection.getSignatureStatuses([q.tx_signature], { searchTransactionHistory: true })).value[0];
-      if (st?.err) state = "FAILED";
-      else if (st?.confirmationStatus === "finalized") {
-        const items = JSON.parse(q.items_json) as { assetPda: string }[];
-        const receipts = await Promise.all(
-          items.map((i) => connection.getAccountInfo(pda.receipt(new PublicKey(q.buyer), fromHex(q.order_id), new PublicKey(i.assetPda)), "finalized")),
-        );
-        state = receipts.every(Boolean) ? "FINALIZED" : "UNKNOWN";
-      } else if (st) state = "PENDING";
+      const tx = st ? null : await connection.getTransaction(q.tx_signature, { commitment: "confirmed", maxSupportedTransactionVersion: 0 });
+      if (st?.err || tx?.meta?.err) state = "FAILED";
+      else if (st || tx) state = "PENDING";
     }
     db.prepare("UPDATE quotes SET state=? WHERE order_id=?").run(state, q.order_id);
     out[q.order_id] = state;
