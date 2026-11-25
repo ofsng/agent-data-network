@@ -1,0 +1,7 @@
+id,hypothesis,method,pass_criterion,status
+E01,Atomic settlement,Devnet two-provider bundle,one signature two receipts exact deltas,PENDING
+E02,Escrow controls,Devnet accept and expired refund,correct terminal states and amounts,PENDING
+E03,Delivery integrity,wrong buyer and changed bytes,deny both and allow retry,PENDING
+E04,x402 compatibility,actual facilitator full bundle,verified same transaction or direct fallback,PENDING
+E05,Buyer demand,post-event online self-service opt-in pilot,independent repeat paid usage after legal gate,DEFERRED
+E06,Costs,measure actual receipt rent and tx fees,record exact lamports and buyer total,PENDING

@@ -1,0 +1,21 @@
+[toolchain]
+anchor_version = "1.2.2"
+solana_version = "4.1.2"
+package_manager = "npm"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+adn = "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8"
+
+[programs.devnet]
+adn = "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/adn-demo/keys/deployer.json"
+
+[scripts]
+test = "npx ts-mocha -p ./tsconfig.json -t 1000000 \"tests/anchor/**/*.ts\""

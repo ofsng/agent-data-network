@@ -1,0 +1,418 @@
+[
+  {
+    "id": "H01",
+    "category": "Engineering",
+    "title": "Confirm contest rules",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [],
+    "requirements": [],
+    "estimated_hours": 0.5,
+    "milestone": "Day 1",
+    "description": "Check official portal: coding window, AI disclosure, team eligibility, deadlines/time zone, source/video/track; record organizer evidence. Do not code outside allowed window.",
+    "acceptance_criteria": "Rules evidence or explicit unresolved blocker; no invented requirement",
+    "test_ids": [
+      "T01"
+    ],
+    "deliverable": "evidence/rules.md"
+  },
+  {
+    "id": "H02",
+    "category": "Engineering",
+    "title": "Toolchain / mint / x402 spike",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H01"
+    ],
+    "requirements": [],
+    "estimated_hours": 1.5,
+    "milestone": "Day 1",
+    "description": "Install official skills/MCP; record revision; pin mutually compatible Rust, Anchor, Solana CLI and TS versions; run hello build/local validator; fund disposable Devnet wallets; verify 6-decimal legacy mint or create TEST mint; check actual x402 full-bundle compatibility for max 45 min.",
+    "acceptance_criteria": "Build and local validator work; mint/funding recorded; direct Anchor fallback chosen if x402 unproven",
+    "test_ids": [
+      "T02",
+      "T03"
+    ],
+    "deliverable": "evidence/toolchain.md"
+  },
+  {
+    "id": "H03",
+    "category": "Engineering",
+    "title": "Config and immutable registry",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H02"
+    ],
+    "requirements": [
+      "R01",
+      "R11"
+    ],
+    "estimated_hours": 1.5,
+    "milestone": "Day 1",
+    "description": "Implement initializer authorization, Config, DataAsset seed derivation, register and set_asset_active; validate price/hash/version/mint/authority. Generate IDL.",
+    "acceptance_criteria": "Only permitted initializer/provider succeeds; terms immutable; inactive toggles work",
+    "test_ids": [
+      "T04",
+      "T05",
+      "T06"
+    ],
+    "deliverable": "programs/adn registry + tests"
+  },
+  {
+    "id": "H04",
+    "category": "Engineering",
+    "title": "Private data store and seed",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H02"
+    ],
+    "requirements": [
+      "R01",
+      "R02"
+    ],
+    "estimated_hours": 1,
+    "milestone": "Day 1",
+    "description": "Apply SQLite schema, normalize fixture bytes, generate deterministic fixture IDs/hashes; map real test provider wallets, precreate ATAs; implement import and metadata-only search. Register via H03 when available.",
+    "acceptance_criteria": "12 rows, correct hashes, no raw bodies in search; A01+B01 selection; missing tag yields gap",
+    "test_ids": [
+      "T07",
+      "T08"
+    ],
+    "deliverable": "src/data + seed evidence"
+  },
+  {
+    "id": "H05",
+    "category": "Engineering",
+    "title": "Atomic purchase and receipt",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H03"
+    ],
+    "requirements": [
+      "R03",
+      "R04"
+    ],
+    "estimated_hours": 3,
+    "milestone": "Day 1",
+    "description": "Implement purchase_unit and receipt PDA with exact signed expected terms, timestamp, checked split and ATA checks. Construct two instructions same tx, one fee payer; serialize, simulate, measure size. If necessary use tested v0 ALT; never split required demo.",
+    "acceptance_criteria": "One tx for two distinct providers; exact 24k each and 12k treasury; two receipts; fits 1232 bytes",
+    "test_ids": [
+      "T09",
+      "T10",
+      "T11",
+      "T12"
+    ],
+    "deliverable": "program settlement + tx builder"
+  },
+  {
+    "id": "H06",
+    "category": "Engineering",
+    "title": "Adversarial purchase tests",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H05"
+    ],
+    "requirements": [
+      "R04",
+      "R11"
+    ],
+    "estimated_hours": 1.5,
+    "milestone": "Day 1",
+    "description": "Test duplicate receipt, wrong signer/mint/ATA, changed terms, inactive, insufficient funds, second instruction failure; assert first transfer and receipt rolled back; verify actual token balance deltas.",
+    "acceptance_criteria": "No partial transfer or receipt, including deliberate second failure; fee exception documented",
+    "test_ids": [
+      "T13",
+      "T14",
+      "T15",
+      "T16",
+      "T17"
+    ],
+    "deliverable": "tests/anchor purchase"
+  },
+  {
+    "id": "H07",
+    "category": "Engineering",
+    "title": "Quote and delivery verification API",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H04",
+      "H05"
+    ],
+    "requirements": [
+      "R02",
+      "R03",
+      "R05"
+    ],
+    "estimated_hours": 2,
+    "milestone": "Day 2",
+    "description": "Create search/quote/receipt/challenge/delivery/health routes, 120s quote, wallet proof 60s one-use nonce, finalized program/PDA verification, exact bytes, hash compare, SQL reconciliation.",
+    "acceptance_criteria": "Unpaid/wrong buyer/forged receipt/replay denied; fresh nonce same receipt free; timeout pending not recharged",
+    "test_ids": [
+      "T18",
+      "T19",
+      "T20",
+      "T21",
+      "T22"
+    ],
+    "deliverable": "src/chain + API + auth"
+  },
+  {
+    "id": "H08",
+    "category": "Engineering",
+    "title": "Purchase demo CLI",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H06",
+      "H07"
+    ],
+    "requirements": [
+      "R05",
+      "R09"
+    ],
+    "estimated_hours": 0.75,
+    "milestone": "Day 2",
+    "description": "Wire deterministic agent search→quote→budget→sign→finalized→deliver→source report; save tx signature and receipts; assert exact deltas and hashes.",
+    "acceptance_criteria": "Real two-provider Devnet tx when deployment ready; local test first; no mock success",
+    "test_ids": [
+      "T23"
+    ],
+    "deliverable": "scripts/demo-purchase"
+  },
+  {
+    "id": "H09",
+    "category": "Engineering",
+    "title": "Bounty funding and submission",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H03"
+    ],
+    "requirements": [
+      "R06",
+      "R07"
+    ],
+    "estimated_hours": 1.5,
+    "milestone": "Day 2",
+    "description": "Implement Bounty PDA and vault ATA, transfer reward, deadline; submit inactive asset by owning provider; hash canonical requirement; enforce no transfer on submission.",
+    "acceptance_criteria": "2 TEST locked, no payout upon submit; wrong requester/provider/expired submission rejected",
+    "test_ids": [
+      "T24",
+      "T25",
+      "T26"
+    ],
+    "deliverable": "program bounty open + submit"
+  },
+  {
+    "id": "H10",
+    "category": "Engineering",
+    "title": "Bounty accept and expiry refund",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H09",
+      "H05"
+    ],
+    "requirements": [
+      "R08"
+    ],
+    "estimated_hours": 2,
+    "milestone": "Day 2",
+    "description": "Implement requester acceptance with selected submission + expected hashes, exact reward split and bounty receipt; expiry refund; terminal guards; tests for races/unauthorized and unsolicited vault surplus.",
+    "acceptance_criteria": "1.6 TEST provider, 0.4 treasury, receipt; independent full refund; no double payout",
+    "test_ids": [
+      "T27",
+      "T28",
+      "T29",
+      "T30",
+      "T31"
+    ],
+    "deliverable": "program bounty settle + tests"
+  },
+  {
+    "id": "H11",
+    "category": "Engineering",
+    "title": "Gap-to-data agent demo",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H10",
+      "H07"
+    ],
+    "requirements": [
+      "R06",
+      "R07",
+      "R08",
+      "R09"
+    ],
+    "estimated_hours": 1,
+    "milestone": "Day 2",
+    "description": "CLI funds bounded missing-tag bounty; provider registers solution; deterministic required-field review, requester signs acceptance, deliver via bounty receipt, provider activates; separate expired refund demo.",
+    "acceptance_criteria": "End-to-end gap, funding, review, acceptance, delivery, catalog activation and refund evidence",
+    "test_ids": [
+      "T32",
+      "T33"
+    ],
+    "deliverable": "scripts/demo-bounty"
+  },
+  {
+    "id": "H12",
+    "category": "Engineering",
+    "title": "Minimal evidence UI",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H07"
+    ],
+    "requirements": [
+      "R10"
+    ],
+    "estimated_hours": 1,
+    "milestone": "Day 2",
+    "description": "Catalog, receipts, bounty and evidence views; real cluster/mint status, pending/finalized, Explorer links, explicit synthetic badge. Read-only acceptable; CLI actions documented.",
+    "acceptance_criteria": "No raw payload, no keys, no fake balances, accessible responsive screen",
+    "test_ids": [
+      "T34"
+    ],
+    "deliverable": "app/ dashboard"
+  },
+  {
+    "id": "H13",
+    "category": "Engineering",
+    "title": "Devnet deployment and integrated verification",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H08",
+      "H11",
+      "H12"
+    ],
+    "requirements": [
+      "R12"
+    ],
+    "estimated_hours": 1.5,
+    "milestone": "Day 2",
+    "description": "Run build/test, deploy once after rule clearance, initialize config, seed and run both demos, measure receipt rent, tx size/CU, actual deltas; check no secrets, persist sanitized evidence.",
+    "acceptance_criteria": "Real program ID and finalized signatures, receipt hashes and balance evidence; disclose unavailable network",
+    "test_ids": [
+      "T35",
+      "T36"
+    ],
+    "deliverable": "evidence/devnet.json + PROJECT-STATE"
+  },
+  {
+    "id": "H14",
+    "category": "Engineering",
+    "title": "Submission and demo freeze",
+    "priority": "P0",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H13"
+    ],
+    "requirements": [
+      "R12"
+    ],
+    "estimated_hours": 1.5,
+    "milestone": "Day 2",
+    "description": "Freeze core, run smoke, record video per portal rules, update English pitch with real evidence only, package README/reproduction and limitations.",
+    "acceptance_criteria": "Submission checklist complete or explicit portal blocker; no false claims",
+    "test_ids": [
+      "T37"
+    ],
+    "deliverable": "submission assets"
+  },
+  {
+    "id": "H15",
+    "category": "Engineering",
+    "title": "Optional x402 transport",
+    "priority": "P1",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H13"
+    ],
+    "requirements": [],
+    "estimated_hours": 1,
+    "milestone": "Day 2",
+    "description": "Only if H02 full compatibility passed: use reference SDK/facilitator, verify exact complete two-receipt transaction and buyer binding; no duplicate payment path. Otherwise skip.",
+    "acceptance_criteria": "End-to-end verified full transaction or explicitly omitted",
+    "test_ids": [
+      "T38"
+    ],
+    "deliverable": "optional x402 evidence"
+  },
+  {
+    "id": "H16",
+    "category": "Engineering",
+    "title": "Optional product MCP / third unit",
+    "priority": "P1",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "H13"
+    ],
+    "requirements": [],
+    "estimated_hours": 1,
+    "milestone": "Day 2",
+    "description": "Expose metadata search or verified read tool with same auth; OR test third unit within size/compute budget. Do not risk core.",
+    "acceptance_criteria": "Verified optional feature only; no registry claim unless published",
+    "test_ids": [
+      "T39"
+    ],
+    "deliverable": "optional evidence"
+  },
+  {
+    "id": "B01",
+    "category": "Business",
+    "title": "Post-event online product validation",
+    "priority": "Later",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [],
+    "requirements": [],
+    "estimated_hours": 0,
+    "milestone": "Post-event",
+    "description": "AI desk research and opt-in product analytics; actual paid demand after legal approval.",
+    "acceptance_criteria": "Document actual evidence, not AI estimates",
+    "test_ids": [],
+    "deliverable": "market evidence"
+  },
+  {
+    "id": "B02",
+    "category": "Business",
+    "title": "Post-event commercial and scale review",
+    "priority": "Later",
+    "owner_role": "Founder / coding agent",
+    "status": "TODO",
+    "dependencies": [
+      "B01"
+    ],
+    "requirements": [],
+    "estimated_hours": 0,
+    "milestone": "Post-event",
+    "description": "Re-estimate rent, fees, legal rights, refunds, security audit, commercial pricing and compressed receipts; revise archived finance model.",
+    "acceptance_criteria": "Separate commercial GO decision",
+    "test_ids": [],
+    "deliverable": "commercial review"
+  }
+]

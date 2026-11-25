@@ -1,0 +1,8 @@
+# Demo and submission | proposed 2–3 min flow, verify portal duration
+1. (15s) Problem: agents can buy data; proving paid entitlement and contributor settlement is harder. Show synthetic/Devnet badge.
+2. (30s) Discover X100 efficiency and lead time; two providers, A01+B01, 0.060 TEST. Show exact quote and budget. Execute one buyer-signed transaction, two purchase_unit instructions. Show finalized signature in Explorer, two receipt PDAs and actual deltas 0.024/0.024/0.012 TEST (if verified). Verify body and license hashes and source-linked agent output.
+3. (40s) Search missing X100 recycling certificate; fund 2 TEST escrow. Show vault, provider submits inactive synthetic solution, requester validator confirms fields and signs. Show 1.6/0.4 TEST split, bounty receipt and new data activation. Show separate expired refund evidence (2 TEST back, no commission).
+4. (20s) Explain why Solana: atomic settlement, program-controlled vault, independently verifiable versioned receipts; actual cost/size measured, no ownership or content quality guarantee. x402 only mention as implemented if verified.
+5. (15s) Close: Buy knowledge. Verify purchase. Fund what is missing. Show repo and program ID.
+
+Checklist: official portal deadline/time zone, track, team and allowed build window, video length/format, demo URL/repo visibility, AI disclosure, README, program ID, test mint, sanitized finalized signatures and actual chain explorer links, architecture, limitations, no real money. Replace planned examples with measured values; if Devnet blocked, label local validator and do not claim on-chain Devnet evidence. No fake placeholders in final recording.

@@ -1,0 +1,11 @@
+item,unit,measured_value,source,status
+program deployment,SOL,,Devnet balance delta,PENDING
+asset account deposit,lamports,,getMinimumBalanceForRentExemption,PENDING
+receipt account deposit,lamports,,getMinimumBalanceForRentExemption,PENDING
+bundle tx fee,lamports,,getTransaction meta.fee,PENDING
+bundle tx size,bytes,,serialized transaction,PENDING
+bundle compute,CU,,simulation or getTransaction,PENDING
+bounty vault deposit,lamports,,RPC balance,PENDING
+bounty accept fee,lamports,,getTransaction meta.fee,PENDING
+refund fee,lamports,,getTransaction meta.fee,PENDING
+cash spend,TRY,,actual receipts,PENDING

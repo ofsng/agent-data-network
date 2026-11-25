@@ -1,0 +1,12 @@
+# Business model and economics
+## Transaction rules
+One licensed unit = fixed immutable version + body hash + license hash + price. Example price 30,000 base units of a 6-decimal Devnet test mint. Two units cost 60,000 (0.060 TEST); each provider receives 24,000; platform gets 12,000 total. Bounty reward 2,000,000: provider 1,600,000 and platform 400,000. Expired unaccepted bounty refunds entire funded reward, no commission. All are test values, not USD or commercial revenue. Formula: fee=floor(amount×2000/10000), provider=amount-fee. SOL network fees/storage deposits separate; no conversion into dollars without explicit scenario price.
+
+## Canvas explanations
+Segments: agent product teams and independent rights holders. Value: bounded multi-source purchase, source/version/license evidence, funded demand. Channels: demo repo, docs, direct SDK then MCP registry after integration exists. Relationships: self-service, clear receipts, dispute support later. Revenue: 20% test commission, no promise of actual future rate. Resources: program, data catalog, source rights, quality history. Activities: ingest, discover, verify, settle, handle delivery. Partners: ecosystem tooling, rights holders, future payment/compliance vendors (none signed). Costs: storage, retrieval, RPC, SOL fees/deposits, engineering, support, rights checks.
+
+## Unit economics & viability
+Commercial scenario only: gross unit price p; margin = p×take×(1-refund rate) − delivery/RPC cost − free search ratio×cost − platform-funded fee/rent − support/fraud reserve. If <=0, volume cannot fix contribution. If >0, break-even paid units = fixed monthly cost / margin. Actual receipt deposit is measured with getMinimumBalanceForRentExemption(account bytes) and multiplied by new receipt count; buyer funded in demo, still increases buyer total cost. Account deposits are locked SOL, not burned network fees; permanent receipt has no recovery instruction. Batch settlement reduces tx fees not per-receipt deposit. Future compression/Merkle receipts need separate design and audit. See Finance guide and archived XLSX (old assumptions, not current forecast).
+
+## Network effect
+Funded gap → useful new data → more successful purchases → more provider earnings → more supply. No bounty on every zero result; budget and allowlist control. Metrics: independent paid buyer retention, repeat suppliers, matched gaps, net contribution, dispute rate, verified receipt coverage; during event only test evidence. No moat or PMF claims.

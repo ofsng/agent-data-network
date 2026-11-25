@@ -1,0 +1,14 @@
+{
+  "requirement": {
+    "equipment": "X100",
+    "field": "recycling_certificate",
+    "requiredValue": "FICT-RECYCLE-2026"
+  },
+  "solution": {
+    "equipment": "X100",
+    "recycling_certificate": "FICT-RECYCLE-2026"
+  },
+  "rewardBaseUnits": "2000000",
+  "provider": "northlab",
+  "synthetic": true
+}

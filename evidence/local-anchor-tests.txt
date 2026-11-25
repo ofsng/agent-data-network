@@ -1,0 +1,57 @@
+(node:194707) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/ofsng/Masa%C3%BCst%C3%BC/solana/tests/anchor/adn.test.ts is not specified and it doesn't parse as CommonJS.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1770.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1772.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0.
+      ✔ T04 rejects unauthorized and wrong-decimals init, accepts authorized, rejects repeat (7979ms)
+      ↳ rejected: AnchorError caused by account: asset. Error Code: Unauthorized. Error Number: 6001. Error Message: Unauthorized signer or account role.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0.
+      ✔ T05 registers assets; only provider can toggle; terms immutable (1631ms)
+      ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:227. Error Code: InvalidPrice. Error Number: 6006. Error Message: Price or reward must be greater than zero and le
+      ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:226. Error Code: InvalidVersion. Error Number: 6017. Error Message: Version must be >= 1.
+      ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:229. Error Code: HashMismatch. Error Number: 6016. Error Message: Hash mismatch or zero hash.
+      ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:230. Error Code: AliasedAccounts. Error Number: 6018. Error Message: Account roles must not alias (buyer/provider/
+      ✔ T06 rejects zero price, zero hash, version 0, treasury as provider (415ms)
+      ✔ T09/T10/T11 two providers, one tx, exact deltas, two receipts, size/CU (427ms)
+      ✔ T12 rounding: 30001 and 1 base unit (1219ms)
+      ↳ rejected: Program log: AnchorError thrown in programs/adn/src/lib.rs:268. Error Code: InvalidTerms. Error Number: 6004. Error Message: Signed expected terms do not match 
+      ✔ T13 second instruction invalid -> whole tx reverts (landed with skipPreflight) (441ms)
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0.
+      ✔ T14 replay of the same order ID is rejected with no payment
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1772.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7d9.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7f8.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
+      ✔ T15 wrong mint, non-canonical ATA, treasury alias, foreign token source all reject (862ms)
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1774.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1774.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1777.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1775.
+      ✔ T16 deactivated asset, changed hash/price, expired quote reject; old receipt remains (818ms)
+      ↳ rejected: Program log: AnchorError thrown in programs/adn/src/lib.rs:278. Error Code: InsufficientFunds. Error Number: 6009. Error Message: Insufficient token balance.
+      ✔ T17 balance covers first item only -> whole bundle fails, no receipt (1663ms)
+      ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:331. Error Code: InvalidDeadline. Error Number: 6011. Error Message: Deadline must be in the future and at most 7 
+      ✔ T24 funding locks exactly 2,000,000 in the PDA vault; status OPEN (437ms)
+      ✔ T25 provider submits inactive asset; no tokens move (1654ms)
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1771.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177c.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1782.
+      ✔ T26 invalid submissions reject (wrong owner, active asset, requester as provider) (878ms)
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1771.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1780.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1780.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177c.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
+      ✔ T28 unauthorized/wrong accept attempts reject; bounty stays OPEN (466ms)
+      ✔ T31+T27 unsolicited dust; accept pays exactly 1.6M/0.4M, receipt, ACCEPTED, surplus stays (765ms)
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177d.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177d.
+      ✔ T30 double release: second accept (other submission) and refund after accept reject (432ms)
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177f.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177e.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177e.
+      ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1771.
+      ✔ T29/T30 early refund rejects; after deadline: late accept rejects, refund returns full reward once, no fee (7937ms)
+  17 passing (32s)

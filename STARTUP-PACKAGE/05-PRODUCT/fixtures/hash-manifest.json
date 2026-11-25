@@ -1,0 +1,89 @@
+{
+  "notice": "Expected fixture hashes only; not real chain records. Hash body field exact UTF-8 NFC with LF normalization; license exact file bytes.",
+  "units": [
+    {
+      "fixtureId": "A01",
+      "assetId": "e98ed8057af14fe0a3b3899dd1bb0494",
+      "contentHash": "eee469de6ddedf5ca8be6ebdc340e2b1c99c426485ebda4c160dd58aeb44c3fa",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "A02",
+      "assetId": "b23280c959e5c753fbbff7854a72ed81",
+      "contentHash": "d06f82198e749d26621a990c5d2b06820d6481551ac5ffbdad246b785e117320",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "A03",
+      "assetId": "6d9145c86bba9558be49abf9bcf942b4",
+      "contentHash": "29cab485721f8816427c31f86022978f69695c266e1d2bfed66d8e9901b416b9",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "A04",
+      "assetId": "e394e5e82c5b1e83445c84e106ef42f3",
+      "contentHash": "5b2263e0a0b8e78516257db798209c8a116bde612e82657c99757a54d1f2d7e1",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "A05",
+      "assetId": "f6a9ad20c25b8e98b9f981eba437d329",
+      "contentHash": "40ef7a536b1d6a482d141fbf2d8634912dc379dc450616389a4c6ae8a95029c3",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "A06",
+      "assetId": "6d73768d2d05e4f68942dce1643e2e3d",
+      "contentHash": "faddff0c016853737ea4c2b44fb0c18c3f04514653dbc0d862163bb5db1acf3f",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "B01",
+      "assetId": "83aa02054b48cae0a7a624c2800c41da",
+      "contentHash": "5861174f862d6975daa52fb574d5bb2c67c7cb5517d49bd25e5565d09990413f",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "B02",
+      "assetId": "744d1ff06654007506d8600e9903c6be",
+      "contentHash": "fdda26c49f3ba634566bc77bd698cd188a9621279e9512faaac145639781d708",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "B03",
+      "assetId": "3f572aafe18399d97020bfb198f6f6d5",
+      "contentHash": "d7b9758769a39155f11dd8453d58d59e1a70666c76e711a45edf3212368d37c6",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "B04",
+      "assetId": "2d12e99ea10566aeb91543d4b95f4b91",
+      "contentHash": "26ceeeb5c50328561fa1ff59280d01e3b592610e24b96d6bede96f0073ac7454",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "B05",
+      "assetId": "ec2cb38a3c7f3280d04e2da585c6ca37",
+      "contentHash": "802e9cac6d900c513e1132b70e6b95abaa7b37dae2b1f79e4255911d97df9d92",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    },
+    {
+      "fixtureId": "B06",
+      "assetId": "d24063d70a2f91ba89ac3e109e492efd",
+      "contentHash": "7725e1cabc567a31339f38cee1d0b65f550038fbfe43f900a0d54dcf3783b0f4",
+      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "priceBaseUnits": "30000"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# API contract | /api/v1 (spec, not implemented)
+JSON camelCase; pubkeys base58, hashes lowercase 64 hex, IDs 32 hex (16 bytes), integer amounts decimal strings (u64); dates Unix seconds integer. All mutation/signing done by local CLI via generated Anchor IDL; API NEVER accepts private keys or signs arbitrary tx. Local/protected app only. 64 KiB body limit, search query max 256 chars, limit 1–20. Errors `{code,message,retryable}`. 400 invalid; 401 bad wallet proof; 403 wrong buyer; 404 missing; 409 stale/used nonce; 422 hash/terms mismatch; 429 rate; 503 chain unavailable; 202 pending finality.
+
+| Method / endpoint | Request | Success / rules |
+|---|---|---|
+| GET /assets?q=&requiredTag=&limit= | query metadata | 200 `{items:[{assetId,assetPda,provider,version,title,tags,teaser,price,mint,contentHash,licenseHash}],gap:boolean}`; no private body; finalized active assets |
+| POST /quotes | `{buyer,assetPdas:[a,b],maxSpend}` | 200 `{orderId,buyer,items:[{assetPda,provider,version,price,contentHash,licenseHash}],total,feeBps,mint,expiresAt,estimatedSolLamports}`; 2 distinct providers; no payment yet |
+| GET /receipts/{pda} | address | 200 public chain receipt fields incl kind, timestamp, hashes, amounts, finalized slot; no body; 404/202 if absent/pending |
+| POST /challenges | `{buyer,receiptPda}` | 200 `{nonce,message,expiresAt}`; nonce random 32 bytes, 60s, stored hashed; message = UTF-8 `ADN-DELIVER-v1\n<domain>\n<cluster>\n<program>\n<buyer>\n<receipt>\n<nonce>\n<expiry>` exact lines; fixed configured domain; rate limit |
+| POST /deliveries | `{buyer,receiptPda,nonce,signature}` | 200 `{assetPda,version,bodyBase64,licenseBase64,contentHash,licenseHash,receiptPda}`; base58 Ed25519 signature over exact issued bytes, fresh unused nonce consumed by conditional UPDATE WHERE consumed_at IS NULL AND expires_at > now in one SQLite transaction after verification; require exactly one updated row; same receipt with fresh nonce free. Fail closed on hash mismatch. |
+| GET /bounties | status filter optional | 200 `{items:[{bountyPda,requester,requirementHash,reward,deadline,status,winnerSubmission,vault,vaultBalance}]}` finalized chain-derived, public-safe requirement metadata optional; no submission body |
+| GET /bounties/{pda} | address | 200 bounty and public submission refs; no private body; requester preview only via local fixture review, no public endpoint |
+| GET /health | none | 200 `{cluster,programId,mint,rpcOk,dbOk}` no secret URLs; 503 if unhealthy |
+
+CLI commands (suggested interface): `seed`, `search`, `quote`, `purchase`, `verify`, `deliver`, `gap`, `submit`, `accept`, `refund`, `activate`, `demo`. Read and decode IDL accounts using same PDA seeds as program. Local-only preview of synthetic submission allows deterministic evaluation before accepting; real private review requires new design. UI reads API or triggers clearly separated local operator flow; never expose server signer. No actual REST mutation of chain without signature. No webhook required; RPC reconciliation by receipt PDA. Optional x402 transport explicitly distinct from direct Anchor.

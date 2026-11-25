@@ -1,0 +1,15 @@
+# Business plan | Verifiable Data Commerce Protocol
+## Executive thesis
+AI applications pay for external knowledge. Existing search and data marketplaces solve discovery and per-query purchases; payment alone does not give a portable record of which licensed version was purchased and how every contributor was paid. ADN targets multi-source licensed data retrieval and the funding of missing knowledge. Anchor on Solana enforces settlement and records entitlement; private payloads stay off-chain.
+
+## Market & ICP
+Initial illustrative vertical: technical/industrial equipment (solar fixtures). Buyer: agent developer building research/procurement workflows; economic buyer: engineering/product lead with a data budget. Provider: technical expert or vendor with rights to publish independent, updated records. Buyer JTBD: obtain bounded-budget, source-linked facts without integrating each provider. Seller JTBD: monetize small reusable units and discover funded demand. Alternative: web search, licensed feeds, direct contracts, ipto.ai, DataBazaar and Ocean. Why now: agent tool integrations, payment standards and programmable settlement; actual buyer volume unproven. See market report for sources and market-sizing method.
+
+## Product & business model
+Free metadata discovery; paid immutable retrieval units; requester-funded bounty; nonexclusive synthetic-demo license. 80% provider / 20% platform illustrative split, enforced at settlement; requester pays network fees and storage deposits in SOL. Bounties follow the same split. No listing fee, mandatory subscription, fundraising token or paid acquisition. Free data may be added later with explicit rights. Economics in MODEL and Finance. No real cash or revenue during event.
+
+## Competitive strategy & growth
+Position as auditable commerce rather than a generic marketplace. Distinguish the combined Solana-native features, not claim global novelty. Supply starts with synthetic examples; later licensed open metadata plus unique opted-in provider data. Free discovery and funded gaps connect demand to producers; each successful purchase adds verifiable history. Prospective moat: quality/version history, demand graph, unique supply, integration depth; none exists yet. Post-event only: MCP/SDK catalog publishing, provider connectors, opt-in demand aggregation, benchmarks and self-service pilot. Avoid deceptive lock-in; export receipts and keep interface documented.
+
+## Operations / funding / readiness
+Founder-led, AI coding agent; assign actual teammates only when known. No physical validation prerequisite. Online competitor/docs research and opt-in telemetry after demo. Bootstrap with existing devices; no budget commitments without approval. Paid pilot requires rights, payment/legal review and positive unit economics. No investor deck because no funding ask. Risks: duplicate supply, private data leakage, unverified quality, missing delivery, payout/rent economics, Devnet availability, event timing. Product release gate: genuine Devnet evidence for both demos, negative tests, verified hashes, clear synthetic labels; commercial gate stays closed.
