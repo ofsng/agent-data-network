@@ -1,0 +1,91 @@
+{
+  "kind": "bounty-accept",
+  "cluster": "localnet",
+  "programId": "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8",
+  "mint": "3JZounTHwGFyW65C2E5kCCLoq1H2PU85VC8jyZkpzhk5",
+  "mintLabel": "TEST (no monetary value)",
+  "requirement": {
+    "equipment": "X100",
+    "field": "recycling_certificate",
+    "requiredValue": "FICT-RECYCLE-2026"
+  },
+  "requirementHash": "d6344ce8f101e60c71cf9fe34c9283815058e1a68636155d6f74a3258deca606",
+  "bounty": "DqpXnGVcRe2MpSruTvh2UfBdcJnWwYvXPcb5o6WCUPAk",
+  "vault": "BvdVnxR3FwHjq8ZDqLEC4dSuvLtxGRnfZj9YZURmRn8R",
+  "createSignature": "2T8mLdvi3RD3b3NKeEC4EPh2z8NU3tt3LJYdRYFJM5sHX49ayKKSgmAAwsY5jFefumbZKUErYE6p6UP17CZDKpPZ",
+  "submissionSignatures": [
+    "ithJGH3tgAUUaJEPyqp7NdcggJzun18k2evYA5fJyfZyo7czeBoJmxKgUcG3ohiEj4JMFqCMLnrPXaWvdM397NL",
+    "59tUA3vH8zob3hPbGc7e1SeQpnsw2rRP6psGN4Fsri4nkBosWKfdKm4rG14bxhLP5X53m1HQBi5YmhFv6Vi9Jvhz"
+  ],
+  "reviews": [
+    {
+      "asset": "G3cMba6wBhxprWsuLmVJFnWJjg8nBhRLyEs1oempdc8X",
+      "ok": false,
+      "reason": "recycling_certificate=WRONG"
+    },
+    {
+      "asset": "HNBtBPJrjUETaY7H9wbAgCTGeW8U85KZaxtNSWBP7wDm",
+      "ok": true,
+      "reason": "required fields match"
+    }
+  ],
+  "acceptSignature": "3AJDZft2iGgK3x4p23JdSXPPey7u6xtiyhLTmRdA8YY8ADvx6wkaC2cmNM2iEkGqs6knkkSdMvHfiafuPLj8ajss",
+  "acceptFinalizedSlot": 261,
+  "bountyReceipt": "D3kMYUugUhmeZTFt5gS2SieuRpU755UNsCjQ7aMbFMHS",
+  "activateSignature": "3ERBr8jVTUugJrKM2wnME6VcBvUGBGCeGrd4rZko7ZreZTsKrFpMyta3JWX1HKn3rC6to5pVrU9qHdahknKiKUpx",
+  "explorer": {
+    "create": "https://explorer.solana.com/tx/2T8mLdvi3RD3b3NKeEC4EPh2z8NU3tt3LJYdRYFJM5sHX49ayKKSgmAAwsY5jFefumbZKUErYE6p6UP17CZDKpPZ?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899",
+    "accept": "https://explorer.solana.com/tx/3AJDZft2iGgK3x4p23JdSXPPey7u6xtiyhLTmRdA8YY8ADvx6wkaC2cmNM2iEkGqs6knkkSdMvHfiafuPLj8ajss?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899",
+    "bounty": "https://explorer.solana.com/address/DqpXnGVcRe2MpSruTvh2UfBdcJnWwYvXPcb5o6WCUPAk?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899",
+    "receipt": "https://explorer.solana.com/address/D3kMYUugUhmeZTFt5gS2SieuRpU755UNsCjQ7aMbFMHS?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899"
+  },
+  "fundingDeltas": {
+    "buyer": "0",
+    "providerA": "0",
+    "providerB": "0",
+    "treasury": "0",
+    "requester": "-2000000",
+    "vault": "2000000"
+  },
+  "acceptDeltas": {
+    "buyer": "0",
+    "providerA": "1600000",
+    "providerB": "0",
+    "treasury": "400000",
+    "requester": "0",
+    "vault": "-2000000"
+  },
+  "deltasExact": true,
+  "delivered": {
+    "bodyBytes": 64,
+    "contentHash": "c2ba1309e2ac74888f0c59824bfff58fab73cebef7a85592281186a2f8477e7c",
+    "hashVerified": true
+  },
+  "gapAfterActivation": false,
+  "finalBountyState": {
+    "bountyPda": "DqpXnGVcRe2MpSruTvh2UfBdcJnWwYvXPcb5o6WCUPAk",
+    "requester": "BYJzQqCc3yZdCUn5EQtBwhDfGwaRpxcQRJ6wiomRw2mr",
+    "bountyId": "9c8250531cd7541811ae49153a4a47e7",
+    "requirementHash": "d6344ce8f101e60c71cf9fe34c9283815058e1a68636155d6f74a3258deca606",
+    "reward": "2000000",
+    "deadline": 1795636249,
+    "status": "ACCEPTED",
+    "winnerSubmission": "5Dz2dvpFMzWNwXrCr3cp4pABrJQKkpBTt6nFTmeEs2Dn",
+    "vault": "BvdVnxR3FwHjq8ZDqLEC4dSuvLtxGRnfZj9YZURmRn8R",
+    "vaultBalance": "0",
+    "bountyReceipt": "D3kMYUugUhmeZTFt5gS2SieuRpU755UNsCjQ7aMbFMHS",
+    "submissions": [
+      {
+        "submissionPda": "5Dz2dvpFMzWNwXrCr3cp4pABrJQKkpBTt6nFTmeEs2Dn",
+        "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+        "asset": "HNBtBPJrjUETaY7H9wbAgCTGeW8U85KZaxtNSWBP7wDm"
+      },
+      {
+        "submissionPda": "FPctuaHM62pzAytgDwQXHRSrC5gaW6c9tMTzy4f5Wj1X",
+        "provider": "B3MfpnQkA1wPddYu5DkzewmSnEetwy8zfWiPNhVkWvAm",
+        "asset": "G3cMba6wBhxprWsuLmVJFnWJjg8nBhRLyEs1oempdc8X"
+      }
+    ]
+  },
+  "recordedAt": "2026-11-25T18:52:23.091Z"
+}

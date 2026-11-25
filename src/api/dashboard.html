@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADN Evidence</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --text:#e8eaf0; --muted:#9aa3b2; --ok:#3ecf8e; --warn:#f5a524; --bad:#ff6b6b; --accent:#8ab4ff; }
+  @media (prefers-color-scheme: light) { :root { --bg:#f7f8fa; --panel:#fff; --line:#dde1e8; --text:#14171c; --muted:#5b6473; --ok:#0f8a55; --warn:#a15c00; --bad:#c62828; --accent:#1f5fd6; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui, -apple-system, Segoe UI, sans-serif; }
+  header { padding:16px; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; }
+  h1 { font-size:18px; margin:0 12px 0 0; }
+  .badge { border:1px solid var(--line); border-radius:999px; padding:2px 10px; font-size:12px; color:var(--muted); }
+  .badge.warn { color:var(--warn); border-color:var(--warn); }
+  .badge.ok { color:var(--ok); border-color:var(--ok); }
+  .badge.bad { color:var(--bad); border-color:var(--bad); }
+  nav { display:flex; gap:4px; padding:8px 16px; border-bottom:1px solid var(--line); overflow-x:auto; }
+  nav button { background:none; border:1px solid transparent; color:var(--muted); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; }
+  nav button[aria-selected=true] { color:var(--text); border-color:var(--line); background:var(--panel); }
+  nav button:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  main { padding:16px; max-width:1100px; margin:0 auto; }
+  section[hidden] { display:none; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px 14px; margin-bottom:12px; }
+  .card h3 { margin:0 0 6px; font-size:15px; }
+  dl { display:grid; grid-template-columns:minmax(110px,max-content) 1fr; gap:2px 12px; margin:0; font-size:13px; }
+  dt { color:var(--muted); }
+  dd { margin:0; word-break:break-all; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
+  a { color:var(--accent); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:500; }
+  .num { font-variant-numeric:tabular-nums; text-align:right; }
+  .muted { color:var(--muted); }
+  .wrap { overflow-x:auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Agent Data Network</h1>
+  <span id="cluster" class="badge">cluster…</span>
+  <span class="badge warn">SYNTHETIC DATA</span>
+  <span class="badge warn" id="mintBadge">TEST TOKEN — no monetary value</span>
+  <span id="rpc" class="badge">rpc…</span>
+</header>
+<nav role="tablist" aria-label="Views">
+  <button role="tab" aria-selected="true" data-tab="evidence">Evidence</button>
+  <button role="tab" aria-selected="false" data-tab="catalog">Catalog</button>
+  <button role="tab" aria-selected="false" data-tab="bounties">Bounties</button>
+</nav>
+<main>
+  <section id="evidence" role="tabpanel"><p class="muted">Loading…</p></section>
+  <section id="catalog" role="tabpanel" hidden></section>
+  <section id="bounties" role="tabpanel" hidden></section>
+  <p class="muted" id="status-line"></p>
+  <p class="muted">Read-only. All actions run through the local CLI with locally held keys; this page never signs and never shows paid content. Receipts prove paid entitlement to a hash/version/license only — not truth, ownership or consumption.</p>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const short = (s) => s && s.length > 16 ? s.slice(0, 8) + "…" + s.slice(-6) : s;
+const test = (u) => (Number(u) / 1e6).toLocaleString(undefined, { maximumFractionDigits: 6 }) + " TEST";
+let cluster = "localnet";
+const ex = (kind, id) => cluster === "devnet"
+  ? `https://explorer.solana.com/${kind}/${id}?cluster=devnet`
+  : `https://explorer.solana.com/${kind}/${id}?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899`;
+const link = (kind, id) => id ? `<a href="${ex(kind, id)}" target="_blank" rel="noopener">${esc(short(id))}</a>` : "—";
+const dl = (pairs) => `<dl>${pairs.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join("")}</dl>`;
+const deltas = (d) => `<table><thead><tr><th>Wallet</th><th class="num">Δ base units</th><th class="num">Δ TEST</th></tr></thead><tbody>${
+  Object.entries(d || {}).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${esc(v)}</td><td class="num">${test(v)}</td></tr>`).join("")}</tbody></table>`;
+const okBadge = (b) => b ? `<span class="badge ok">exact</span>` : `<span class="badge bad">NOT exact</span>`;
+
+async function get(path) {
+  const r = await fetch("/api/v1" + path);
+  return { status: r.status, json: await r.json() };
+}
+
+function renderEvidence(items) {
+  const own = items.filter((i) => i.data && i.data.cluster === cluster);
+  if (!own.length) return `<div class="card"><p>No ${esc(cluster)} evidence recorded yet. Run <code>npm run cli -- demo</code>.</p></div>`;
+  return own.map(({ file, data: e }) => {
+    if (e.kind === "atomic-two-provider-purchase") return `<div class="card"><h3>Atomic two-provider purchase ${okBadge(e.deltasExact)}</h3>${dl([
+      ["Signature", link("tx", e.signature)], ["Finalized slot", esc(e.finalizedSlot)], ["Order ID", esc(e.orderId)],
+      ["Instructions", esc(e.instructions) + " × purchase_unit in one tx"], ["Size / CU", `${esc(e.serializedBytes)} bytes / ${esc(e.landedCU)} CU`],
+      ["Network fee", esc(e.feeLamports) + " lamports"], ["Receipt rent", esc(e.receiptRentLamportsEach) + " lamports each"],
+      ["Receipts", e.receipts.map((r) => link("address", r.pda)).join(" · ")],
+    ])}${deltas(e.tokenDeltas)}<p class="muted">Deliveries (content not shown; hash-verified against receipt):</p><ul>${
+      e.facts.map((f) => `<li>${link("address", f.source)} → ${esc(f.bodyBytes)} bytes, sha256 ${esc(f.contentHash.slice(0, 16))}… ${f.hashVerified ? "✓" : "✗"}</li>`).join("")}</ul><p class="muted">${esc(file)}</p></div>`;
+    if (e.kind === "bounty-accept") return `<div class="card"><h3>Bounty: fund → submit → review → accept ${okBadge(e.deltasExact)}</h3>${dl([
+      ["Bounty", link("address", e.bounty)], ["Vault", link("address", e.vault)], ["Create", link("tx", e.createSignature)],
+      ["Accept", link("tx", e.acceptSignature)], ["Bounty receipt", link("address", e.bountyReceipt)], ["Activate", link("tx", e.activateSignature)],
+      ["Reviews", e.reviews.map((r) => `${esc(short(r.asset))}: ${r.ok ? "accept" : "reject"} (${esc(r.reason)})`).join("<br>")],
+      ["Gap after activation", esc(e.gapAfterActivation)],
+    ])}<p class="muted">Funding</p>${deltas(e.fundingDeltas)}<p class="muted">Acceptance</p>${deltas(e.acceptDeltas)}<p class="muted">${esc(file)}</p></div>`;
+    if (e.kind === "bounty-expiry-refund") return `<div class="card"><h3>Expired bounty refund (no fee) ${okBadge(e.deltasExact)}</h3>${dl([
+      ["Bounty", link("address", e.bounty)], ["Create", link("tx", e.createSignature)], ["Early refund", esc(e.earlyRefundRejected) + " (rejected)"],
+      ["Refund", link("tx", e.refundSignature)],
+    ])}${deltas(e.refundDeltas)}<p class="muted">${esc(file)}</p></div>`;
+    return "";
+  }).join("");
+}
+
+async function load() {
+  try {
+    const h = await get("/health");
+    cluster = h.json.cluster || cluster;
+    $("#cluster").textContent = `${h.json.cluster} · program ${short(h.json.programId)} · mint ${short(h.json.mint)}`;
+    $("#cluster").className = "badge" + (h.json.cluster === "devnet" ? " ok" : " warn");
+    $("#rpc").textContent = h.json.rpcOk ? "RPC ok (finalized reads)" : "RPC unavailable";
+    $("#rpc").className = "badge " + (h.json.rpcOk ? "ok" : "bad");
+    const [ev, cat, b] = await Promise.all([get("/evidence"), get("/assets?q=" + encodeURIComponent("inverter battery panel controller mount x100 x200 stock lead time recycling") + "&limit=20"), get("/bounties")]);
+    $("#evidence").innerHTML = renderEvidence(ev.json.items || []);
+    $("#catalog").innerHTML = `<div class="card wrap"><h3>Active finalized listings (metadata only)</h3><table><thead><tr><th>Title</th><th>Provider</th><th>Tags</th><th class="num">Price</th><th>Asset</th></tr></thead><tbody>${
+      (cat.json.items || []).map((i) => `<tr><td>${esc(i.title)}<br><span class="muted">${esc(i.teaser)}</span></td><td>${link("address", i.provider)}</td><td>${esc(i.tags.join(", "))}</td><td class="num">${test(i.price)}</td><td>${link("address", i.assetPda)}</td></tr>`).join("")}</tbody></table></div>`;
+    $("#bounties").innerHTML = (b.json.items || []).map((x) => `<div class="card"><h3>${esc(x.status)} — reward ${test(x.reward)}</h3>${dl([
+      ["Bounty", link("address", x.bountyPda)], ["Requester", link("address", x.requester)], ["Vault", link("address", x.vault)],
+      ["Vault balance", test(x.vaultBalance) + (BigInt(x.vaultBalance) > 0n && x.status !== "OPEN" ? " (unsolicited surplus, not swept)" : "")],
+      ["Deadline", new Date(x.deadline * 1000).toISOString()], ["Winner", link("address", x.winnerSubmission)], ["Bounty receipt", link("address", x.bountyReceipt)],
+    ])}</div>`).join("") || `<div class="card">No finalized bounties.</div>`;
+    $("#status-line").textContent = "Loaded " + new Date().toLocaleTimeString() + " from finalized chain state.";
+  } catch (e) {
+    $("#status-line").textContent = "Error loading: " + e.message;
+  }
+}
+document.querySelectorAll("nav button").forEach((btn) => btn.addEventListener("click", () => {
+  document.querySelectorAll("nav button").forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
+  document.querySelectorAll("main section").forEach((s) => (s.hidden = s.id !== btn.dataset.tab));
+}));
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+
+  api (T18–T22, T33)
+    ✔ T18 no receipt / forged PDA / wrong buyer / bad signature -> no body (127ms)
+    ✔ T19 nonce replay and expired challenge rejected; fresh proof works (54ms)
+    ✔ T20 tampered stored bytes -> HASH_MISMATCH, no body; restore -> free retry
+    ✔ T21 crash/timeout recovery: PENDING quote reconciles to FINALIZED; lost cache rebuilt from chain (1132ms)
+    ✔ T22 quote limits and oversized search reject
+    ✔ T33 per-run budget blocks a bounty beyond the remaining cap before any signing
+
+
+  6 passing (1s)
+
