@@ -502,6 +502,7 @@ function renderConnect() {
   const agents = app.agents ?? [];
   const manual = app.connectInfo?.mcp ? `claude mcp add adn ${Object.entries(app.connectInfo.mcp.env).map(([k, v]) => `--env ${k}=${v}`).join(" ")} -- ${app.connectInfo.mcp.command} ${app.connectInfo.mcp.args.map((x) => (/\s/.test(x) ? `"${x}"` : x)).join(" ")}` : "npm run connect   # prints the exact command for your machine";
   return `<div class="view-head"><div><h1>Your agent</h1><p>Your AI agent sets itself up, shops for data with its own wallet and asks you only when a person has to decide. You watch and approve here.</p></div></div>
+    ${STATIC ? `<div class="card static-note"><h2><span class="badge blue">Read-only copy</span> How to actually connect</h2><p class="muted" style="margin:0 0 8px">This public page only shows how it works; no agent can connect to it. Connecting happens on a computer where the project runs. There, open this page at <span class="mono">http://127.0.0.1:8787/#connect</span>: the message below then contains the real folder, and your agent appears in the list.</p>${block("git clone https://github.com/ofsng/agent-data-network && cd agent-data-network\nnpm run setup && npm start")}</div>` : ""}
     <div class="card connect-hero"><h2><span class="badge mint">1 step</span> Give your agent this message</h2>
       <p class="muted" style="margin-top:0">Paste it into Claude Code or any agent that can use a terminal. It creates its wallet, gets funded, connects over MCP and checks itself.</p>
       ${block(sentence)}

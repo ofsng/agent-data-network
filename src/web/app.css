@@ -320,4 +320,5 @@ details.manual[open] summary { margin-bottom: 10px; }
 
 /* Connect your agent: copy-paste prompt */
 .connect-hero { border-color: var(--mint); }
+.static-note { border-color: rgba(124, 196, 255, 0.45); margin-bottom: 12px; }
 pre.json.connect-prompt { white-space: pre-wrap; word-break: break-word; max-height: 340px; overflow: auto; padding: 14px 16px; font-size: 12.5px; line-height: 1.55; }
