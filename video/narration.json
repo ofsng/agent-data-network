@@ -1,0 +1,20 @@
+[
+  {"id": "t01", "text": "Merhaba! Bu kısa videoda Agent Data Network'ün ne yaptığını en basit hâliyle anlatacağım. Kısaca: yapay zekâ ajanları ihtiyaç duydukları küçük veri parçalarını satın alıyor, veriyi hazırlayan herkes de parasını anında alıyor. Bütün ödemeler Solana blokzincirinde yapılıyor."},
+  {"id": "t02", "text": "Önce şunu bilelim: burası bir deneme ortamı. Gerçek para yok. TEST adlı jetonun hiçbir değeri yok, veriler de uydurma. Ama arkada gerçek bir Solana programı çalışıyor ve işlemler gerçekten zincire yazılıyor."},
+  {"id": "t03", "text": "Burası pazar yeri, yani bir veri marketi. Her kart satılık bir veri parçası; örneğin bir invertörün verimliliği ya da teslim süresi. Başlık ve fiyat herkese açık. İçeriği ise yalnızca parasını ödeyen görebiliyor."},
+  {"id": "t04", "text": "Bunlar satıcılar: NorthLab ve SouthSupply. Bir veri listelendiğinde fiyatı ve verinin parmak izi, yani hash'i, zincire yazılıyor. Böylece satıcı veriyi sonradan gizlice değiştiremiyor."},
+  {"id": "t05", "text": "Bu da ajan, yani alışverişi yapan robot. Görevi, X100 adlı bir ürün için kısa bir rapor hazırlamak. Bütçesi sınırlı ve bu sınırı aşamıyor. Bu demoda ajan sabit kurallarla çalışıyor; bir yapay zekâ modeli değil."},
+  {"id": "t06", "text": "Demoyu buradan başlatıyoruz. Run full demo, on altı adımı sırayla ve gerçek işlemlerle çalıştırıyor. Next step ile adım adım da ilerleyebilirsiniz."},
+  {"id": "t07", "text": "En önemli kısım burası. Ajan iki farklı satıcıdan aynı anda veri alıyor ve tek bir işlemle ödüyor: ya ikisi birden gerçekleşiyor ya da hiçbiri. Her alım için zincirde bir makbuz oluşuyor. Veri yalnızca bu makbuza sahip olana veriliyor."},
+  {"id": "t08", "text": "Peki aranan veri hiç yoksa? O zaman ajan bir ödül koyuyor. Para bir kasada kilitleniyor. Satıcı cevabı getiriyor, ajan kabul edince para satıcıya ödeniyor. Kimse cevap getirmezse, süre dolunca para tamamen geri dönüyor."},
+  {"id": "t09", "text": "Burada kim ne kazandı görüyoruz. Her ödemenin yüzde sekseni satıcıya, yüzde yirmisi platforma aynı anda gidiyor. Ödülle hazırlanan veri sonra başka bir ajana da satılıyor; yani satıcı aynı işten tekrar kazanıyor."},
+  {"id": "t10", "text": "Bu da kontrol paneli. Her şeyi tek ekrandan yönetebiliyoruz: demoyu çalıştırmak, cüzdanları izlemek, fiyat teklifi almak, makbuz doğrulamak ve ödül kasasına bakmak."},
+  {"id": "t11", "text": "Son olarak kanıt sayfası. Hiçbir şeye körü körüne inanmanız gerekmiyor. İşlemler, makbuzlar ve test sonuçları burada; hepsi zincirden kontrol edilebiliyor."},
+  {"id": "c01", "text": "Şimdi kontrol panelinden yeni bir demo başlatalım. Run to end düğmesine basıyorum."},
+  {"id": "c02", "text": "Şu an on altı adım tek tek çalışıyor. Satıcılar verilerini listeliyor, ajan arama yapıp fiyat alıyor ve tek işlemle iki satıcıya ödüyor. Sonra eksik veri için ödül koyuluyor, cevap kabul ediliyor ve aynı veri ikinci bir ajana satılıyor. Bekleme sürelerini videoda hızlandırdık."},
+  {"id": "c03", "text": "Bitti. Soldaki cüzdan listesinde kimin ne kadar ödediğini ve kazandığını görüyoruz. Yeşil rakamlar kazanç, kırmızılar harcama."},
+  {"id": "c04", "text": "Şimdi bir fiyat teklifi alalım. Marketten iki veri seçiyorum ve Get quote düğmesine basıyorum. Bu sadece bir teklif; hiçbir şey ödenmiyor. Toplam fiyatı ve yüzde seksen, yüzde yirmi paylaşımını görüyoruz."},
+  {"id": "c05", "text": "Makbuz doğrulamak da bu kadar kolay. Bir makbuz seçip Verify düğmesine basıyorum. Sistem makbuzu doğrudan zincirden okuyor ve geçerli olduğunu gösteriyor."},
+  {"id": "c06", "text": "Son olarak bir ödülün durumuna bakalım. Ödül miktarı, kasada kalan para ve durumu burada görünüyor."},
+  {"id": "c07", "text": "Özetle: ajanlar ihtiyaç duydukları veriyi parça parça satın alıyor, herkes anında ve adil biçimde ödeniyor, her şey zincirde kanıtlanıyor ve eksik veri ödülle tamamlanıyor. İzlediğiniz için teşekkürler."}
+]

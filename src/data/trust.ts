@@ -28,6 +28,9 @@ export interface TrustView {
   accuracyStatus: "UNVERIFIED";
   synthetic: true;
   snapshot: "VERIFIED" | "MISSING" | "MISMATCH";
+  /** First finalized listing of these exact bytes. A later listing of the same content
+   *  hash by a different provider is a copy: it is shown but never quoted. */
+  provenance: { original: boolean; firstProvider: string; firstAssetPda: string; firstSlot: number };
 }
 
 export class TrustError extends Error {
@@ -150,8 +153,9 @@ export function restoreFromSnapshot(db: Db, dir: string, assetPda: string, conte
 
 export function trustView(db: Db, dir: string, assetPda: string): TrustView | null {
   const t = db.prepare("SELECT * FROM asset_trust WHERE asset_pda=?").get(assetPda) as any;
-  const a = db.prepare("SELECT content_hash, license_hash FROM assets WHERE asset_pda=?").get(assetPda) as any;
+  const a = db.prepare("SELECT content_hash, license_hash, provider FROM assets WHERE asset_pda=?").get(assetPda) as any;
   if (!t || !a) return null;
+  const first = db.prepare("SELECT asset_pda, provider, finalized_slot FROM assets WHERE content_hash=? AND finalized_slot IS NOT NULL ORDER BY finalized_slot, asset_pda LIMIT 1").get(a.content_hash) as any;
   return {
     sourceLabel: t.source_label,
     sourceKind: "provider-declared",
@@ -163,5 +167,8 @@ export function trustView(db: Db, dir: string, assetPda: string): TrustView | nu
     accuracyStatus: "UNVERIFIED",
     synthetic: true,
     snapshot: snapshotStatus(dir, assetPda, a.content_hash, a.license_hash),
+    provenance: first
+      ? { original: first.provider === a.provider, firstProvider: first.provider, firstAssetPda: first.asset_pda, firstSlot: first.finalized_slot }
+      : { original: true, firstProvider: a.provider, firstAssetPda: assetPda, firstSlot: 0 },
   };
 }

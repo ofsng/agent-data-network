@@ -82,7 +82,9 @@ export function createService(cfg: Config, db: Db) {
     if (q.length > 256 || (requiredTag && requiredTag.length > 64)) throw new ServiceError(400, "INVALID", "query too long");
     if (!Number.isInteger(limit) || limit < 1 || limit > 20) throw new ServiceError(400, "INVALID", "limit 1-20");
     const res = search(db, q, requiredTag, limit);
-    return { items: res.items.map((i) => ({ ...i, mint: mint.toBase58(), trust: trustView(db, snapDir, i.assetPda) })), gap: res.gap };
+    // Copies of bytes first listed by another provider are left out of search results.
+    const items = res.items.map((i) => ({ ...i, mint: mint.toBase58(), trust: trustView(db, snapDir, i.assetPda) })).filter((i) => i.trust?.provenance.original !== false);
+    return { items, gap: res.gap };
   }
 
   /**
@@ -109,6 +111,8 @@ export function createService(cfg: Config, db: Db) {
       if (!row) throw new ServiceError(503, "UNAVAILABLE", "asset bytes not available");
       const trust = trustView(db, snapDir, key);
       if (!trust || trust.validationStatus !== "VALID") throw new ServiceError(422, "TRUST_INVALID", "missing or invalid trust declaration");
+      if (!trust.provenance.original)
+        throw new ServiceError(409, "DUPLICATE_CONTENT", `same bytes were first listed by ${trust.provenance.firstProvider} (asset ${trust.provenance.firstAssetPda}); copies are not quotable`);
       const chainHash = toHex(a.contentHash), chainLic = toHex(a.licenseHash);
       if (row.content_hash !== chainHash || row.license_hash !== chainLic || sha256hex(row.body) !== chainHash || sha256hex(row.license) !== chainLic)
         throw new ServiceError(422, "HASH_MISMATCH", "stored bytes do not match on-chain hashes; not quotable");
@@ -246,7 +250,7 @@ export function createService(cfg: Config, db: Db) {
     } catch {}
     return {
       cluster: cfg.cluster, mode: cfg.cluster === "devnet" ? "DEVNET" : "LOCAL_VALIDATOR", programId: cfg.programId.toBase58(), mint: mint.toBase58(),
-      mintLabel: cfg.deployment?.mintLabel ?? "TEST", treasury: cfg.treasury!.toBase58(), rpcOk, dbOk: !!db.prepare("SELECT 1 AS ok").get(),
+      mintLabel: cfg.deployment?.mintLabel ?? "aUSD", treasury: cfg.treasury!.toBase58(), rpcOk, dbOk: !!db.prepare("SELECT 1 AS ok").get(),
     };
   }
 

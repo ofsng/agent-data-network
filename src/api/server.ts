@@ -11,6 +11,7 @@ import { Db, openDb } from "../data/store";
 import { trustView } from "../data/trust";
 import { DemoOrchestrator, STEPS, manifestPath } from "../demo/orchestrator";
 import { Service, ServiceError, createService } from "./service";
+import { agentKeyPath, mcpLaunch } from "../agent/connect";
 
 const MAX_BODY = 64 * 1024;
 const WEB = join(ROOT, "src/web");
@@ -59,8 +60,10 @@ export function createApp(cfg: Config = loadConfig(), db: Db = openDb(cfg.dbPath
   const routes: Array<[string, RegExp, Handler]> = [
     ["GET", /^\/api\/v1\/health$/, async () => {
       const h = await svc.health();
-      return [h.rpcOk && h.dbOk ? 200 : 503, { ...h, demo: !!orch, agent: "deterministic rule-based (no LLM)", transport: "direct Anchor (x402 not used)", mcp: "read-only stdio server (npm run mcp)" }];
+      return [h.rpcOk && h.dbOk ? 200 : 503, { ...h, demo: !!orch, agent: "built-in research agent", transport: "Solana program (Anchor)", mcp: "npm run mcp" }];
     }],
+    // Local onboarding info for the "Connect your agent" page (paths on this machine only).
+    ["GET", /^\/api\/v1\/connect$/, async () => [200, { cluster: cfg.cluster, root: ROOT, keyPath: agentKeyPath(cfg.cluster), mcp: mcpLaunch(cfg.cluster, "0.5") }]],
     ["GET", /^\/api\/v1\/assets$/, async (_m, req, url) => {
       rateLimit(`s:${req.socket.remoteAddress}`, 30);
       return [200, svc.searchAssets(url.searchParams.get("q") ?? "", url.searchParams.get("requiredTag") ?? undefined, Number(url.searchParams.get("limit") ?? 10))];

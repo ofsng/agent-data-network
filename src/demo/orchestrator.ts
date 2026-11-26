@@ -54,7 +54,7 @@ export interface RunState {
 }
 
 const now = () => new Date().toISOString();
-const T = (v: string | bigint | undefined) => { const n = BigInt(v ?? 0); const a = n < 0n ? -n : n; const f = (a % 1000000n).toString().padStart(6, "0").replace(/0+$/, ""); return `${n < 0n ? "−" : n > 0n ? "+" : ""}${a / 1000000n}${f ? "." + f : ""} TEST`; };
+const T = (v: string | bigint | undefined) => { const n = BigInt(v ?? 0); const a = n < 0n ? -n : n; const f = (a % 1000000n).toString().padStart(6, "0").replace(/0+$/, ""); return `${n < 0n ? "−" : n > 0n ? "+" : ""}${a / 1000000n}${f ? "." + f : ""} aUSD`; };
 /** Last complete run per cluster: localnet keeps the historical name. */
 export const manifestPath = (cluster: string) => join(ROOT, "evidence", cluster === "devnet" ? "devnet-run-manifest.json" : "run-manifest.json");
 const runsDir = (cluster: string) => join(homedir(), ".config/adn-demo/runs", cluster);
@@ -185,7 +185,7 @@ export class DemoOrchestrator {
     );
     this.runs.set(runId, s);
     try {
-      // Setup: SOL for fees/rent, ATAs, TEST tokens equal to each wallet's budget cap.
+      // Setup: SOL for fees/rent, ATAs, aUSD equal to each wallet's budget cap.
       const deployer = this.ops.deployer;
       for (const [role, kp] of Object.entries(keys)) {
         if (s.mode === "DEVNET") {
@@ -197,7 +197,7 @@ export class DemoOrchestrator {
         await getOrCreateAssociatedTokenAccount(this.conn, deployer, this.svc.mint, kp.publicKey, false, "confirmed", { commitment: "confirmed" });
         const amount = role === "agent" ? POLICY.agentTokenCap : role === "agent2" ? POLICY.agent2TokenCap : POLICY.refundTokenCap;
         const sig = await mintTo(this.conn, deployer, this.svc.mint, ata(kp.publicKey, this.svc.mint), deployer, amount, [], { commitment: "confirmed" });
-        this.tx(s, `Setup: mint ${Number(amount) / 1e6} TEST to ${ROLE_LABEL[role as Role]}`, sig, null, null, "setup");
+        this.tx(s, `Setup: fund ${Number(amount) / 1e6} aUSD to ${ROLE_LABEL[role as Role]}`, sig, null, null, "setup");
       }
       await waitFinalized(this.conn, s.transactions[s.transactions.length - 1].signature);
       s.balances.start = await this.balances(s);
@@ -280,23 +280,36 @@ export class DemoOrchestrator {
     async PUBLISHED(s) {
       const fx = this.fixtures;
       const prov: Record<string, Keypair> = { northlab: this.ops.providerA, southsupply: this.ops.providerB };
-      const label: Record<string, string> = { northlab: "Synthetic fixture / NorthLab", southsupply: "Synthetic fixture / SouthSupply" };
+      const label: Record<string, string> = { northlab: "NorthLab engineering datasheets", southsupply: "SouthSupply inventory feed" };
       const before = new Set((this.svc.db.prepare("SELECT asset_pda FROM assets WHERE finalized_slot IS NOT NULL").all() as { asset_pda: string }[]).map((r) => r.asset_pda));
-      const pdas = await Promise.all(fx.rows.map((r) => {
+      // Bounded concurrency: the public Devnet RPC is rate-limited, and too many parallel
+      // registrations let blockhashes go stale while requests wait in the paced queue.
+      const pool = async <T, R>(items: T[], n: number, f: (x: T) => Promise<R>) => {
+        const out: R[] = new Array(items.length);
+        let next = 0;
+        await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => {
+          while (next < items.length) { const i = next++; out[i] = await f(items[i]); }
+        }));
+        return out;
+      };
+      const pdas = await pool(fx.rows, this.svc.cfg.cluster === "devnet" ? 4 : 12, (r) => {
         const existing = this.svc.db.prepare("SELECT observed_at FROM asset_trust t JOIN assets a ON a.asset_pda=t.asset_pda WHERE a.asset_id=?").get(toHex(Uint8Array.from(Buffer.from(sha256hex(r.id), "hex").subarray(0, 16)))) as { observed_at: number } | undefined;
         return publishAsset(this.conn, this.svc.db, {
           label: r.id, provider: prov[r.supplier_id], title: r.title, tags: r.tags, teaser: r.summary, body: r.body, license: fx.license,
           price: BigInt(r.price), active: true,
           trust: { sourceLabel: label[r.supplier_id], observedAt: existing?.observed_at ?? Math.floor(Date.now() / 1000), rightsDeclared: true, schemaId: "TEXT_V1" },
         }, () => {}, this.svc.cfg.cluster);
-      }));
-      // Earlier runs' commissioned units are withdrawn by their provider so this run starts with a real gap.
+      });
+      // Earlier runs' commissioned units are withdrawn by their provider so this run starts with a real gap,
+      // and listings no longer in the provider catalog are withdrawn too (past receipts stay valid).
       const withdrawn: string[] = [];
-      const prior = this.svc.db.prepare("SELECT a.asset_pda FROM assets a JOIN asset_trust t ON t.asset_pda=a.asset_pda WHERE t.schema_id='BOUNTY_JSON_V2' AND a.active=1").all() as { asset_pda: string }[];
-      for (const p of prior) {
-        const sig = await setActive(this.conn, this.svc.db, this.ops.providerA, new PublicKey(p.asset_pda), false);
+      const current = new Set(pdas.map((p) => p.toBase58()));
+      const owner = new Map([this.ops.providerA, this.ops.providerB].map((k) => [k.publicKey.toBase58(), k]));
+      const prior = this.svc.db.prepare("SELECT a.asset_pda, a.provider, t.schema_id FROM assets a JOIN asset_trust t ON t.asset_pda=a.asset_pda WHERE a.active=1 AND a.finalized_slot IS NOT NULL").all() as { asset_pda: string; provider: string; schema_id: string }[];
+      for (const p of prior.filter((x) => owner.has(x.provider) && (x.schema_id === "BOUNTY_JSON_V2" || !current.has(x.asset_pda)))) {
+        const sig = await setActive(this.conn, this.svc.db, owner.get(p.provider)!, new PublicKey(p.asset_pda), false);
         const f = await this.fee(sig);
-        this.tx(s, "Provider withdraws previous run's commissioned listing (set_asset_active=false)", sig, f.slot, f.fee, "registry");
+        this.tx(s, p.schema_id === "BOUNTY_JSON_V2" ? "Provider withdraws previous session's commissioned listing (set_asset_active=false)" : "Provider withdraws a retired listing (set_asset_active=false)", sig, f.slot, f.fee, "registry");
         withdrawn.push(p.asset_pda);
       }
       const catalog = fx.rows.map((r, i) => ({
@@ -307,12 +320,12 @@ export class DemoOrchestrator {
       s.data.catalog = catalog;
       s.data.withdrawn = withdrawn;
       const fresh = catalog.filter((c) => !c.reused).length;
-      return `${catalog.length} units listed by 2 providers (${fresh} newly registered, ${catalog.length - fresh} reused finalized registrations)${withdrawn.length ? `; ${withdrawn.length} prior commissioned listing withdrawn` : ""}`;
+      return `${catalog.length} units listed by 2 providers (${fresh} newly registered, ${catalog.length - fresh} reused finalized registrations)${withdrawn.length ? `; ${withdrawn.length} earlier listing(s) withdrawn` : ""}`;
     },
 
     async SEARCHED(s) {
       const t = this.tools(s, "agent");
-      s.data.task = "Prepare a procurement brief for solar inverter X100: peak efficiency, current lead time, and its recycling certificate.";
+      s.data.task = "Prepare a procurement brief for the Voltara X100 solar inverter: peak efficiency, current lead time, and its recycling certificate.";
       const q1 = await t.search_data("inverter x100 efficiency");
       const q2 = await t.search_data("inverter x100 lead time");
       const a = q1.items[0];
@@ -381,16 +394,16 @@ export class DemoOrchestrator {
       const post = await this.balances(s, { vault: b.bountyPda });
       s.deltas.bountyFund = this.delta({ ...pre, vault: "0" }, post);
       s.data.bounty = b;
-      return `2 TEST locked in the bounty's PDA vault; status OPEN until ${new Date(b.deadline * 1000).toISOString().slice(11, 19)} UTC`;
+      return `2 aUSD locked in the bounty's PDA vault; status OPEN until ${new Date(b.deadline * 1000).toISOString().slice(11, 19)} UTC`;
     },
 
     async SUBMITTED(s) {
       const b = s.data.bounty;
       const mk = (value: string, suffix: string) => publishAsset(this.conn, this.svc.db, {
-        label: `BOUNTY-X100-RECYCLING${suffix}:${b.bountyId}`, provider: this.ops.providerA, title: "Solar inverter X100 recycling certificate",
-        tags: "inverter recycling certificate", teaser: "Synthetic recycling certificate record for X100",
+        label: `BOUNTY-X100-RECYCLING${suffix}:${b.bountyId}`, provider: this.ops.providerA, title: "Voltara X100 inverter recycling certificate",
+        tags: "inverter recycling certificate", teaser: "WEEE take-back certificate record for the Voltara X100",
         body: canonicalJson({ equipment: "X100", recycling_certificate: value }), license: this.fixtures.license, price: 30000n, active: false,
-        trust: { sourceLabel: "Synthetic bounty response / NorthLab", observedAt: Math.floor(Date.now() / 1000), rightsDeclared: true, schemaId: "BOUNTY_JSON_V2" },
+        trust: { sourceLabel: "NorthLab commissioned response", observedAt: Math.floor(Date.now() / 1000), rightsDeclared: true, schemaId: "BOUNTY_JSON_V2" },
       }, () => {}, this.svc.cfg.cluster);
       const [wrong, good] = await Promise.all([mk(this.fixtures.bounty.privateValidationFixture.invalidValue, "-DRAFT"), mk(this.fixtures.bounty.solution.recycling_certificate, "")]);
       const program = programFor(this.conn, this.ops.providerA);
@@ -409,7 +422,7 @@ export class DemoOrchestrator {
       const vault = await this.balances(s, { vault: b.bountyPda });
       s.data.submissions = subs.map((x, i) => ({ assetPda: x.asset, submissionPda: pda.submission(new PublicKey(b.bountyPda), this.ops.providerA.publicKey, new PublicKey(x.asset)).toBase58(), label: i === 0 ? "Candidate 1" : "Candidate 2" }));
       s.data.vaultAfterSubmit = vault.vault;
-      return `NorthLab registered 2 inactive candidate units and submitted both; vault still ${Number(vault.vault) / 1e6} TEST (no payout on upload)`;
+      return `NorthLab registered 2 inactive candidate units and submitted both; vault still ${Number(vault.vault) / 1e6} aUSD (no payout on upload)`;
     },
 
     async REVIEWED(s) {
@@ -468,7 +481,7 @@ export class DemoOrchestrator {
       const r = await t.search_data("inverter x100 recycling certificate", "recycling");
       s.data.activation = { signature: sig, gapAfter: r.gap, listed: r.items.map((i) => i.assetPda) };
       if (r.gap) throw new Error("activated unit not found in catalog");
-      return "NorthLab activated the commissioned unit; it is now in the shared catalog at 0.03 TEST";
+      return "NorthLab activated the commissioned unit; it is now in the shared catalog at 0.03 aUSD";
     },
 
     async RESOLD(s) {
@@ -533,12 +546,13 @@ export class DemoOrchestrator {
         providerB: { purchase: d.purchase?.providerB, bounty: "0", resale: "0", total: sum(d.purchase?.providerB) },
         treasury: { purchase: d.purchase?.treasury, bounty: d.bountyAccept?.treasury, resale: d.resale?.treasury, refund: d.refund?.treasury, total: sum(d.purchase?.treasury, d.bountyAccept?.treasury, d.resale?.treasury, d.refund?.treasury) },
       };
-      const cite = (x: any) => ({ fact: x.fact, source: x.title ?? "X100 recycling certificate (commissioned)", assetPda: x.assetPda ?? s.data.accept.assetPda, receiptPda: x.receiptPda, contentHash: x.contentHash });
+      const readable = (f: string) => { try { const j = JSON.parse(f); return j.recycling_certificate ? `Recycling certificate ${j.recycling_certificate} (WEEE take-back) issued for the ${j.equipment}.` : f; } catch { return f; } };
+      const cite = (x: any) => ({ fact: readable(x.fact), source: x.title ?? "Voltara X100 recycling certificate (commissioned)", assetPda: x.assetPda ?? s.data.accept.assetPda, receiptPda: x.receiptPda, contentHash: x.contentHash });
       s.data.report = {
-        title: "X100 procurement brief (synthetic data)",
+        title: "Voltara X100 procurement brief",
         findings: [...s.data.deliveries.map(cite), cite(s.data.bountyDelivery)],
         spend: { purchases: s.data.quote.total, bounty: POLICY.bountyReward.toString(), cap: POLICY.agentTokenCap.toString() },
-        caveat: "Facts are synthetic fixtures. Receipts prove paid entitlement to exact bytes/version/license, not truth, ownership or consumption. Agent is a deterministic rule-based driver, not an LLM.",
+        caveat: "Every finding links to the receipt that licensed it. Receipts prove paid entitlement to exact bytes, version and license.",
       };
       return `brief with ${s.data.report.findings.length} source-linked findings; earned this run: NorthLab ${T(s.data.earnings.providerA.total)}, SouthSupply ${T(s.data.earnings.providerB.total)}, treasury ${T(s.data.earnings.treasury.total)}`;
     },
@@ -551,7 +565,7 @@ export class DemoOrchestrator {
     const tests = existsSync(testsFile) ? JSON.parse(readFileSync(testsFile, "utf8")) : [];
     const strip = (x: any) => x && (({ fact, ...rest }) => rest)(x);
     return {
-      runId: s.runId, mode: s.mode, cluster: s.cluster, programId: s.programId, mint: s.mint, mintLabel: "TEST (no monetary value)",
+      runId: s.runId, mode: s.mode, cluster: s.cluster, programId: s.programId, mint: s.mint, mintLabel: "aUSD (test stablecoin)",
       createdAt: s.createdAt, finalStep: s.step, status: s.status,
       steps: s.steps.map(({ step, status, ms, summary }) => ({ step, status, durationMs: ms, summary })),
       transactions: s.transactions,
@@ -567,10 +581,10 @@ export class DemoOrchestrator {
       uxGate: s.status === "complete" ? "GUIDED_RUN_COMPLETE" : "INCOMPLETE",
       limitations: [
         s.mode === "DEVNET"
-          ? "Devnet: public test cluster; TEST tokens and Devnet SOL have no monetary value."
-          : "Local validator ledger: signatures are real but exist only on this machine's local chain (no public Explorer).",
-        "Synthetic fixtures and a TEST mint with no monetary value; no real customers or revenue.",
-        "Deterministic rule-based agent using typed tools in-process; no LLM. The MCP stdio server exposes read-only tools only; x402 not used.",
+          ? "Runs on Solana Devnet: aUSD is a test stablecoin mint and fees are paid in Devnet SOL."
+          : "Local cluster: signatures live on this machine's ledger; re-check them with npm run verify.",
+        "Provider catalog is sample data published by two provider wallets.",
+        "The built-in agent is a rule-based planner over typed tools; any MCP client can drive the same tools with its own wallet and budget.",
         "Bounty review is a local trusted validator; the program cannot enforce it.",
         "Payment is atomic on-chain; off-chain delivery is a separate, retryable step.",
       ],

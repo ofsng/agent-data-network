@@ -32,7 +32,7 @@ export async function waitFinalized(connection: Connection, sig: string) {
 }
 
 /**
- * Idempotent bootstrap: TEST mint (6 decimals, legacy SPL), config (upgrade
+ * Idempotent bootstrap: aUSD mint (6 decimals, legacy SPL), config (upgrade
  * authority only), ATAs precreated for every role, demo test-token balances.
  */
 export async function bootstrap(cfg: Config, connection: Connection, w: Wallets, log = console.log) {
@@ -44,7 +44,7 @@ export async function bootstrap(cfg: Config, connection: Connection, w: Wallets,
   let mint = existing?.mint ?? cfg.mint;
   if (!mint) {
     mint = await createMint(connection, w.deployer, w.deployer.publicKey, null, 6);
-    log(`created TEST mint ${mint.toBase58()}`);
+    log(`created aUSD mint ${mint.toBase58()}`);
   }
   const m = await getMint(connection, mint);
   if (m.decimals !== 6) throw new Error("mint must have 6 decimals");
@@ -76,7 +76,7 @@ export async function bootstrap(cfg: Config, connection: Connection, w: Wallets,
     programId: program.programId.toBase58(),
     mint: mint.toBase58(),
     treasury: onchain.treasury.toBase58(),
-    mintLabel: "TEST (custom Devnet/local demo mint, 6 decimals, no monetary value)",
+    mintLabel: "aUSD (test stablecoin mint, 6 decimals)",
     wallets: Object.fromEntries(Object.entries(w).map(([n, k]) => [n, k.publicKey.toBase58()])),
     createdAt: new Date().toISOString(),
   });
@@ -94,6 +94,24 @@ export interface NewAsset {
   price: bigint;
   active: boolean;
   trust: Partial<TrustDeclaration>;
+}
+
+/**
+ * Retry a send whose blockhash went stale before it reached the cluster (rate-limited
+ * public Devnet RPC). Only errors raised before the transaction landed are retried, and
+ * `landed` is checked first so a send that did land is never repeated.
+ */
+async function sendWithRetry(send: () => Promise<string>, landed: () => Promise<boolean>, attempts = 5) {
+  for (let i = 1; ; i++) {
+    try {
+      return await send();
+    } catch (e) {
+      const stale = /Blockhash not found|block height exceeded|expired/i.test(String((e as Error)?.message ?? e));
+      if (!stale || i >= attempts) throw e;
+      await new Promise((r) => setTimeout(r, 2000 * i));
+      if (await landed()) return null;
+    }
+  }
 }
 
 /** Store immutable bytes, register on chain (if absent), then index after a finalized match. */
@@ -123,12 +141,17 @@ export async function publishAsset(connection: Connection, db: Db, a: NewAsset, 
   writeSnapshot(snapshotDir(cluster), assetPda.toBase58(), body, a.license);
   const program = programFor(connection, a.provider);
   if (!(await connection.getAccountInfo(assetPda))) {
-    const sig = await program.methods
-      .registerDataAsset(Array.from(assetId), 1, Array.from(contentHash), Array.from(licenseHash), new BN(a.price.toString()), a.active)
-      .accountsStrict({ provider: a.provider.publicKey, config: pda.config(), asset: assetPda, systemProgram: SystemProgram.programId })
-      .rpc();
-    log(`  register ${a.label} -> ${assetPda.toBase58()} (${sig})`);
-    await waitFinalized(connection, sig);
+    const sig = await sendWithRetry(
+      () => program.methods
+        .registerDataAsset(Array.from(assetId), 1, Array.from(contentHash), Array.from(licenseHash), new BN(a.price.toString()), a.active)
+        .accountsStrict({ provider: a.provider.publicKey, config: pda.config(), asset: assetPda, systemProgram: SystemProgram.programId })
+        .rpc(),
+      async () => !!(await connection.getAccountInfo(assetPda, "confirmed")),
+    );
+    if (sig) {
+      log(`  register ${a.label} -> ${assetPda.toBase58()} (${sig})`);
+      await waitFinalized(connection, sig);
+    } else await waitAccountFinalized(connection, assetPda);
   }
   await syncAsset(connection, db, assetPda);
   return assetPda;
@@ -156,11 +179,19 @@ export async function syncAsset(connection: Connection, db: Db, assetPda: Public
   return a;
 }
 
+async function waitAccountFinalized(connection: Connection, account: PublicKey) {
+  for (let i = 0; i < 90; i++) {
+    if (await connection.getAccountInfo(account, "finalized")) return;
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+  throw new Error(`account ${account.toBase58()} not finalized`);
+}
+
 export async function setActive(connection: Connection, db: Db, provider: Keypair, assetPda: PublicKey, active: boolean) {
-  const sig = await programFor(connection, provider)
-    .methods.setAssetActive(active)
-    .accountsStrict({ provider: provider.publicKey, asset: assetPda })
-    .rpc();
+  const program = programFor(connection, provider);
+  const send = () => program.methods.setAssetActive(active).accountsStrict({ provider: provider.publicKey, asset: assetPda }).rpc();
+  // A stale-blockhash rejection happens before landing, and the toggle is idempotent anyway.
+  const sig = (await sendWithRetry(send, async () => false))!;
   await waitFinalized(connection, sig);
   await syncAsset(connection, db, assetPda);
   return sig;

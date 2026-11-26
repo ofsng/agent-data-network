@@ -15,7 +15,7 @@ export interface ReviewReport {
   requirementHash: string;
   contentHash: string;
   licenseHash: string;
-  checks: { schema: boolean; field: boolean; fixtureMatch: boolean; provenance: boolean; integrity: boolean; license: boolean; binding: boolean };
+  checks: { schema: boolean; field: boolean; valueMatch: boolean; provenance: boolean; integrity: boolean; license: boolean; binding: boolean };
   passed: boolean;
   preview: { equipment: string | null; field: string; schemaId: string | null; sourceLabel: string | null; observedAt: number | null; byteLength: number };
   reviewedAt: string;
@@ -48,7 +48,7 @@ export async function reviewSubmission(
   const checks = {
     schema: trust?.schema_id === "BOUNTY_JSON_V2" && keys === `equipment,${requirement.field}`,
     field: !!parsed && parsed.equipment === requirement.equipment && typeof parsed[requirement.field] === "string" && parsed[requirement.field].length > 0,
-    fixtureMatch: !!parsed && parsed[requirement.field] === expectedValue,
+    valueMatch: !!parsed && parsed[requirement.field] === expectedValue,
     provenance: !!trust && trust.rights_declared === 1 && trust.validation_status === "VALID" && !!trust.source_label,
     integrity: !!row && sha256hex(row.body) === toHex(a.contentHash) && row.content_hash === toHex(a.contentHash) && sha256hex(row.license) === toHex(a.licenseHash),
     license: toHex(a.licenseHash) === expectedLicenseHash,

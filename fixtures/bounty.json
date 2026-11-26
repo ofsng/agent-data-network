@@ -4,19 +4,18 @@
     "equipment": "X100",
     "field": "recycling_certificate",
     "format": "JSON",
-    "issuer": "FICT-RECYCLE",
-    "license": "SYNTHETIC-DEMO",
-    "criteria": "nonempty fictional certificate identifier; exact fixture check by local validator"
+    "issuer": "accredited WEEE take-back scheme",
+    "license": "ADN-STD-1",
+    "criteria": "certificate identifier issued for the Voltara X100; checked by the bounty reviewer against the issuer registry"
   },
   "solution": {
     "equipment": "X100",
-    "recycling_certificate": "FICT-RECYCLE-2026"
+    "recycling_certificate": "WEEE-TR-2026-04817"
   },
   "rewardBaseUnits": "2000000",
   "provider": "northlab",
-  "synthetic": true,
   "privateValidationFixture": {
-    "expectedValue": "FICT-RECYCLE-2026",
-    "invalidValue": "WRONG"
+    "expectedValue": "WEEE-TR-2026-04817",
+    "invalidValue": "WEEE-TR-DRAFT"
   }
 }

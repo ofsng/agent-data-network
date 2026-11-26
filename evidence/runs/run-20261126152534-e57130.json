@@ -1,0 +1,130 @@
+{
+  "runId": "run-20261126152534-e57130",
+  "mode": "DEVNET",
+  "cluster": "devnet",
+  "programId": "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8",
+  "mint": "DKFLsvxjFa2KJetFquiUH3cr4hp5QRuuiGVGBPjwPMDN",
+  "mintLabel": "aUSD (test stablecoin)",
+  "createdAt": "2026-11-26T15:25:34.527Z",
+  "finalStep": "READY",
+  "status": "error",
+  "steps": [
+    {
+      "step": "PUBLISHED",
+      "status": "error",
+      "durationMs": 55803,
+      "summary": "Simulation failed. \nMessage: Transaction simulation failed: Blockhash not found. \nLogs: \n[]. \nCatch the `SendTransactionError` and call `getLogs()` on it for full details."
+    }
+  ],
+  "transactions": [
+    {
+      "label": "Setup: fund 2.1 aUSD to Research agent",
+      "step": "READY",
+      "signature": "2E95sBi525zrzJMGftYxFRMdjPZM6FXhjcWMvg6BnBCQS1SEADathAH7NQBRzXmNTzPcttynESBK9qaAr4CwPG11",
+      "slot": null,
+      "feeLamports": null,
+      "kind": "setup",
+      "explorer": "https://explorer.solana.com/tx/2E95sBi525zrzJMGftYxFRMdjPZM6FXhjcWMvg6BnBCQS1SEADathAH7NQBRzXmNTzPcttynESBK9qaAr4CwPG11?cluster=devnet"
+    },
+    {
+      "label": "Setup: fund 0.1 aUSD to Second agent",
+      "step": "READY",
+      "signature": "9buw7cxaiqpkjiufz2wnfKsVSsPLV6za8oY97Au9NZsTMca8SrX4wuqzH1U8n92UbjPm2VKduiuj1w93bVs6t9W",
+      "slot": null,
+      "feeLamports": null,
+      "kind": "setup",
+      "explorer": "https://explorer.solana.com/tx/9buw7cxaiqpkjiufz2wnfKsVSsPLV6za8oY97Au9NZsTMca8SrX4wuqzH1U8n92UbjPm2VKduiuj1w93bVs6t9W?cluster=devnet"
+    },
+    {
+      "label": "Setup: fund 2 aUSD to Refund requester",
+      "step": "READY",
+      "signature": "5wqc38aoNKj9Qczu43tuezafe61Sy6KpfWen1942jex1cG7HF9KzQ179cY9Rj9mevtmsLh1Dg616C3Gy28wUU7nF",
+      "slot": null,
+      "feeLamports": null,
+      "kind": "setup",
+      "explorer": "https://explorer.solana.com/tx/5wqc38aoNKj9Qczu43tuezafe61Sy6KpfWen1942jex1cG7HF9KzQ179cY9Rj9mevtmsLh1Dg616C3Gy28wUU7nF?cluster=devnet"
+    }
+  ],
+  "deltas": {},
+  "receipts": [],
+  "bounties": [],
+  "reviews": [],
+  "hashChecks": [],
+  "budgets": {
+    "agent": {
+      "role": "agent",
+      "buyer": "JEF6FxKutr9JzUzhoZv4GbgoFQv1Aws8gm4doxQnnCu4",
+      "tokenCap": "2100000",
+      "tokensCommitted": "0",
+      "tokensSpent": "0",
+      "tokensRemaining": "2100000",
+      "solCapLamports": "50000000",
+      "solReservedLamports": "0",
+      "solActualLamports": "0",
+      "maxBounties": 1,
+      "intents": []
+    },
+    "agent2": {
+      "role": "agent2",
+      "buyer": "HhkgwdAHmCVQRbvSrJAavU8boJNbKN8C5J4RZkbESAmU",
+      "tokenCap": "100000",
+      "tokensCommitted": "0",
+      "tokensSpent": "0",
+      "tokensRemaining": "100000",
+      "solCapLamports": "10000000",
+      "solReservedLamports": "0",
+      "solActualLamports": "0",
+      "maxBounties": 0,
+      "intents": []
+    },
+    "refundRequester": {
+      "role": "refundRequester",
+      "buyer": "EdDkcXDtGxh5Y8F4nzE4qF4jboFXgira3LSJUKP9YBTp",
+      "tokenCap": "2000000",
+      "tokensCommitted": "0",
+      "tokensSpent": "0",
+      "tokensRemaining": "2000000",
+      "solCapLamports": "10000000",
+      "solReservedLamports": "0",
+      "solActualLamports": "0",
+      "maxBounties": 1,
+      "intents": []
+    }
+  },
+  "earnings": null,
+  "tests": [
+    {
+      "suite": "Rust unit (split math, receipt size)",
+      "passed": 2,
+      "failed": 0,
+      "ranAt": "2026-11-26T15:19:14Z"
+    },
+    {
+      "suite": "Anchor program (local validator)",
+      "passed": 17,
+      "failed": 0,
+      "ranAt": "2026-11-26T15:19:14Z"
+    },
+    {
+      "suite": "App/API/MCP security, trust, budget, resale",
+      "passed": 16,
+      "failed": 0,
+      "ranAt": "2026-11-26T15:19:14Z"
+    },
+    {
+      "suite": "Browser smoke (UI run, failure/retry, privacy, mobile)",
+      "passed": 1,
+      "failed": 0,
+      "ranAt": "2026-11-26T15:19:14Z"
+    }
+  ],
+  "technicalGate": "INCOMPLETE",
+  "uxGate": "INCOMPLETE",
+  "limitations": [
+    "Runs on Solana Devnet: aUSD is a test stablecoin mint and fees are paid in Devnet SOL.",
+    "Provider catalog is sample data published by two provider wallets.",
+    "The built-in agent is a rule-based planner over typed tools; any MCP client can drive the same tools with its own wallet and budget.",
+    "Bounty review is a local trusted validator; the program cannot enforce it.",
+    "Payment is atomic on-chain; off-chain delivery is a separate, retryable step."
+  ]
+}

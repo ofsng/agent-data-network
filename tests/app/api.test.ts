@@ -14,7 +14,7 @@ import { ROOT, loadConfig } from "../../src/config";
 import { createApp } from "../../src/api/server";
 import { createService } from "../../src/api/service";
 import { canonicalBytes, openDb, sha256hex } from "../../src/data/store";
-import { TrustError, snapshotDir, validateUnit } from "../../src/data/trust";
+import { TrustError, snapshotDir, trustView, validateUnit } from "../../src/data/trust";
 import { loadKeypair } from "../../src/chain/adn";
 import { reconcileQuotes, setActive, wallets } from "../../src/chain/ops";
 import { Api } from "../../src/agent/agent";
@@ -163,7 +163,7 @@ describe("app (T18–T22, T40–T47, T50, T52–T53)", () => {
   });
 
   it("T41/T50 metadata, bounties, health, catalog, evidence expose no paid body or bounty answer; missing trust blocks quote", async () => {
-    const secrets = ["Peak efficiency 97.4%", "Stock 18 units", "FICT-RECYCLE-2026", '"WRONG"'];
+    const secrets = ["Peak efficiency 97.6%", "18 units in stock", "WEEE-TR-2026-04817", "WEEE-TR-DRAFT"];
     const pages = [
       await api.call("GET", "/assets?q=inverter%20x100%20efficiency%20lead%20time%20recycling&limit=20"),
       await api.call("GET", "/catalog"), await api.call("GET", "/bounties"), await api.call("GET", "/health"),
@@ -208,11 +208,11 @@ describe("app (T18–T22, T40–T47, T50, T52–T53)", () => {
   it("T44/T45 review reports are pass/fail only; requirement v2 has no answer; wrong candidate failed", () => {
     expect(m.reviews).to.have.length(2);
     const [wrong, good] = m.reviews;
-    expect([wrong.passed, wrong.checks.fixtureMatch]).to.deep.equal([false, false]);
+    expect([wrong.passed, wrong.checks.valueMatch]).to.deep.equal([false, false]);
     expect(good.passed).to.equal(true);
     expect(Object.keys(good.preview).sort()).to.deep.equal(["byteLength", "equipment", "field", "observedAt", "schemaId", "sourceLabel"]);
     const req = JSON.parse(readFileSync(join(ROOT, "fixtures", "bounty.json"), "utf8")).requirement;
-    expect(JSON.stringify(req)).to.not.contain("FICT-RECYCLE-2026");
+    expect(JSON.stringify(req)).to.not.contain("WEEE-TR-2026-04817");
     expect(m.bounties[0].requirementHash).to.equal(good.requirementHash);
   });
 
@@ -268,5 +268,25 @@ describe("app (T18–T22, T40–T47, T50, T52–T53)", () => {
     expect((await fetch(`${base}/evidence`, { headers: { "x-run-token": "wrong" } })).status).to.equal(401);
     expect((await fetch(`http://127.0.0.1:${port}/api/demo/runs`, { method: "POST", headers: { origin: "http://evil.example" } })).status).to.equal(403);
     expect((await fetch(`http://127.0.0.1:${port}/%2e%2e/package.json`)).status).to.equal(404);
+  });
+
+  it("T56 copy guard: the same bytes relisted later by another provider are flagged, left out of search and not quotable", () => {
+    const o = db.prepare("SELECT * FROM assets WHERE asset_pda=?").get(purchaseAsset) as any;
+    const copy = Keypair.generate().publicKey.toBase58();
+    const copier = Keypair.generate().publicKey.toBase58();
+    db.prepare("INSERT INTO assets(asset_pda,provider,asset_id,version,title,tags,teaser,body,license,content_hash,license_hash,price,active,finalized_slot) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+      .run(copy, copier, o.asset_id, o.version, o.title, o.tags, o.teaser, o.body, o.license, o.content_hash, o.license_hash, "1", 1, o.finalized_slot + 1_000_000);
+    db.prepare("INSERT INTO asset_trust SELECT ?,source_label,observed_at,rights_declared,schema_id,validation_status,accuracy_status,synthetic FROM asset_trust WHERE asset_pda=?").run(copy, purchaseAsset);
+    try {
+      const c = trustView(db, svc.snapDir, copy)!;
+      expect(c.provenance).to.deep.equal({ original: false, firstProvider: o.provider, firstAssetPda: purchaseAsset, firstSlot: o.finalized_slot });
+      expect(trustView(db, svc.snapDir, purchaseAsset)!.provenance.original).to.equal(true);
+      const found = svc.searchAssets(o.title, undefined, 20).items.map((i: any) => i.assetPda);
+      expect(found).to.include(purchaseAsset);
+      expect(found).to.not.include(copy);
+    } finally {
+      db.prepare("DELETE FROM asset_trust WHERE asset_pda=?").run(copy);
+      db.prepare("DELETE FROM assets WHERE asset_pda=?").run(copy);
+    }
   });
 });

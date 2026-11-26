@@ -1,24 +1,27 @@
 
 
   app (T18–T22, T40–T47, T50, T52–T53)
-    ✔ T18 no receipt / forged / wrong buyer / bad signature -> no body (139ms)
-    ✔ T19 nonce replay and expired challenge rejected; fresh proof works (1164ms)
-    ✔ T20/T43 corrupted bytes after payment: fail closed, exact snapshot restore, free retry; no snapshot -> unresolved (2270ms)
-    ✔ T43 withdrawn listing keeps prior entitlement; no new sale while inactive (14609ms)
+    ✔ T18 no receipt / forged / wrong buyer / bad signature -> no body (127ms)
+    ✔ T19 nonce replay and expired challenge rejected; fresh proof works (1149ms)
+    ✔ T20/T43 corrupted bytes after payment: fail closed, exact snapshot restore, free retry; no snapshot -> unresolved (2254ms)
+    ✔ T43 withdrawn listing keeps prior entitlement; no new sale while inactive (14262ms)
     ✔ T21 PENDING quote reconciles to FINALIZED from chain; no new order
     ✔ T22 quote limits and oversized search reject
     ✔ T40 trust validation: fixture valid; malformed inputs rejected before publishing
-    ✔ T41/T50 metadata, bounties, health, catalog, evidence expose no paid body or bounty answer; missing trust blocks quote (48ms)
+    ✔ T41/T50 metadata, bounties, health, catalog, evidence expose no paid body or bounty answer; missing trust blocks quote (96ms)
     ✔ T42 prequote preflight: corrupt bytes -> 422, missing snapshot -> 503, restored -> quote ok
     ✔ T44/T45 review reports are pass/fail only; requirement v2 has no answer; wrong candidate failed
-    ✔ T46 typed tools: invalid input, wrong-buyer verify/retrieve and non-allowlisted bounty denied (1126ms)
+    ✔ T46 typed tools: invalid input, wrong-buyer verify/retrieve and non-allowlisted bounty denied (1118ms)
     ✔ T47 durable budget: cap, duplicates, one bounty, pending counts, no policy expansion
     ✔ T52/T53 resale and all deltas exact; ≥2 complete isolated runs with distinct IDs and receipts
     ✔ demo API guards: run token, cross-origin, static traversal
 
   mcp (T54)
-    ✔ T54 MCP: read-only tool list, search, on-chain receipt verification, no paid content (66ms)
+    ✔ T54 MCP: read-only tool list, search, on-chain receipt verification, no paid content (116ms)
+
+  mcp agent wallet (T55)
+    ✔ T55 MCP wallet: cap enforced before signing, purchase finalizes, receipt verifies, exact bytes retrieved (14186ms)
 
 
-  15 passing (20s)
+  16 passing (49s)
 

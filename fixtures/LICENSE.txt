@@ -1,2 +1,2 @@
-SYNTHETIC-DEMO v1
-Fictional data for this hackathon only. Nonexclusive permission to retrieve, analyze and display in the demonstration. No representation of real manufacturers or actual performance. No real-world reliance, no personal data. Provider may publish the same synthetic record for other demo buyers. No production license implied.
+ADN Standard Data License v1 (ADN-STD-1)
+The buyer may retrieve, store, analyze and display this data unit for its own operations and include it in derived reports with attribution to the provider. Resale of the raw unit is not permitted. The provider declares it holds the rights to license this unit. The license is bound to the exact content hash recorded in the on-chain receipt.

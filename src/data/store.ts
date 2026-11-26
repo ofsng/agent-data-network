@@ -58,7 +58,7 @@ function parseCsv(text: string): string[][] {
 }
 
 export function loadFixtures(dir = join(ROOT, "fixtures")) {
-  const [header, ...data] = parseCsv(readFileSync(join(dir, "synthetic-units.csv"), "utf8"));
+  const [header, ...data] = parseCsv(readFileSync(join(dir, "units.csv"), "utf8"));
   const rows = data.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i]])) as unknown as FixtureRow);
   const license = canonicalBytes(readFileSync(join(dir, "LICENSE.txt"), "utf8"));
   const bounty = JSON.parse(readFileSync(join(dir, "bounty.json"), "utf8"));

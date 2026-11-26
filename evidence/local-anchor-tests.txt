@@ -5,21 +5,21 @@
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1770.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1772.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0.
-      ✔ T04 rejects unauthorized and wrong-decimals init, accepts authorized, rejects repeat (8164ms)
+      ✔ T04 rejects unauthorized and wrong-decimals init, accepts authorized, rejects repeat (8037ms)
       ↳ rejected: AnchorError caused by account: asset. Error Code: Unauthorized. Error Number: 6001. Error Message: Unauthorized signer or account role.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0.
-      ✔ T05 registers assets; only provider can toggle; terms immutable (1562ms)
+      ✔ T05 registers assets; only provider can toggle; terms immutable (1615ms)
       ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:227. Error Code: InvalidPrice. Error Number: 6006. Error Message: Price or reward must be greater than zero and le
       ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:226. Error Code: InvalidVersion. Error Number: 6017. Error Message: Version must be >= 1.
       ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:229. Error Code: HashMismatch. Error Number: 6016. Error Message: Hash mismatch or zero hash.
       ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:230. Error Code: AliasedAccounts. Error Number: 6018. Error Message: Account roles must not alias (buyer/provider/
-      ✔ T06 rejects zero price, zero hash, version 0, treasury as provider (413ms)
+      ✔ T06 rejects zero price, zero hash, version 0, treasury as provider (416ms)
     H05 atomic purchase
-      ✔ T09/T10/T11 two providers, one tx, exact deltas, two receipts, size/CU (429ms)
-      ✔ T12 rounding: 30001 and 1 base unit (1233ms)
+      ✔ T09/T10/T11 two providers, one tx, exact deltas, two receipts, size/CU (414ms)
+      ✔ T12 rounding: 30001 and 1 base unit (1250ms)
     H06 adversarial purchase
       ↳ rejected: Program log: AnchorError thrown in programs/adn/src/lib.rs:268. Error Code: InvalidTerms. Error Number: 6004. Error Message: Signed expected terms do not match 
-      ✔ T13 second instruction invalid -> whole tx reverts (landed with skipPreflight) (427ms)
+      ✔ T13 second instruction invalid -> whole tx reverts (landed with skipPreflight) (428ms)
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0.
       ✔ T14 replay of the same order ID is rejected with no payment
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1772.
@@ -27,22 +27,22 @@
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7f8.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
-      ✔ T15 wrong mint, non-canonical ATA, treasury alias, foreign token source all reject (828ms)
+      ✔ T15 wrong mint, non-canonical ATA, treasury alias, foreign token source all reject (834ms)
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1774.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1774.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1777.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1775.
-      ✔ T16 deactivated asset, changed hash/price, expired quote reject; old receipt remains (790ms)
+      ✔ T16 deactivated asset, changed hash/price, expired quote reject; old receipt remains (809ms)
       ↳ rejected: Program log: AnchorError thrown in programs/adn/src/lib.rs:278. Error Code: InsufficientFunds. Error Number: 6009. Error Message: Insufficient token balance.
-      ✔ T17 balance covers first item only -> whole bundle fails, no receipt (1691ms)
+      ✔ T17 balance covers first item only -> whole bundle fails, no receipt (1652ms)
     H09/H10 bounty escrow
       ↳ rejected: AnchorError thrown in programs/adn/src/lib.rs:331. Error Code: InvalidDeadline. Error Number: 6011. Error Message: Deadline must be in the future and at most 7 
-      ✔ T24 funding locks exactly 2,000,000 in the PDA vault; status OPEN (423ms)
-      ✔ T25 provider submits inactive asset; no tokens move (1660ms)
+      ✔ T24 funding locks exactly 2,000,000 in the PDA vault; status OPEN (453ms)
+      ✔ T25 provider submits inactive asset; no tokens move (1645ms)
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1771.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177c.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1782.
-      ✔ T26 invalid submissions reject (wrong owner, active asset, requester as provider) (830ms)
+      ✔ T26 invalid submissions reject (wrong owner, active asset, requester as provider) (886ms)
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1771.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1780.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1780.
@@ -50,21 +50,21 @@
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x7df.
-      ✔ T28 unauthorized/wrong accept attempts reject; bounty stays OPEN (459ms)
-      ✔ T31+T27 unsolicited dust; accept pays exactly 1.6M/0.4M, receipt, ACCEPTED, surplus stays (803ms)
+      ✔ T28 unauthorized/wrong accept attempts reject; bounty stays OPEN (431ms)
+      ✔ T31+T27 unsolicited dust; accept pays exactly 1.6M/0.4M, receipt, ACCEPTED, surplus stays (784ms)
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177d.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177d.
-      ✔ T30 double release: second accept (other submission) and refund after accept reject (409ms)
+      ✔ T30 double release: second accept (other submission) and refund after accept reject (398ms)
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177f.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177e.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x177e.
       ↳ rejected: Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1771.
-      ✔ T29/T30 early refund rejects; after deadline: late accept rejects, refund returns full reward once, no fee (7937ms)
+      ✔ T29/T30 early refund rejects; after deadline: late accept rejects, refund returns full reward once, no fee (7942ms)
 RESULTS {
   "T11": {
     "serializedBytes": 784,
-    "simulatedCU": 68332,
-    "landedCU": 68332,
+    "simulatedCU": 71353,
+    "landedCU": 71353,
     "feeLamports": 5000,
     "receiptRentLamports": 2658720
   },

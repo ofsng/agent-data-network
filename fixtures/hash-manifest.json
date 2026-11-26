@@ -1,89 +1,173 @@
 {
-  "notice": "Expected fixture hashes only; not real chain records. Hash body field exact UTF-8 NFC with LF normalization; license exact file bytes.",
+  "notice": "Expected unit hashes. Hash body field exact UTF-8 NFC with LF normalization; license exact file bytes.",
   "units": [
     {
-      "fixtureId": "A01",
-      "assetId": "e98ed8057af14fe0a3b3899dd1bb0494",
-      "contentHash": "eee469de6ddedf5ca8be6ebdc340e2b1c99c426485ebda4c160dd58aeb44c3fa",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "fixtureId": "NL-X100-SPEC",
+      "assetId": "fe2280a960a600a392c5d740932d4c1e",
+      "contentHash": "5aa926c58a6dc73a367330e5a1ce461ab19555384cf3956d580b418bd87d5f88",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
       "priceBaseUnits": "30000"
     },
     {
-      "fixtureId": "A02",
-      "assetId": "b23280c959e5c753fbbff7854a72ed81",
-      "contentHash": "d06f82198e749d26621a990c5d2b06820d6481551ac5ffbdad246b785e117320",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "fixtureId": "NL-X100-COMPAT",
+      "assetId": "20c18031c4553a371d26a27882069ca3",
+      "contentHash": "1bb6e98a43f3ee2fcc2544ee364e8fb044a465cca462b8536dd9f5689333c19a",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "25000"
+    },
+    {
+      "fixtureId": "NL-X100-WARRANTY",
+      "assetId": "41d75ccb77961dfb765f396d31ae4747",
+      "contentHash": "37dfd3b09d1b6f7c13b0b1ef8c6ff89ac3a3df6a81585597cc9e55716cace549",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "20000"
+    },
+    {
+      "fixtureId": "NL-X100-FIRMWARE",
+      "assetId": "457d2306ebcbd4328bd36886a273e6bc",
+      "contentHash": "6acbd24e4b739d796355f0021360b2b6443a9f88d45daa649d2f039997e9b2f4",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "15000"
+    },
+    {
+      "fixtureId": "NL-X200-SPEC",
+      "assetId": "6219563efc0a0fa3a7b1c5f07dc81b78",
+      "contentHash": "f2c6c4cfd2a74fd8eab742a3e085bdb7525c970f984485ae53cb4ea8ec662e94",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "35000"
+    },
+    {
+      "fixtureId": "NL-B20-SPEC",
+      "assetId": "3d284c18fab4a752b8ffffd72bea9338",
+      "contentHash": "38c71a92d48a089ac4cc972c61494037b7761e622d2a18b9a79ad6d419e38233",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
       "priceBaseUnits": "30000"
     },
     {
-      "fixtureId": "A03",
-      "assetId": "6d9145c86bba9558be49abf9bcf942b4",
-      "contentHash": "29cab485721f8816427c31f86022978f69695c266e1d2bfed66d8e9901b416b9",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "fixtureId": "NL-B20-SAFETY",
+      "assetId": "06344d4b3ad5dda55c048211b18f05dc",
+      "contentHash": "39922da840863f3caad6c94946eff28a410a6da0cea6ee94d483ac3bd5d96385",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "22000"
+    },
+    {
+      "fixtureId": "NL-P450-SPEC",
+      "assetId": "6dea71677de299d57e79a10702caf8e6",
+      "contentHash": "cb3542d8b3d0ce5bc885fde3db5e0accdca151967c89fa378dfba0c6e0da0ed1",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "18000"
+    },
+    {
+      "fixtureId": "NL-C9-PROTOCOL",
+      "assetId": "136b8e82306f81b20dec5c220d691cf7",
+      "contentHash": "818554cd397952ce8f13f75f1648add82719cfebe4be2d4315694c530be6e909",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "15000"
+    },
+    {
+      "fixtureId": "NL-M3-DIM",
+      "assetId": "7298f52e6bd59fe537beeeec70089452",
+      "contentHash": "415687dfa15f545f9dcbacdba1c8b979b4a96e0312e358ff293b3deabf307e2f",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "12000"
+    },
+    {
+      "fixtureId": "NL-W11-SPEC",
+      "assetId": "b472f307297d2fdcc9726c19d550d296",
+      "contentHash": "982c3b610a75967c6ae2c631568b1b5cda790e3800272de74e2b1deadc73e7b6",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "25000"
+    },
+    {
+      "fixtureId": "NL-HP7-SPEC",
+      "assetId": "01a6a3c36938b503e8bfca813fa56727",
+      "contentHash": "3d323074ce93cfd25e15d9790422d596ad6be2bc4569c32dc9ec97ac9b69323a",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "28000"
+    },
+    {
+      "fixtureId": "SS-X100-STOCK",
+      "assetId": "be9b4d28c0d51901bc47f06b42a6bea4",
+      "contentHash": "6bc958783a8f90aa0ab6907f97d5b8a291a965f1088d2bd82a0c94df344e9ff2",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
       "priceBaseUnits": "30000"
     },
     {
-      "fixtureId": "A04",
-      "assetId": "e394e5e82c5b1e83445c84e106ef42f3",
-      "contentHash": "5b2263e0a0b8e78516257db798209c8a116bde612e82657c99757a54d1f2d7e1",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
+      "fixtureId": "SS-X100-PRICE",
+      "assetId": "4bf283117da24e39f4e3a98b8ea171d9",
+      "contentHash": "f40516e36802bec7801fd4e3b3e14d731db0503133fa870aea4fa835cf01200f",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "35000"
+    },
+    {
+      "fixtureId": "SS-X200-STOCK",
+      "assetId": "2dbf92dfd8990b5ce13c32354a971954",
+      "contentHash": "f2a5ea179673a2ff5e75bebf6f587a2590cb94553121c0b4fd20ecb320ea4545",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "25000"
+    },
+    {
+      "fixtureId": "SS-B20-LEAD",
+      "assetId": "47aaa5f9dcf30e9628415f39fd2acbed",
+      "contentHash": "87f26b536534839f0681b922d94372dce71efecbac1a882583bfbf497815c9bb",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "22000"
+    },
+    {
+      "fixtureId": "SS-P450-PALLET",
+      "assetId": "5f8c792a8cf4ff5ab8520c9c6bf5f844",
+      "contentHash": "11ed3f4d3efe833067bb77d929aa7eab3c9b82ed5690876756c44819bbbf886b",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "12000"
+    },
+    {
+      "fixtureId": "SS-C9-WARRANTY",
+      "assetId": "c28659f10051c61a046604079f14a5bc",
+      "contentHash": "2158ffd1c78be5659de4f92122859651daef53d140fb5699d9515a1c84d855b8",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "10000"
+    },
+    {
+      "fixtureId": "SS-M3-STOCK",
+      "assetId": "06158386b6e15f99bc5c689deb163fb0",
+      "contentHash": "67eeb940f5977d80ca7993f381f4bbc9922d1f884ee3eb527a8695360c7bcd29",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "10000"
+    },
+    {
+      "fixtureId": "SS-W11-STOCK",
+      "assetId": "47bb290bbd550817fe9e416c1ad14d0f",
+      "contentHash": "036ac30a7fa7e57f2465913817ff6e24f648331a27b435854212716b63e64a60",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "15000"
+    },
+    {
+      "fixtureId": "SS-HP7-STOCK",
+      "assetId": "bfb23c9f8921e941f72256ee01dd0402",
+      "contentHash": "bd98fb6027afae2e8c97e432eb8608841dff172aecffc16f4b570bf8d88b826d",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "15000"
+    },
+    {
+      "fixtureId": "SS-RMA-STATS",
+      "assetId": "39ef9befa9ad3bbf9953a545af382d9e",
+      "contentHash": "2cf8d09dc6ef30547394c06b1c5b955aaf5c9ed2e7f885b0f686eea2f7eaf741",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
       "priceBaseUnits": "30000"
     },
     {
-      "fixtureId": "A05",
-      "assetId": "f6a9ad20c25b8e98b9f981eba437d329",
-      "contentHash": "40ef7a536b1d6a482d141fbf2d8634912dc379dc450616389a4c6ae8a95029c3",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
+      "fixtureId": "SS-FREIGHT-TR",
+      "assetId": "6257abb4a4dd48d4e24d8bcbdca4751e",
+      "contentHash": "5069f44c5324750238c1d0d54db279d375a0a86687af944fd77837a631ed6d28",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "18000"
     },
     {
-      "fixtureId": "A06",
-      "assetId": "6d73768d2d05e4f68942dce1643e2e3d",
-      "contentHash": "faddff0c016853737ea4c2b44fb0c18c3f04514653dbc0d862163bb5db1acf3f",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
-    },
-    {
-      "fixtureId": "B01",
-      "assetId": "83aa02054b48cae0a7a624c2800c41da",
-      "contentHash": "5861174f862d6975daa52fb574d5bb2c67c7cb5517d49bd25e5565d09990413f",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
-    },
-    {
-      "fixtureId": "B02",
-      "assetId": "744d1ff06654007506d8600e9903c6be",
-      "contentHash": "fdda26c49f3ba634566bc77bd698cd188a9621279e9512faaac145639781d708",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
-    },
-    {
-      "fixtureId": "B03",
-      "assetId": "3f572aafe18399d97020bfb198f6f6d5",
-      "contentHash": "d7b9758769a39155f11dd8453d58d59e1a70666c76e711a45edf3212368d37c6",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
-    },
-    {
-      "fixtureId": "B04",
-      "assetId": "2d12e99ea10566aeb91543d4b95f4b91",
-      "contentHash": "26ceeeb5c50328561fa1ff59280d01e3b592610e24b96d6bede96f0073ac7454",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
-    },
-    {
-      "fixtureId": "B05",
-      "assetId": "ec2cb38a3c7f3280d04e2da585c6ca37",
-      "contentHash": "802e9cac6d900c513e1132b70e6b95abaa7b37dae2b1f79e4255911d97df9d92",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
-    },
-    {
-      "fixtureId": "B06",
-      "assetId": "d24063d70a2f91ba89ac3e109e492efd",
-      "contentHash": "7725e1cabc567a31339f38cee1d0b65f550038fbfe43f900a0d54dcf3783b0f4",
-      "licenseHash": "314cad973239ab7bf3cb7c62d056e261084cec80fa4a9a937722f47ff0357df2",
-      "priceBaseUnits": "30000"
+      "fixtureId": "SS-INSTALLERS",
+      "assetId": "6cc625c1212f6788ab0136afe346ed3d",
+      "contentHash": "31a2155c1b86368944427c419bb15eacdcaf01f9ee9f5ae10e3107b2a0b01579",
+      "licenseHash": "d97fd6272e4eddf9eb26696f02cd532dff176c92b64a2e4c565f96065f5b590d",
+      "priceBaseUnits": "20000"
     }
   ]
 }

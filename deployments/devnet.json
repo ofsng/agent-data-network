@@ -3,7 +3,7 @@
   "programId": "3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8",
   "mint": "DKFLsvxjFa2KJetFquiUH3cr4hp5QRuuiGVGBPjwPMDN",
   "treasury": "k3fiTTbTdJV5CT8cJHw6KBFzsFyoUWpxSePtBsD8Qj7",
-  "mintLabel": "TEST (custom Devnet/local demo mint, 6 decimals, no monetary value)",
+  "mintLabel": "aUSD (test stablecoin mint, 6 decimals)",
   "wallets": {
     "deployer": "Cu7ctAUxW25GsGGPVvNupujU81A9jvEZUGjo2sUdgVZ7",
     "buyer": "8PwMwNm9LSoPFEJG2gdTWdcFGvjx2CtPWWLx6DCmEjam",
@@ -12,5 +12,5 @@
     "requester": "BYJzQqCc3yZdCUn5EQtBwhDfGwaRpxcQRJ6wiomRw2mr",
     "treasury": "k3fiTTbTdJV5CT8cJHw6KBFzsFyoUWpxSePtBsD8Qj7"
   },
-  "createdAt": "2026-11-25T22:25:31.409Z"
+  "createdAt": "2026-11-26T15:30:17.883Z"
 }

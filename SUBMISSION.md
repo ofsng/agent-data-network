@@ -26,8 +26,9 @@ Each section matches a step of the official submission form (FAQ, "What do I nee
 > - **Bounty escrow for missing data.** When no unit exists, the agent locks a reward in a PDA-owned vault. A provider submits candidates. A bounded review shows pass/fail only, never the answer. On acceptance the vault pays 80/20 and the answer is released. Unanswered bounties are refunded in full after the deadline (early refunds are rejected by the program).
 > - **Reuse.** The commissioned data joins the shared catalog, and a second agent buys it, so the provider earns again for the same work.
 > - **Agent guardrails.** The agent works only through typed tools, with no generic signing tool. Every spend is reserved against a durable budget cap before signing.
+> - **Bring your own agent.** An MCP server gives Claude, Cursor or any MCP client the same tools: it searches, buys with its own wallet under a spending cap you set, and retrieves the licensed bytes. The key stays on the owner's machine.
 >
-> The whole 16-step economic loop runs as real transactions in one guided browser demo, on Devnet or a local validator. All data is synthetic, and payments use a TEST token with no monetary value.
+> The whole 16-step economic loop runs as real transactions in one browser session, on Devnet or a local validator. Payments settle in aUSD, a test stablecoin mint on Devnet, and the provider catalog is sample data.
 
 ## Step 2: Images
 Use the screenshots in `evidence/screenshots/`:
@@ -39,7 +40,7 @@ Use the screenshots in `evidence/screenshots/`:
 ## Step 3: Links & video
 - **Demo video:** _your YouTube/Loom link, under 3:00, recorded per DEMO-SCRIPT.md_
 - **Repo:** https://github.com/ofsng/agent-data-network (make it public before submitting)
-- **Live link:** the Devnet program in Explorer (above). The app itself is a loopback-only demo (it holds local demo keys), so it is not hosted publicly. Anyone can run it with `npm run setup && npm start`.
+- **Live link:** the Devnet program in Explorer (above). The app runs on loopback because it holds the provider and operator keys, so it is not hosted publicly. Anyone can run it with `npm run setup && npm start`.
 
 ## Technical description (for the description field or the README)
 - **On-chain:** one Anchor 1.2.2 program, 8 instructions:
@@ -57,13 +58,13 @@ Use the screenshots in `evidence/screenshots/`:
 - **Measured:** a 2-unit atomic purchase is 784 bytes and about 56k CU, fee 5,000 lamports. A receipt account is 254 bytes.
 - **Off-chain:**
   - TypeScript service: SQLite store, canonical bytes, trust sidecar and snapshots, wallet-signed delivery challenges.
-  - Guided-demo state machine and vanilla-JS UI.
-  - Deterministic agent on typed tools.
-  - Read-only MCP stdio server (`npm run mcp`) so external agents can search, quote, verify receipts and read bounties.
+  - Session state machine and vanilla-JS UI.
+  - Built-in rule-based research agent on typed tools.
+  - MCP stdio server (`npm run mcp`): read-only tools for any agent, plus `wallet_status`, `purchase_data` and `retrieve_data` when an agent wallet and spending cap are configured (`npm run cli -- agent-wallet`).
 - **Tests:**
   - 17 program tests on an isolated validator (rollback, replay, wrong mint/ATA, aliasing, expiry, escrow abuse, refund timing);
   - 2 Rust unit tests;
-  - 15 app/API/MCP tests (leaks, auth, preflight, recovery, budgets, resale);
+  - 16 app/API/MCP tests (leaks, auth, preflight, recovery, budgets, resale, MCP agent purchase within cap);
   - a browser smoke test with failure injection and a mobile check.
 - `npm run verify` re-checks every recorded signature and receipt on chain.
 
@@ -75,9 +76,15 @@ Solana (Devnet + local validator, Agave 4.1.2), Anchor 1.2.2 (Rust), SPL Token, 
 2. **Receipts as license proof.** Agents can show exactly which bytes, version and license they paid for, and delivery is gated by that proof.
 3. **Missing data becomes funded demand.** The escrowed bounty, review without revealing the answer, and refund are enforced by the program, not by a platform's promise.
 4. **Reuse.** Commissioned data becomes inventory that earns its provider repeat revenue.
-5. **Honest trust boundaries.** Receipts prove paid entitlement, not truth. Accuracy is labelled "unverified". The off-chain review and delivery steps are named as trust assumptions.
+5. **Honest trust boundaries.** Receipts prove paid entitlement, not truth. Accuracy is labelled provider-declared, copies of another provider's bytes are refused, and open risks are listed in the app. The off-chain review and delivery steps are named as trust assumptions.
 
 Remove AI/Solana and it breaks: without the chain there is no atomic split, no receipt and no escrow. Without the agent, nobody buys per unit.
+
+## Likely jury questions (short answers)
+- **Chicken and egg?** Demand comes first. When an agent can't find data, it locks a reward in an on-chain escrow, so a provider only produces data that is already paid for. Accepted answers join the catalog and are resold, so every bounty adds inventory. Any MCP agent can be a buyer with one config line. We'd start in one vertical (equipment procurement data) and seed the first bounties ourselves. This is a hypothesis, not traction.
+- **Someone buys data and resells it cheaper?** Every listing's content hash is on chain. A later listing of the same bytes by another provider is flagged as a copy, hidden from search and refused at quote time. The copier's own receipt proves where the data came from. Edited copies are the open case: per-buyer watermarks are next.
+- **Fake data to win a bounty?** The program pays only on the requester's signed acceptance, and the requester sees pass/fail before paying. The review itself is an off-chain trust assumption today. Next: a dispute window, a provider stake lost on proven fakes, and issuer-signed answers.
+- **Is the data true?** A receipt proves what was paid for, not that it is true. Accuracy is labeled provider-declared; truth is handled economically (disputes, stakes, reputation) and by source signatures.
 
 ## Team
 Solo: Ömer Faruk Şengül (GitHub `ofsng`).
@@ -85,4 +92,4 @@ Solo: Ömer Faruk Şengül (GitHub `ofsng`).
 ## Disclosure (also in README)
 - Planning documents predate the code. All code was written from 2026-11-25 onward; the git history shows the timeline. Prior work on your own Solana project is allowed if disclosed.
 - AI-assisted development with Claude Code. The event allows AI tools.
-- Synthetic data, TEST token, Devnet only. No mainnet, no real funds, no customers.
+- Devnet only, payments in a test stablecoin mint (aUSD), sample provider catalog. No mainnet, no real funds, no customers.

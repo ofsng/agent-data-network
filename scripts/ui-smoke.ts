@@ -12,7 +12,7 @@ import { openDb } from "../src/data/store";
 const URL = process.env.ADN_APP_URL ?? "http://127.0.0.1:8787/";
 const CHROME = process.env.CHROME_PATH ?? ["/usr/bin/google-chrome", "/usr/bin/chromium"].find(existsSync);
 const SHOTS = join(ROOT, "evidence", "screenshots");
-const SECRETS = ["Peak efficiency 97.4%", "Stock 18 units", "FICT-RECYCLE-2026"];
+const SECRETS = ["Peak efficiency 97.6%", "18 units in stock", "WEEE-TR-2026-04817"];
 const VIEWS = ["overview", "agent", "market", "providers", "bounties", "tx", "earnings", "evidence"];
 
 async function status(page: Page) {
@@ -55,15 +55,15 @@ async function textOf(page: Page) {
   // New isolated run, then step-by-step through discovery.
   await page.click("#btnReset");
   await waitIdle(page, 120_000);
-  await page.waitForFunction(() => /Run run-/.test(document.querySelector("#badges")?.textContent ?? ""), null, { timeout: 120_000 });
+  await page.waitForFunction(() => /Session run-/.test(document.querySelector("#badges")?.textContent ?? ""), null, { timeout: 120_000 });
   for (let i = 0; i < 2; i++) await next(page); // PUBLISHED, SEARCHED
   const preText = await textOf(page);
   checks.noPaidContentBeforePurchase = SECRETS.every((s) => !preText.includes(s));
 
-  // T51: make the quote preflight fail for real (remove A01's snapshot), expect a visible error and no charge.
+  // T51: make the quote preflight fail for real (remove the X100 datasheet's snapshot), expect a visible error and no charge.
   const cfg = loadConfig();
   const db = openDb(cfg.dbPath);
-  const a01 = (db.prepare("SELECT asset_pda FROM assets WHERE title='Solar inverter X100 technical profile'").get() as { asset_pda: string }).asset_pda;
+  const a01 = (db.prepare("SELECT asset_pda FROM assets WHERE title='Voltara X100 inverter technical datasheet' AND active=1").get() as { asset_pda: string }).asset_pda;
   const snap = join(snapshotDir(cfg.cluster), `${a01}.json`);
   renameSync(snap, `${snap}.bak`);
   let failState = "";
@@ -75,9 +75,9 @@ async function textOf(page: Page) {
   }
   const failText = await textOf(page);
   checks.failureVisible = /Error/.test(failState) && /SNAPSHOT_UNAVAILABLE|snapshot/i.test(failText) && /Next step to retry/.test(failText);
-  checks.noChargeOnFailure = /Spent \(finalized\)\s*0 TEST/.test(failText);
+  checks.noChargeOnFailure = /Spent \(finalized\)\s*0 aUSD/.test(failText);
   await next(page); // retry QUOTED succeeds
-  checks.retrySucceeded = /Exact quote \+ trust preflight[\s\S]*quote 0\.06 TEST/.test(await textOf(page));
+  checks.retrySucceeded = /Exact quote \+ trust preflight[\s\S]*quote 0\.06 aUSD/.test(await textOf(page));
 
   // Run to the end with the same controls a presenter uses.
   await page.click("#btnRun");
@@ -90,13 +90,13 @@ async function textOf(page: Page) {
     await page.screenshot({ path: join(SHOTS, `${String(i + 1).padStart(2, "0")}-${v}-desktop.png`), fullPage: true });
   }
   await page.click('nav [data-view="agent"]');
-  checks.briefShowsPaidFactsAfterPurchase = (await textOf(page)).includes("Peak efficiency 97.4%");
+  checks.briefShowsPaidFactsAfterPurchase = (await textOf(page)).includes("Peak efficiency 97.6%");
   await page.click('nav [data-view="market"]');
   const market = await textOf(page);
   checks.marketplaceHasNoPaidContent = SECRETS.every((s) => !market.includes(s));
   await page.click('nav [data-view="bounties"]');
   const bounties = await textOf(page);
-  checks.bountyViewHasNoAnswer = !bounties.includes("FICT-RECYCLE-2026");
+  checks.bountyViewHasNoAnswer = !bounties.includes("WEEE-TR-2026-04817");
 
   // Mobile layout: no horizontal page scroll, every view renders.
   const m = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });

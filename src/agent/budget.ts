@@ -42,7 +42,7 @@ export class RunBudget {
       if (kind === "BOUNTY" && rows.filter((r) => r.kind === "BOUNTY").length >= this.policy.maxBounties)
         throw new BudgetError(`BUDGET: at most ${this.policy.maxBounties} bounty per run`);
       if (t + tokens > this.policy.tokenCap)
-        throw new BudgetError(`BUDGET: needs ${tokens} TEST units, ${this.policy.tokenCap - t} of ${this.policy.tokenCap} remaining`);
+        throw new BudgetError(`BUDGET: needs ${tokens} aUSD base units, ${this.policy.tokenCap - t} of ${this.policy.tokenCap} remaining`);
       if (l + lamports > this.policy.solCap)
         throw new BudgetError(`BUDGET: needs ${lamports} lamports, ${this.policy.solCap - l} remaining`);
       this.db

@@ -17,10 +17,11 @@
   </div>
   <div class="stages" id="stages" aria-label="Story stages"></div>
   <div class="controls">
-    <button class="btn primary" id="btnRun" type="button">Run full demo</button>
+    <button class="btn primary" id="btnRun" type="button">Run agent task</button>
     <button class="btn" id="btnPause" type="button" disabled>Pause</button>
     <button class="btn" id="btnNext" type="button">Next step</button>
-    <button class="btn ghost" id="btnReset" type="button">Reset demo</button>
+    <button class="btn ghost" id="btnReset" type="button">Start session</button>
+    <button class="btn ghost" id="btnTour" type="button" title="Guided tour / Rehberli tur" aria-label="Guided tour">?<span class="tour-label"> Tour</span></button>
   </div>
 </header>
 <div class="badges" id="badges" aria-label="Runtime mode"></div>
@@ -29,6 +30,7 @@
   <nav class="side" id="nav" aria-label="Sections"></nav>
   <main id="main">
     <section class="view" id="v-overview" aria-labelledby="h-overview"></section>
+    <section class="view" id="v-control" hidden></section>
     <section class="view" id="v-agent" hidden></section>
     <section class="view" id="v-market" hidden></section>
     <section class="view" id="v-providers" hidden></section>
@@ -36,6 +38,7 @@
     <section class="view" id="v-tx" hidden></section>
     <section class="view" id="v-earnings" hidden></section>
     <section class="view" id="v-evidence" hidden></section>
+    <section class="view" id="v-connect" hidden></section>
   </main>
 </div>
 <div class="statusbar" role="status" aria-live="polite">
@@ -45,5 +48,6 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 <script src="/app.js"></script>
+<script src="/tour.js"></script>
 </body>
 </html>
