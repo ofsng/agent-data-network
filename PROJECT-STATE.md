@@ -61,7 +61,7 @@ Last update: 2026-11-26. Scope frozen at V1.5 (`STARTUP-PACKAGE/`, archive exclu
   No non-breaking fix exists. Exposure is limited: the app is loopback-only and parses only local, trusted inputs.
 
 ## Fixes found during release verification
-- **Disk exhaustion:** the local validator ledger grew about 5 GB/hour with `--limit-ledger-size 50000000` and filled the disk. The default is now 2M shreds (~30 min history), overridable with `ADN_LEDGER_SHREDS`.
+- **Ledger size:** the local validator keeps full history (`--limit-ledger-size 50000000`) and grows about 5 GB/hour while running. `ADN_LEDGER_SHREDS` lowers the limit when disk is tight; `npm run setup` wipes the ledger.
 - **Public Devnet RPC rate limits (429):** one shared paced fetch with backoff for every Devnet connection. The deploy now uses TPU writes, not `--use-rpc`.
 - **Bootstrap after an interrupted first run:** it now reuses the mint recorded in the on-chain config instead of creating a second mint.
 - **Evidence per cluster:** `evidence/run-manifest.json` (local) and `evidence/devnet-run-manifest.json`. `npm run setup` no longer deletes Devnet runs.

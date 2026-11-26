@@ -58,7 +58,7 @@ npm run verify
 
 `npm run setup` is also the full reset. It wipes only the local ledger, the local SQLite cache, the local snapshots and local run evidence; it never touches the keys or Devnet evidence.
 
-The local validator keeps about 30 minutes of history (`--limit-ledger-size 2000000`, roughly 2–3 GB), so run `npm run verify` soon after a run. Larger values grow by about 5 GB per hour; override with `ADN_LEDGER_SHREDS` if you have the disk.
+The local validator keeps full history (`--limit-ledger-size 50000000`) so every recorded signature stays verifiable. The ledger grows by about 5 GB per hour while the validator runs; set a lower `ADN_LEDGER_SHREDS` (e.g. `2000000`, about 30 minutes of history) if disk is tight, and `npm run setup` wipes it.
 
 ### Devnet
 | Command | What it does |
