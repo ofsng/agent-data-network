@@ -1,0 +1,30 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.tl { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 40px; }
+.tl .card { padding: 24px; height: 320px; position: relative; }
+.tl .who { position: absolute; top: 18px; right: 18px; }
+.tl .n { font-family: var(--mono); font-size: 40px; font-weight: 700; color: var(--line2); }
+.tl h3 { font-size: 24px; margin-top: 6px; }
+.tl p { font-size: 20px; }
+.bot { display: grid; grid-template-columns: 1.3fr 1fr; gap: 26px; margin-top: 26px; }
+.bot .card { padding: 24px 26px; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Model Context Protocol</div></div>
+<div class="eyebrow">Kendi ajanını bağla</div>
+<h1 style="font-size:54px">İnsan bir mesaj yapıştırır, <em>gerisini ajan yapar</em></h1>
+<div class="tl">
+ <div class="card"><span class="pill blue who">insan</span><div class="n">1</div><h3>Mesajı yapıştır</h3><p>"Your agent" sayfasındaki tek mesaj Claude Code'a yapıştırılır.</p></div>
+ <div class="card"><span class="pill mint who">ajan</span><div class="n">2</div><h3>npm run connect</h3><p>Cüzdan açar (0600 dosya), fonlar, 0.5 aUSD başlangıç hakkı, MCP'yi kaydeder.</p></div>
+ <div class="card"><span class="pill blue who">insan</span><div class="n">3</div><h3>Bir kez yenile</h3><p>Claude Code'da <span class="mono">/mcp</span> ile sunucular yeniden yüklenir.</p></div>
+ <div class="card"><span class="pill mint who">ajan</span><div class="n">4</div><h3>get_started</h3><p>Ne hazır, sıradaki tek adım ne, insana ne sorulmalı; READY olana kadar.</p></div>
+ <div class="card" style="border-color:rgba(61,220,151,.4)"><span class="pill mint who">ajan</span><div class="n">5</div><h3>İşi yapar</h3><p>Arar, bütçe içinde satın alır, içeriği alır, her bilginin yanına makbuz yazar.</p></div>
+</div>
+<div class="bot">
+ <div class="card"><h3>Ajanın araçları (eller)</h3><div class="tools">
+  <span class="pill mint">get_started</span><span class="pill mint">create_wallet</span><span class="pill mint">fund_wallet</span><span class="pill mint">request_budget</span><span class="pill mint">check_request</span><span class="pill">search_data</span><span class="pill">get_data_quote</span><span class="pill">verify_receipt</span><span class="pill">list_bounties</span><span class="pill">get_bounty_status</span><span class="pill">network_status</span><span class="pill amber">wallet_status</span><span class="pill amber">purchase_data</span><span class="pill amber">retrieve_data</span></div>
+  <p style="margin-top:14px">Genel bir "imzala" aracı yok. Anahtar makineden çıkmaz.</p></div>
+ <div class="card" style="border-color:rgba(242,181,80,.35)"><h3 class="amber">İnsana sorulanlar</h3><p>• 0.1 aUSD üstü satın alma<br>• Yeni harcama hakkı (bütçe)<br>• Operatör anahtarı yoksa cüzdana para göndermek<br><br>Onay penceresi (MCP elicitation) ya da web uygulamasında Onayla / Reddet.</p></div>
+</div>
+<div class="foot"><span>Kayıt kullanıcı düzeyinde (--scope user): Claude Code hangi projede açılırsa açılsın araçlar hazır</span><b>10 / Ajan bağlantısı</b></div>
+</div></body></html>

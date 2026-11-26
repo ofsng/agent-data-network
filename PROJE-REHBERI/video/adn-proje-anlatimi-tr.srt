@@ -1,0 +1,468 @@
+1
+0:00:00,600 --> 0:00:01,140
+Merhaba.
+
+2
+0:00:01,140 --> 0:00:04,880
+Bu videoda Agent Data Network'ü baştan sona anlatacağım.
+
+3
+0:00:04,880 --> 0:00:05,350
+Kısaca:
+
+4
+0:00:05,350 --> 0:00:09,830
+yapay zekâ ajanları ihtiyaç duydukları küçük veri parçalarını satın
+
+5
+0:00:09,830 --> 0:00:14,320
+alıyor, birden fazla satıcıya tek bir Solana işlemiyle ödüyor ve ne
+
+6
+0:00:14,320 --> 0:00:17,930
+aldıklarını zincir üzerindeki bir makbuzla kanıtlıyor.
+
+7
+0:00:19,430 --> 0:00:20,030
+Sorun şu:
+
+8
+0:00:20,030 --> 0:00:22,750
+bugün ajanlar veriyi internetten kazıyor,
+
+9
+0:00:22,750 --> 0:00:27,350
+eksik kısmı tahmin ediyor ya da tek bir bilgi için koca bir veri seti
+
+10
+0:00:27,350 --> 0:00:28,210
+satın alıyor.
+
+11
+0:00:28,210 --> 0:00:32,940
+Neyin, hangi lisansla alındığı kanıtlanamıyor ve kimsenin yayınlamadığı
+
+12
+0:00:32,940 --> 0:00:34,270
+bilgi eksik kalıyor.
+
+13
+0:00:34,270 --> 0:00:38,060
+Biz bunu birim başına satın alma, tek işlemde çok satıcı,
+
+14
+0:00:38,060 --> 0:00:41,650
+zincir üstü makbuz ve eksik veriye ödül ile çözüyoruz.
+
+15
+0:00:43,150 --> 0:00:45,320
+Döngü beş adımdan oluşuyor.
+
+16
+0:00:45,320 --> 0:00:51,020
+Ajan önce ücretsiz arar, sonra satın alır, makbuzu ve içeriği doğrular.
+
+17
+0:00:51,020 --> 0:00:53,350
+Aradığı veri yoksa ödül açar.
+
+18
+0:00:53,350 --> 0:00:59,140
+Ödülle üretilen veri kataloğa girer ve sonraki ajanlara yeniden satılır.
+
+19
+0:00:59,140 --> 0:01:02,590
+Yani her soru pazara kalıcı bir ürün ekler.
+
+20
+0:01:04,090 --> 0:01:06,510
+Satın alma tek bir Solana işlemi.
+
+21
+0:01:06,510 --> 0:01:11,710
+İçinde iki ayrı satın alma talimatı var, biri NorthLab'den teknik veri,
+
+22
+0:01:11,710 --> 0:01:14,350
+diğeri SouthSupply'dan stok bilgisi.
+
+23
+0:01:14,350 --> 0:01:18,310
+İkisi birlikte gerçekleşir ya da hiçbiri gerçekleşmez.
+
+24
+0:01:18,310 --> 0:01:22,050
+Her satıcı yüzde seksen, platform yüzde yirmi alır.
+
+25
+0:01:22,050 --> 0:01:26,960
+İşlem yedi yüz seksen dört bayt ve yaklaşık elli altı bin hesaplama
+
+26
+0:01:26,960 --> 0:01:27,470
+birimi.
+
+27
+0:01:28,970 --> 0:01:33,980
+Program her kaydı, tohumlarından hesaplanabilen bir adreste tutar.
+
+28
+0:01:33,980 --> 0:01:37,850
+Ayar, veri varlığı, satın alma makbuzu, ödül, kasa,
+
+29
+0:01:37,850 --> 0:01:39,750
+gönderim ve ödül makbuzu.
+
+30
+0:01:39,750 --> 0:01:44,990
+Makbuz bir kez yazılır ve tekrar kullanılamaz; kapatan bir talimat da
+
+31
+0:01:44,990 --> 0:01:46,510
+yok, yani kalıcıdır.
+
+32
+0:01:48,010 --> 0:01:50,260
+Burada dürüst olmamız gerekiyor.
+
+33
+0:01:50,260 --> 0:01:55,190
+Makbuz, bu cüzdanın bu verinin bu sürümü için ve bu lisans şartlarıyla
+
+34
+0:01:55,190 --> 0:01:56,950
+ödeme yaptığını kanıtlar.
+
+35
+0:01:56,950 --> 0:01:58,850
+Ama verinin doğru olduğunu,
+
+36
+0:01:58,850 --> 0:02:03,140
+satıcının sahibi olduğunu ya da teslim edildiğini kanıtlamaz.
+
+37
+0:02:03,140 --> 0:02:07,570
+Arayüz de bu yüzden doğruluğu sağlayıcı beyanı olarak gösterir.
+
+38
+0:02:09,070 --> 0:02:10,980
+Veri teslimi makbuza bağlı.
+
+39
+0:02:10,980 --> 0:02:13,380
+Sunucu makbuzu zincirden doğrular,
+
+40
+0:02:13,380 --> 0:02:16,900
+altmış saniyelik tek kullanımlık bir mesaj üretir,
+
+41
+0:02:16,900 --> 0:02:20,150
+alıcı cüzdanıyla imzalar ve tam baytları alır.
+
+42
+0:02:20,150 --> 0:02:24,170
+Alıcı baytların parmak izini makbuzdakiyle karşılaştırır.
+
+43
+0:02:24,170 --> 0:02:28,820
+Saklanan veri ödemeden sonra bozulursa sistem doğrulanmış yedekten
+
+44
+0:02:28,820 --> 0:02:32,350
+birebir geri yükler ve alıcı tekrar ödemeden alır.
+
+45
+0:02:33,850 --> 0:02:36,340
+Eksik veri için ödül sistemi var.
+
+46
+0:02:36,340 --> 0:02:41,630
+Ajan geri dönüşüm sertifikasını bulamadığında iki aUSD'yi programa ait
+
+47
+0:02:41,630 --> 0:02:43,140
+bir kasaya kilitler.
+
+48
+0:02:43,140 --> 0:02:46,530
+Satıcı iki aday gönderir, para hareket etmez.
+
+49
+0:02:46,530 --> 0:02:50,910
+İnceleme yalnızca geçti ya da kaldı der, cevabı göstermez.
+
+50
+0:02:50,910 --> 0:02:55,520
+Talep sahibi kabul ettiğinde kasa bir virgül altıyı satıcıya,
+
+51
+0:02:55,520 --> 0:02:58,090
+sıfır virgül dördü platforma öder.
+
+52
+0:02:58,090 --> 0:03:00,350
+Süre dolarsa para komisyonsuz,
+
+53
+0:03:00,350 --> 0:03:05,480
+tam olarak geri döner; erken iade ise program tarafından reddedilir.
+
+54
+0:03:06,980 --> 0:03:10,720
+Uygulamadaki ajan görevi on altı adımdan oluşuyor:
+
+55
+0:03:10,720 --> 0:03:15,800
+yayınlama, arama, teklif, imza, ödeme, doğrulama, eksik bulma, ödül,
+
+56
+0:03:15,800 --> 0:03:20,360
+adaylar, inceleme, kabul, teslim, satışa açma, yeniden satış,
+
+57
+0:03:20,360 --> 0:03:21,410
+iade ve rapor.
+
+58
+0:03:21,410 --> 0:03:23,950
+Hepsi gerçek işlemlerle çalışıyor.
+
+59
+0:03:25,450 --> 0:03:29,160
+Bu rakamlar Devnet'teki gerçek bir oturumdan ölçüldü.
+
+60
+0:03:29,160 --> 0:03:31,950
+NorthLab bir virgül altı yüz kırk sekiz,
+
+61
+0:03:31,950 --> 0:03:34,880
+SouthSupply sıfır virgül sıfır yirmi dört,
+
+62
+0:03:34,880 --> 0:03:38,590
+platform sıfır virgül dört yüz on sekiz aUSD kazandı.
+
+63
+0:03:38,590 --> 0:03:42,780
+aUSD gerçek parayla karşılığı olmayan bir test stablecoin'i.
+
+64
+0:03:44,280 --> 0:03:46,580
+Mimari üç katmandan oluşuyor.
+
+65
+0:03:46,580 --> 0:03:48,870
+En üstte insanlar ve ajanlar:
+
+66
+0:03:48,870 --> 0:03:54,730
+web arayüzü, yerleşik ajan, MCP ile bağlanan kendi ajanın ve komut satırı.
+
+67
+0:03:54,730 --> 0:03:56,790
+Ortada zincir dışı servis:
+
+68
+0:03:56,790 --> 0:03:59,640
+API, SQLite deposu ve güven katmanı.
+
+69
+0:03:59,640 --> 0:04:00,900
+En altta Solana:
+
+70
+0:04:00,900 --> 0:04:04,460
+sekiz talimatlı Anchor programı ve SPL token.
+
+71
+0:04:05,960 --> 0:04:08,340
+Kendi ajanını bağlamak çok basit.
+
+72
+0:04:08,340 --> 0:04:13,030
+Your agent sayfasındaki tek mesajı Claude Code'a yapıştırıyorsun.
+
+73
+0:04:13,030 --> 0:04:18,150
+Ajan kendine cüzdan açıyor, bütçesini kuruyor ve araçlarını kaydediyor.
+
+74
+0:04:18,150 --> 0:04:23,260
+Senden yalnızca pahalı bir alımı ya da yeni bütçeyi onaylamanı istiyor.
+
+75
+0:04:23,260 --> 0:04:28,090
+Genel bir imza aracı yok ve anahtar senin bilgisayarından çıkmıyor.
+
+76
+0:04:29,590 --> 0:04:31,950
+Güven katman katman kuruluyor.
+
+77
+0:04:31,950 --> 0:04:34,770
+Biçim kontrolü, parmak izi kontrolü,
+
+78
+0:04:34,770 --> 0:04:38,220
+yedekten kurtarma ve köken takibi bugün var.
+
+79
+0:04:38,220 --> 0:04:43,560
+Kaynak imzası, teminat ve itiraz süresi, itibar ise yol haritasında.
+
+80
+0:04:45,060 --> 0:04:47,220
+Riskleri kendimiz söylüyoruz.
+
+81
+0:04:47,220 --> 0:04:52,660
+Aynı veriyi başka bir satıcı sonradan listelerse kopya olarak işaretlenir
+
+82
+0:04:52,660 --> 0:04:53,550
+ve satılmaz.
+
+83
+0:04:53,550 --> 0:04:58,460
+Ödüle sahte veri gelmesi, bugün güvenilen bir doğrulayıcıya bağlı.
+
+84
+0:04:58,460 --> 0:05:01,140
+Tavuk yumurta sorununa cevabımız şu:
+
+85
+0:05:01,140 --> 0:05:05,390
+önce talep geliyor, veri ancak parası hazırsa üretiliyor.
+
+86
+0:05:06,890 --> 0:05:10,190
+Rakiplerde bu özelliklerin bazıları tek tek var.
+
+87
+0:05:10,190 --> 0:05:11,840
+Bizim farkımız birleşim:
+
+88
+0:05:11,840 --> 0:05:16,110
+birim başına alım, çok satıcıya tek işlem, zincir üstü makbuz,
+
+89
+0:05:16,110 --> 0:05:20,300
+programın uyguladığı ödül emaneti ve yeniden satış bir arada.
+
+90
+0:05:21,800 --> 0:05:25,690
+Projede otuz yedi otomatik test var ve hepsi geçiyor.
+
+91
+0:05:25,690 --> 0:05:29,790
+Atomiklik, saldırılar, emanet kuralları, veri sızıntısı,
+
+92
+0:05:29,790 --> 0:05:33,080
+ajan bütçesi ve kopya koruması test ediliyor.
+
+93
+0:05:34,580 --> 0:05:36,320
+Gerçek üründe ne değişir?
+
+94
+0:05:36,320 --> 0:05:41,400
+Devnet yerine ana ağ, test parası yerine USDC gibi gerçek bir stablecoin,
+
+95
+0:05:41,400 --> 0:05:44,600
+ve ajan cüzdanını kullanıcının kendisi fonlar.
+
+96
+0:05:44,600 --> 0:05:47,860
+Pazar servisi tek bir merkezi sunucuda çalışır,
+
+97
+0:05:47,860 --> 0:05:52,800
+ajanın küçük cüzdan parçası ise yine kullanıcının bilgisayarında kalır.
+
+98
+0:05:54,300 --> 0:05:56,430
+Şimdi gerçek arayüze bakalım.
+
+99
+0:05:56,430 --> 0:06:01,000
+Overview sayfası ajanın görevini, bütçesini, canlı bakiyeleri,
+
+100
+0:06:01,000 --> 0:06:04,240
+kasayı ve makbuzları tek ekranda gösteriyor.
+
+101
+0:06:05,740 --> 0:06:08,690
+Pazar yerinde yirmi dört veri birimi var.
+
+102
+0:06:08,690 --> 0:06:13,390
+Başlık, fiyat, köken ve güven etiketleri herkese açık; içerik ise
+
+103
+0:06:13,390 --> 0:06:16,340
+yalnızca makbuz sahibine teslim ediliyor.
+
+104
+0:06:17,840 --> 0:06:20,240
+Ödüller sayfasında kasadaki para,
+
+105
+0:06:20,240 --> 0:06:23,930
+gönderilen adaylar ve inceleme sonuçları görünüyor.
+
+106
+0:06:23,930 --> 0:06:28,280
+Yanlış aday değer eşleşmesinden kalıyor, doğru aday geçiyor.
+
+107
+0:06:29,780 --> 0:06:33,670
+İşlemler sayfasında her imza Solana Explorer'a bağlı.
+
+108
+0:06:33,670 --> 0:06:39,020
+İstersen herhangi birini açıp zincir üzerinde kendin kontrol edebilirsin.
+
+109
+0:06:40,520 --> 0:06:45,170
+Kanıt sayfası program adresini, para birimini, parmak izi kontrollerini,
+
+110
+0:06:45,170 --> 0:06:48,660
+test sonuçlarını ve açık riskler tablosunu gösteriyor.
+
+111
+0:06:50,160 --> 0:06:54,670
+Your agent sayfası kendi ajanını bağlamak için kopyalanacak mesajı ve
+
+112
+0:06:54,670 --> 0:06:57,550
+ajanın onay bekleyen isteklerini gösteriyor.
+
+113
+0:06:59,050 --> 0:07:02,840
+Özetle Agent Data Network, ajanların veriyi satın aldığı,
+
+114
+0:07:02,840 --> 0:07:06,430
+kanıtladığı ve eksik olanı sipariş ettiği bir altyapı.
+
+115
+0:07:06,430 --> 0:07:09,420
+Program Devnet'te çalışıyor, kod açık kaynak,
+
+116
+0:07:09,420 --> 0:07:13,870
+canlı kopya da agent data network nokta vercel nokta app adresinde.
+
+117
+0:07:13,870 --> 0:07:15,660
+İzlediğin için teşekkürler.
+

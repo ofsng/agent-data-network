@@ -1,0 +1,30 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.k4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 36px; }
+.k4 .card { padding: 24px; }
+.cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 22px; }
+.cats .card { padding: 22px 24px; }
+.cats h3 { font-size: 23px; }
+.cats p { font-size: 18px; }
+.ids { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.ids .pill { font-size: 15px; padding: 4px 10px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">npm test · evidence/test-summary.json</div></div>
+<div class="eyebrow">Testler</div>
+<h1 style="font-size:52px">37 otomatik test, <em>37 başarılı</em></h1>
+<div class="k4">
+ <div class="card"><div class="num mint">2/2</div><div class="lbl">Rust birim testi: 80/20 bölme, makbuz boyutu 254 B</div></div>
+ <div class="card"><div class="num mint">17/17</div><div class="lbl">Anchor program testi, izole validator üzerinde</div></div>
+ <div class="card"><div class="num mint">17/17</div><div class="lbl">Uygulama / API / MCP: güvenlik, güven, bütçe</div></div>
+ <div class="card"><div class="num mint">1/1</div><div class="lbl">Tarayıcı smoke: tüm arayüz, hata enjeksiyonu, mobil</div></div>
+</div>
+<div class="cats">
+ <div class="card"><h3>Atomiklik ve ödeme</h3><p>İki sağlayıcı tek işlemde, birebir bakiye değişimi, yuvarlama, ikinci talimat bozuksa tamamı geri alınır, yetersiz bakiye.</p><div class="ids"><span class="pill">T09–T11</span><span class="pill">T12</span><span class="pill">T13</span><span class="pill">T17</span></div></div>
+ <div class="card"><h3>Saldırı ve hatalı hesap</h3><p>Yetkisiz kurulum, yanlış mint/ATA, hazine taklidi, tekrar oynatma, değişmiş fiyat/hash, süresi dolmuş teklif.</p><div class="ids"><span class="pill">T04</span><span class="pill">T06</span><span class="pill">T14</span><span class="pill">T15</span><span class="pill">T16</span></div></div>
+ <div class="card"><h3>Emanet (bounty)</h3><p>Kasaya tam kilit, yetkisiz kabul, çift ödeme, dışarıdan toz jeton, erken iade, geç kabul, tek iade.</p><div class="ids"><span class="pill">T24–T31</span></div></div>
+ <div class="card"><h3>Teslim ve sızıntı</h3><p>Makbuzsuz/sahte/yanlış alıcı, nonce tekrarı, bozuk bayt kurtarma, uçlarda ücretli içerik yok.</p><div class="ids"><span class="pill">T18</span><span class="pill">T19</span><span class="pill">T20</span><span class="pill">T41</span><span class="pill">T42</span><span class="pill">T43</span><span class="pill">T50</span></div></div>
+ <div class="card"><h3>Ajan ve bütçe</h3><p>Tipli araçlarda imza aracı yok, kalıcı bütçe tavanı, tek bounty, MCP ajanının onaylı alımı.</p><div class="ids"><span class="pill">T46</span><span class="pill">T47</span><span class="pill">T54</span><span class="pill">T55</span></div></div>
+ <div class="card"><h3>Yeniden satış ve kopya</h3><p>Yeniden satış dağılımı, izole oturumlar, aynı baytları ikinci sağlayıcı listelerse kopya işareti.</p><div class="ids"><span class="pill">T52/T53</span><span class="pill">T56</span><span class="pill">T44/T45</span></div></div>
+</div>
+<div class="foot"><span>Son tam koşu: 2026-11-26 16:06 UTC · npm run verify tüm imzaları zincirde yeniden kontrol eder</span><b>13 / Testler</b></div>
+</div></body></html>

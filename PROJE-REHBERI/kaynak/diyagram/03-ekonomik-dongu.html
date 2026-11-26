@@ -1,0 +1,32 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.wrap { position: absolute; left: 96px; top: 290px; width: 1728px; height: 720px; transform: scale(.9); transform-origin: 50% 0; }
+.center { position: absolute; left: 960px; top: 470px; transform: translate(-50%,-50%); width: 330px; height: 330px; border-radius: 50%; display: grid; place-items: center; text-align: center; background: radial-gradient(circle, rgba(61,220,151,.16), rgba(61,220,151,.02) 70%); border: 1px solid rgba(61,220,151,.35); }
+.center b { font-size: 34px; font-weight: 900; display: block; }
+.center span { font-size: 19px; color: var(--muted); display: block; margin-top: 8px; padding: 0 40px; line-height: 1.35; }
+.node { position: absolute; width: 440px; transform: translate(-50%,-50%); }
+.node .card { padding: 22px 24px; }
+.node .k { font-family: var(--mono); font-size: 18px; letter-spacing: .1em; margin-bottom: 6px; }
+.node h3 { font-size: 30px; }
+.node p { font-size: 19px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Ekonomik döngü</div></div>
+<div class="eyebrow">Discover → Purchase → Verify → Commission → Reuse</div>
+<h1 style="font-size:54px">Her soru pazara <em>kalıcı bir ürün</em> ekler</h1>
+<div class="wrap">
+<svg class="flow" viewBox="0 0 1728 720" style="left:0;top:0;width:1728px;height:720px">
+ <defs><marker id="m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3ddc97"/></marker></defs>
+ <circle cx="864" cy="360" r="300" fill="none" stroke="rgba(61,220,151,.22)" stroke-width="2" stroke-dasharray="6 10"/>
+ <path d="M 1091 164 A 300 300 0 0 1 1150 245" class="arrow mint" marker-end="url(#m)"/>
+ <path d="M 1150 475 A 300 300 0 0 1 1080 568" class="arrow mint" marker-end="url(#m)"/>
+ <path d="M 648 568 A 300 300 0 0 1 578 475" class="arrow mint" marker-end="url(#m)"/>
+ <path d="M 578 245 A 300 300 0 0 1 637 164" class="arrow mint" marker-end="url(#m)"/>
+</svg>
+<div class="center" style="left:864px;top:360px"><div><b>Paylaşılan<br>veri havuzu</b><span>Her kabul edilen ödül yeni bir satılık birim olur</span></div></div>
+<div class="node" style="left:864px;top:60px"><div class="card"><div class="k mint">01 · KEŞFET</div><h3>Ücretsiz arama</h3><p>Ajan yalnızca başlık, etiket ve fiyatı görür; içerik gizli.</p></div></div>
+<div class="node" style="left:1460px;top:360px"><div class="card"><div class="k mint">02 · SATIN AL</div><h3>Tek atomik işlem</h3><p>İki sağlayıcı + platform aynı anda ödenir, iki makbuz yazılır.</p></div></div>
+<div class="node" style="left:864px;top:640px"><div class="card"><div class="k mint">03 · DOĞRULA</div><h3>Makbuz → içerik</h3><p>Makbuz zincirde kontrol edilir, baytlar hash ile eşleştirilir.</p></div></div>
+<div class="node" style="left:268px;top:360px"><div class="card" style="border-color:rgba(242,181,80,.35)"><div class="k amber">04 · SİPARİŞ ET → 05 · YENİDEN SAT</div><h3>Eksik veriye ödül</h3><p>Ödül kasaya kilitlenir; kabul edilen cevap kataloğa girer ve tekrar satılır.</p></div></div>
+</div>
+<div class="foot"><span>Talep önce gelir, arz sonra üretilir (tavuk-yumurta sorununa cevap)</span><b>03 / Ekonomik döngü</b></div>
+</div></body></html>

@@ -1,0 +1,40 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.layers { display: flex; flex-direction: column; gap: 22px; margin-top: 40px; }
+.layer { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: stretch; }
+.lh { border-radius: 18px; padding: 22px 24px; display: flex; flex-direction: column; justify-content: center; }
+.lh b { font-size: 28px; display: block; }
+.lh span { font-family: var(--mono); font-size: 17px; margin-top: 6px; opacity: .85; }
+.items { display: grid; gap: 18px; }
+.items .card { padding: 18px 22px; }
+.items h3 { font-size: 22px; margin-bottom: 6px; }
+.items p { font-size: 17.5px; }
+.items code { font-family: var(--mono); color: var(--faint); font-size: 16px; display: block; margin-top: 8px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Mimari</div></div>
+<div class="eyebrow">Üç katman</div>
+<h1 style="font-size:52px">Para ve kanıt <em>zincirde</em>, veri baytları <em>zincir dışında</em></h1>
+<div class="layers">
+ <div class="layer"><div class="lh i-blue"><b>Kullanıcılar</b><span>insan + ajan</span></div>
+  <div class="items" style="grid-template-columns:repeat(4,1fr)">
+   <div class="card"><h3>Web arayüzü</h3><p>10 sayfa, rehberli tur, Kontrol paneli.</p><code>src/web/</code></div>
+   <div class="card"><h3>Yerleşik ajan</h3><p>Kurallara dayalı planlayıcı, tipli araçlar.</p><code>src/agent/ · src/demo/</code></div>
+   <div class="card"><h3>Kendi ajanın (MCP)</h3><p>Claude Code, Cursor… kendi cüzdanıyla.</p><code>src/mcp/server.ts</code></div>
+   <div class="card"><h3>CLI</h3><p>setup, demo, connect, allow, verify.</p><code>src/cli.ts · scripts/</code></div>
+  </div></div>
+ <div class="layer"><div class="lh i-violet"><b>Zincir dışı servis</b><span>Node 22 · TypeScript</span></div>
+  <div class="items" style="grid-template-columns:repeat(4,1fr)">
+   <div class="card"><h3>HTTP API</h3><p>Arama, teklif, makbuz, teslim, bounty, kanıt. Yalnızca 127.0.0.1.</p><code>src/api/</code></div>
+   <div class="card"><h3>SQLite deposu</h3><p>Kanonik baytlar, katalog, teklifler, makbuzlar, bütçeler.</p><code>src/data/store.ts</code></div>
+   <div class="card"><h3>Güven katmanı</h3><p>Kaynak, şema, hash ön kontrolü, doğrulanmış snapshot.</p><code>src/data/trust.ts</code></div>
+   <div class="card"><h3>Zincir yardımcıları</h3><p>PDA, işlem paketleme, makbuz doğrulama.</p><code>src/chain/</code></div>
+  </div></div>
+ <div class="layer"><div class="lh i-mint"><b>Solana</b><span>Devnet · yerel validator</span></div>
+  <div class="items" style="grid-template-columns:2fr 1fr 1fr">
+   <div class="card"><h3>Anchor programı · 8 instruction</h3><p>initialize_config · register_data_asset · set_asset_active · purchase_unit · create_bounty · submit_bounty_solution · accept_bounty_solution · refund_expired_bounty</p><code>programs/adn/src/lib.rs · 3vZNsmhk…rLQEA8</code></div>
+   <div class="card"><h3>SPL Token</h3><p>aUSD: 6 ondalıklı test stablecoin, kanonik ATA.</p><code>DKFLsvxj…GPMDN</code></div>
+   <div class="card"><h3>PDA hesapları</h3><p>Config, varlık, makbuz, bounty, kasa, gönderim.</p><code>7 hesap türü</code></div>
+  </div></div>
+</div>
+<div class="foot"><span>Önceden derleme yok: vanilla JS arayüz, tek Node HTTP sunucusu</span><b>06 / Mimari</b></div>
+</div></body></html>

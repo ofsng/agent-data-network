@@ -1,0 +1,25 @@
+birim_id,saglayici,baslik,etiketler,ozet,fiyat_baz_birim,fiyat_aUSD,saglayici_payi_aUSD,platform_payi_aUSD,lisans
+NL-X100-SPEC,NorthLab (üretici datasheet),Voltara X100 inverter technical datasheet,inverter x100 efficiency cooling datasheet,"Efficiency, power rating, MPPT range and cooling for the X100 10 kW hybrid inverter.",30000,0.03,0.024,0.006,ADN-STD-1
+NL-X100-COMPAT,NorthLab (üretici datasheet),Voltara X100 inverter grid and connector compatibility,inverter x100 compatibility connector grid,"Grid codes, connector types and battery port specification for the X100.",25000,0.025,0.02,0.005,ADN-STD-1
+NL-X100-WARRANTY,NorthLab (üretici datasheet),Voltara X100 inverter warranty terms,inverter x100 warranty service,Standard and extended warranty terms for the X100 inverter.,20000,0.02,0.016,0.004,ADN-STD-1
+NL-X100-FIRMWARE,NorthLab (üretici datasheet),Voltara X100 inverter firmware release notes,inverter x100 firmware release,Latest firmware changes for the X100 inverter.,15000,0.015,0.012,0.003,ADN-STD-1
+NL-X200-SPEC,NorthLab (üretici datasheet),Voltara X200 inverter technical datasheet,inverter x200 datasheet power,"Power rating, efficiency and MPPT details for the X200 15 kW inverter.",35000,0.035,0.028,0.007,ADN-STD-1
+NL-B20-SPEC,NorthLab (üretici datasheet),Voltara B20 battery technical datasheet,battery b20 capacity storage datasheet,"Capacity, cycle life and power figures for the B20 home battery.",30000,0.03,0.024,0.006,ADN-STD-1
+NL-B20-SAFETY,NorthLab (üretici datasheet),Voltara B20 battery safety certification,battery b20 safety certification,Safety standards and protection features of the B20 battery.,22000,0.022,0.0176,0.0044,ADN-STD-1
+NL-P450-SPEC,NorthLab (üretici datasheet),Lumen P450 solar panel datasheet,panel p450 temperature datasheet,Electrical and thermal data for the P450 450 Wp module.,18000,0.018,0.0144,0.0036,ADN-STD-1
+NL-C9-PROTOCOL,NorthLab (üretici datasheet),Voltara C9 site controller protocol guide,controller c9 protocol modbus,Communication protocols and data models supported by the C9 controller.,15000,0.015,0.012,0.003,ADN-STD-1
+NL-M3-DIM,NorthLab (üretici datasheet),Voltara M3 roof mount dimensions and loads,mount m3 dimensions roof,Dimensions and load ratings of the M3 roof mounting kit.,12000,0.012,0.0096,0.0024,ADN-STD-1
+NL-W11-SPEC,NorthLab (üretici datasheet),Voltara W11 EV wallbox datasheet,charger w11 ev wallbox,"Charging power, connectivity and solar modes of the W11 wallbox.",25000,0.025,0.02,0.005,ADN-STD-1
+NL-HP7-SPEC,NorthLab (üretici datasheet),Voltara HP7 heat pump datasheet,heatpump hp7 efficiency datasheet,"Seasonal efficiency, refrigerant and noise data for the HP7 heat pump.",28000,0.028,0.0224,0.0056,ADN-STD-1
+SS-X100-STOCK,SouthSupply (distribütör),Voltara X100 inverter stock and lead time,inverter x100 lead time stock availability,Current warehouse stock and delivery lead time for the X100 inverter.,30000,0.03,0.024,0.006,ADN-STD-1
+SS-X100-PRICE,SouthSupply (distribütör),Voltara X100 inverter distributor price tiers,inverter x100 price distributor,Volume price tiers for the X100 inverter.,35000,0.035,0.028,0.007,ADN-STD-1
+SS-X200-STOCK,SouthSupply (distribütör),Voltara X200 inverter stock,inverter x200 stock availability,Current warehouse stock for the X200 inverter.,25000,0.025,0.02,0.005,ADN-STD-1
+SS-B20-LEAD,SouthSupply (distribütör),Voltara B20 battery stock and lead time,battery b20 lead time stock,Current stock and lead time for B20 battery modules.,22000,0.022,0.0176,0.0044,ADN-STD-1
+SS-P450-PALLET,SouthSupply (distribütör),Lumen P450 panel packaging and logistics,panel p450 packaging logistics,Pallet and container packing data for the P450 panel.,12000,0.012,0.0096,0.0024,ADN-STD-1
+SS-C9-WARRANTY,SouthSupply (distribütör),Voltara C9 controller distributor warranty,controller c9 warranty service,Distributor warranty and replacement terms for the C9 controller.,10000,0.01,0.008,0.002,ADN-STD-1
+SS-M3-STOCK,SouthSupply (distribütör),Voltara M3 roof mount stock,mount m3 stock availability,Current stock of M3 mounting kits.,10000,0.01,0.008,0.002,ADN-STD-1
+SS-W11-STOCK,SouthSupply (distribütör),Voltara W11 wallbox stock and lead time,charger w11 stock lead time,Current stock and lead time for the W11 wallbox.,15000,0.015,0.012,0.003,ADN-STD-1
+SS-HP7-STOCK,SouthSupply (distribütör),Voltara HP7 heat pump stock,heatpump hp7 stock availability,Current stock for the HP7 heat pump.,15000,0.015,0.012,0.003,ADN-STD-1
+SS-RMA-STATS,SouthSupply (distribütör),Voltara product return rates,inverter battery returns rma,Rolling 12-month return rates and repair turnaround across Voltara products.,30000,0.03,0.024,0.006,ADN-STD-1
+SS-FREIGHT-TR,SouthSupply (distribütör),Palletized freight times from Izmir,freight logistics shipping,Transit times for palletized freight from the Izmir warehouse.,18000,0.018,0.0144,0.0036,ADN-STD-1
+SS-INSTALLERS,SouthSupply (distribütör),Certified installer network coverage,installer network certified,Coverage and booking times of the certified installer network.,20000,0.02,0.016,0.004,ADN-STD-1

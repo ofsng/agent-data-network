@@ -1,0 +1,40 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.wrap { display: grid; grid-template-columns: 1.25fr 1fr; gap: 30px; margin-top: 36px; }
+.bars { padding: 30px 34px; }
+.br { display: grid; grid-template-columns: 200px 1fr 120px; align-items: center; gap: 18px; margin: 26px 0; }
+.br .name { font-size: 23px; font-weight: 700; }
+.br .name small { display: block; font-size: 16px; color: var(--faint); font-weight: 400; font-family: var(--mono); }
+.track { height: 46px; background: rgba(255,255,255,.03); border-radius: 10px; display: flex; overflow: hidden; border: 1px solid var(--line); }
+.seg { height: 100%; }
+.v { font-family: var(--mono); font-size: 24px; text-align: right; }
+.legend { display: flex; gap: 22px; margin-top: 10px; font-size: 18px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 8px; vertical-align: -1px; }
+table.t td { font-size: 19px; padding: 11px 14px; }
+table.t td.n { font-family: var(--mono); text-align: right; }
+.pos { color: var(--mint) !important; } .neg { color: var(--red) !important; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">run-20261126160622-324f29 · Devnet</div></div>
+<div class="eyebrow">Ölçülmüş bakiye değişimleri</div>
+<h1 style="font-size:52px">Bir oturumda kim <em>ne kazandı</em> (aUSD)</h1>
+<div class="wrap">
+ <div class="card bars"><h3>Kazançlar</h3>
+  <div class="br"><div class="name">NorthLab<small>sağlayıcı A</small></div><div class="track"><div class="seg" style="width:1.3%;background:#3ddc97"></div><div class="seg" style="width:87%;background:#f2b550"></div><div class="seg" style="width:1.3%;background:#7cc4ff"></div></div><div class="v mint">1.648</div></div>
+  <div class="br"><div class="name">SouthSupply<small>sağlayıcı B</small></div><div class="track"><div class="seg" style="width:1.3%;background:#3ddc97"></div></div><div class="v mint">0.024</div></div>
+  <div class="br"><div class="name">Hazine<small>platform</small></div><div class="track"><div class="seg" style="width:.65%;background:#3ddc97"></div><div class="seg" style="width:21.8%;background:#f2b550"></div><div class="seg" style="width:.33%;background:#7cc4ff"></div></div><div class="v amber">0.418</div></div>
+  <div class="legend"><span><i style="background:#3ddc97"></i>Atomik satış</span><span><i style="background:#f2b550"></i>Bounty ödülü</span><span><i style="background:#7cc4ff"></i>Yeniden satış</span></div>
+  <p style="margin-top:22px;font-size:19px">Ölçek: 1.84 aUSD = tam genişlik. NorthLab'in kazancının büyük kısmı ödülden; aynı veriyi yeniden satarak ek gelir elde etti.</p>
+ </div>
+ <div class="card" style="padding:26px 28px"><h3>Adım adım değişimler</h3>
+  <table class="t"><tr><th>Olay</th><th style="text-align:right">Alıcı</th><th style="text-align:right">Sağl.</th><th style="text-align:right">Hazine</th></tr>
+   <tr><td>Atomik satış</td><td class="n neg">−0.060</td><td class="n pos">+0.048</td><td class="n pos">+0.012</td></tr>
+   <tr><td>Ödül kilit</td><td class="n neg">−2.000</td><td class="n">0</td><td class="n">0</td></tr>
+   <tr><td>Ödül kabul</td><td class="n">kasa −2</td><td class="n pos">+1.600</td><td class="n pos">+0.400</td></tr>
+   <tr><td>Yeniden satış</td><td class="n neg">−0.030</td><td class="n pos">+0.024</td><td class="n pos">+0.006</td></tr>
+   <tr><td>İade kilit</td><td class="n neg">−2.000</td><td class="n">0</td><td class="n">0</td></tr>
+   <tr><td>İade</td><td class="n pos">+2.000</td><td class="n">0</td><td class="n">0</td></tr></table>
+  <p style="margin-top:16px;font-size:17px">Kaynak: evidence/devnet-run-manifest.json · deltas</p>
+ </div>
+</div>
+<div class="foot"><span>aUSD Devnet'te 6 ondalıklı test stablecoin'dir; gerçek parayla karşılığı yoktur</span><b>12 / Para akışı</b></div>
+</div></body></html>

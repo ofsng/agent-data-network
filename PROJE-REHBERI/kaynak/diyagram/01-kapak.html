@@ -1,0 +1,32 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.hero { margin-top: 70px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 70px; align-items: center; }
+h1 { font-size: 104px; }
+.lead { font-size: 32px; max-width: 980px; }
+.loop { display: flex; gap: 12px; margin-top: 42px; flex-wrap: wrap; }
+.loop .pill { font-size: 22px; padding: 10px 18px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.stats .card { padding: 30px; }
+.orb { position: absolute; right: -180px; top: 120px; width: 900px; height: 900px; border-radius: 50%; border: 1px solid rgba(61,220,151,.12); }
+.orb2 { position: absolute; right: -80px; top: 220px; width: 700px; height: 700px; border-radius: 50%; border: 1px dashed rgba(61,220,151,.10); }
+</style></head><body>
+<div class="orb"></div><div class="orb2"></div>
+<div class="page">
+  <div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Dev3pack · Solana Hackathon · 27–29 Kasım 2026</div></div>
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Proje Rehberi</div>
+      <h1>Yapay zekâ ajanları için <em>lisanslı veri</em> pazarı</h1>
+      <p class="lead">Ajan ihtiyaç duyduğu küçük veri parçalarını satın alır, birden çok satıcıya <b style="color:var(--text)">tek bir Solana işlemiyle</b> öder, ne aldığını <b style="color:var(--text)">zincir üzerindeki makbuzla</b> kanıtlar. Veri yoksa ödülü kasaya kilitleyip üretilmesini sağlar.</p>
+      <div class="loop"><span class="pill mint">Keşfet</span><span class="pill mint">Satın al</span><span class="pill mint">Doğrula</span><span class="pill amber">Sipariş et</span><span class="pill blue">Yeniden sat</span></div>
+    </div>
+    <div class="stats">
+      <div class="card"><div class="num mint">1</div><div class="lbl">Anchor programı, 8 instruction</div></div>
+      <div class="card"><div class="num">16</div><div class="lbl">adımlık ekonomik döngü</div></div>
+      <div class="card"><div class="num">37</div><div class="lbl">otomatik test, hepsi geçiyor</div></div>
+      <div class="card"><div class="num amber">80/20</div><div class="lbl">sağlayıcı / platform payı</div></div>
+      <div class="card" style="grid-column: span 2"><div class="lbl" style="margin:0 0 10px">Devnet program adresi</div><div class="mono" style="font-size:25px;color:var(--mint)">3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>github.com/ofsng/agent-data-network</span><b>agent-data-network.vercel.app</b></div>
+</div></body></html>

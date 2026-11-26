@@ -18,6 +18,7 @@ skills-lock.json
 
 # Rendered explainer videos (rebuild with video/record.ts + video/build.py)
 video/*.mp4
+PROJE-REHBERI/video/*.mp4
 
 # Generated public read-only copy (scripts/export-public.ts) and Vercel link
 public/

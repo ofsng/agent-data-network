@@ -1,0 +1,23 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+table.t { margin-top: 30px; }
+table.t td { font-size: 18.5px; padding: 13px 16px; }
+table.t td:first-child { width: 300px; }
+table.t td:nth-child(3) { color: var(--blue); }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Verification & evidence → Open risks</div></div>
+<div class="eyebrow">Açık riskler (uygulamada da gösteriliyor)</div>
+<h1 style="font-size:50px">Riskleri <em>biz söylüyoruz</em>: bugün ne var, sırada ne var</h1>
+<table class="t">
+ <tr><th>Risk</th><th>Bugün</th><th>Sırada</th></tr>
+ <tr><td>Alan veriyi kopyalayıp ucuza satar</td><td>Aynı hash ile sonraki listeleme kopya işaretlenir, aramada çıkmaz, teklif verilmez (T56)</td><td>Alıcıya özel filigran (watermark)</td></tr>
+ <tr><td>Küçük değişiklikli kopya</td><td>Yeni hash kontrolü geçer; hızlı değişen veri kopyacı için çabuk değer kaybeder</td><td>Filigran, listelemede benzerlik kontrolü</td></tr>
+ <tr><td>Ödüle sahte veri</td><td>Para yalnızca talep sahibinin imzalı kabulüyle çıkar; inceleme güvenilen dış doğrulayıcı</td><td>İtiraz süresi, teminat, kaynak imzası</td></tr>
+ <tr><td>Yanlış katalog verisi</td><td>Makbuz doğruluk değil ödeme kanıtı; doğruluk "provider-declared"</td><td>Kaynak imzası, zkTLS, itibar</td></tr>
+ <tr><td>Satıcı veriyi sonradan değiştirir</td><td>Şartlar ve hash'ler zincirde sabit; uyuşmazlıkta snapshot'tan birebir geri yükleme</td><td>—</td></tr>
+ <tr><td>Ajan bütçeyi aşar</td><td>İmzadan önce kalıcı rezervasyon, eşik üstü insan onayı, genişletilemez harcama hakkı</td><td>SPL approve ile zincir üstü tavan</td></tr>
+ <tr><td>Tavuk-yumurta</td><td>Talep önce: ödül garantili ödeme; kabul edilen cevap tekrar satılır</td><td>Tek dikey, ilk ödülleri platform fonlar</td></tr>
+ <tr><td>%20 komisyon baskısı</td><td>Henüz test edilmedi</td><td>Güven katmanının karşılığı olarak kanıtlamak</td></tr>
+</table>
+<div class="foot"><span>Bunlar tasarım cevaplarıdır, kanıtlanmış çekiş değil: henüz müşteri yok</span><b>16 / Riskler</b></div>
+</div></body></html>

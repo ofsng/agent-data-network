@@ -1,0 +1,32 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.lane { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; margin-top: 46px; }
+.st { position: relative; }
+.st .card { padding: 22px 22px; height: 300px; }
+.st .k { font-family: var(--mono); font-size: 17px; letter-spacing: .1em; margin-bottom: 10px; }
+.st h3 { font-size: 26px; }
+.st p { font-size: 18.5px; }
+.st .money { font-family: var(--mono); font-size: 22px; margin-top: 14px; }
+.st:not(:last-child)::after { content: "→"; position: absolute; right: -20px; top: 130px; color: var(--mint); font-size: 26px; }
+.alt { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; margin-top: 30px; }
+.alt .card { padding: 22px 24px; }
+.alt h3 { font-size: 24px; }
+.alt p { font-size: 18.5px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">create_bounty · submit · accept · refund</div></div>
+<div class="eyebrow">Ödül (bounty) emaneti</div>
+<h1 style="font-size:54px">Eksik veri, <em>parası kilitli</em> bir siparişe dönüşür</h1>
+<div class="lane">
+ <div class="st"><div class="card"><div class="k amber">1 · AÇIK (OPEN)</div><h3>Ödül kasaya</h3><p>Ajan "recycling" verisini bulamaz. 2 aUSD, bounty PDA'sına ait kasaya kilitlenir. Gereksinim herkese açık ama cevabı içermez.</p><div class="money amber">−2.0 → kasa</div></div></div>
+ <div class="st"><div class="card"><div class="k blue">2 · GÖNDERİM</div><h3>Aday veriler</h3><p>Sağlayıcı iki adayı <b>pasif</b> birim olarak kaydeder ve gönderir. Hiç para hareket etmez.</p><div class="money muted">0 transfer</div></div></div>
+ <div class="st"><div class="card"><div class="k violet">3 · İNCELEME</div><h3>Yalnızca geçti/kaldı</h3><p>Yerel doğrulayıcı adayları kurallarla karşılaştırır; talep sahibi cevabı görmez. Yanlış aday elenir.</p><div class="money violet">pass / fail</div></div></div>
+ <div class="st"><div class="card" style="border-color:rgba(61,220,151,.4)"><div class="k mint">4 · KABUL (ACCEPTED)</div><h3>80/20 ödeme</h3><p>Talep sahibi incelemeyi tekrar çalıştırıp imzalar. Kasa öder, bounty makbuzu yazılır, cevap şimdi teslim edilir.</p><div class="money mint">+1.6 sağl. · +0.4 haz.</div></div></div>
+ <div class="st"><div class="card"><div class="k blue">5 · YENİDEN SATIŞ</div><h3>Kalıcı envanter</h3><p>Sağlayıcı birimi aktif eder. İkinci ajan 0.03'e satın alır, sağlayıcı aynı iş için tekrar kazanır.</p><div class="money mint">+0.024 sağl.</div></div></div>
+</div>
+<div class="alt">
+ <div class="card" style="border-color:rgba(255,122,122,.3)"><h3 class="red">Erken iade → reddedilir</h3><p>Süre dolmadan <span class="mono">refund_expired_bounty</span> çağrılırsa program <span class="mono">DeadlineNotReached</span> hatası verir.</p></div>
+ <div class="card" style="border-color:rgba(61,220,151,.3)"><h3 class="mint">Süre doldu → tam iade</h3><p>Kabul yoksa talep sahibi 2 aUSD'nin tamamını geri alır. Komisyon yok, makbuz yok, statü REFUNDED.</p></div>
+ <div class="card"><h3>Kasa kuralları</h3><p>Kasadan yalnızca <b>ödül tutarı</b>, yalnızca <b>bir kez</b> çıkar. Dışarıdan gönderilen fazla jetonlar kasada kalır. Son süre en fazla 7 gün.</p></div>
+</div>
+<div class="foot"><span>Devnet kabul işlemi: 2NGCd5nZ…cfwkXb61 · iade: nZYdksco…QKH3BAzgT6rLnwtutxKGQH</span><b>05 / Ödül yaşam döngüsü</b></div>
+</div></body></html>

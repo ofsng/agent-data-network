@@ -1,0 +1,40 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.stage { position: relative; flex: 1; margin-top: 30px; }
+.box { position: absolute; }
+.tx { left: 470px; top: 30px; width: 760px; height: 520px; border: 2px dashed rgba(61,220,151,.45); border-radius: 26px; padding: 26px; background: rgba(61,220,151,.03); }
+.tx .k { font-family: var(--mono); color: var(--mint); font-size: 20px; letter-spacing: .1em; margin-bottom: 16px; }
+.ix { border: 1px solid var(--line2); background: var(--panel); border-radius: 18px; padding: 20px 22px; margin-bottom: 18px; }
+.ix .h { display: flex; justify-content: space-between; align-items: center; }
+.ix b { font-family: var(--mono); font-size: 26px; color: var(--text); }
+.ix .s { font-size: 19px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+.who .card { padding: 22px 24px; width: 380px; }
+.amt { font-family: var(--mono); font-size: 32px; font-weight: 700; }
+.metric { display: flex; gap: 16px; position: absolute; left: 26px; bottom: 26px; }
+.metric .pill { font-size: 18px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">purchase_unit × 2 · tek işlem</div></div>
+<div class="eyebrow">Atomik çoklu sağlayıcı ödemesi</div>
+<h1 style="font-size:54px">İki satıcı, bir platform, <em>tek imza</em>: ya hepsi ya hiçbiri</h1>
+<div class="stage">
+<svg class="flow" viewBox="0 0 1728 700" style="width:1728px;height:700px">
+ <defs><marker id="m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3ddc97"/></marker>
+ <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f2b550"/></marker></defs>
+ <path d="M 400 300 C 430 300 440 300 466 300" class="arrow mint" marker-end="url(#m)"/>
+ <path d="M 1232 150 C 1280 150 1290 90 1330 90" class="arrow mint" marker-end="url(#m)"/>
+ <path d="M 1232 330 C 1280 330 1290 290 1330 290" class="arrow mint" marker-end="url(#m)"/>
+ <path d="M 1232 240 C 1290 240 1290 490 1330 490" class="arrow amber dash" marker-end="url(#a)"/>
+</svg>
+<div class="box who" style="left:0;top:180px"><div class="card"><div class="k mono muted" style="font-size:17px;letter-spacing:.1em">ALICI · AJAN CÜZDANI</div><h3 style="margin-top:8px">Araştırma ajanı</h3><div class="amt red">−0.060 aUSD</div><p style="margin-top:8px">Tek imza atar, ücreti ve makbuz kirasını öder.</p></div></div>
+<div class="box tx"><div class="k">BİR SOLANA İŞLEMİ · ORDER ID ORTAK</div>
+ <div class="ix"><div class="h"><b>purchase_unit #1</b><span class="pill">NorthLab · datasheet</span></div><div class="s">Fiyat, sürüm, içerik ve lisans hash'i zincirdeki kayıtla eşleşmeli; süre dolmamalı. Makbuz PDA #1 yazılır.</div></div>
+ <div class="ix"><div class="h"><b>purchase_unit #2</b><span class="pill">SouthSupply · stok</span></div><div class="s">Aynı kontroller. İkinci talimat hata verirse birincisi de geri alınır; para hareket etmez.</div></div>
+ <div class="metric"><span class="pill mint">784 bayt / 1232</span><span class="pill mint">~56k CU</span><span class="pill mint">ücret 5 000 lamport</span></div>
+</div>
+<div class="box who" style="left:1340px;top:20px"><div class="card"><div class="k mono muted" style="font-size:17px">SAĞLAYICI A · NorthLab</div><div class="amt mint">+0.024</div><p>%80 pay</p></div></div>
+<div class="box who" style="left:1340px;top:220px"><div class="card"><div class="k mono muted" style="font-size:17px">SAĞLAYICI B · SouthSupply</div><div class="amt mint">+0.024</div><p>%80 pay</p></div></div>
+<div class="box who" style="left:1340px;top:420px"><div class="card" style="border-color:rgba(242,181,80,.3)"><div class="k mono muted" style="font-size:17px">HAZİNE · PLATFORM</div><div class="amt amber">+0.012</div><p>2 × %20 pay</p></div></div>
+<div class="box" style="left:0;top:470px;width:380px"><div class="card" style="padding:20px 22px"><p style="font-size:18px"><b style="color:var(--text)">Formül:</b> platform = ⌊tutar×2000/10000⌋, sağlayıcı = tutar − platform. 30&nbsp;000 baz birim → 24&nbsp;000 + 6&nbsp;000.</p></div></div>
+</div>
+<div class="foot"><span>Gerçek Devnet işlemi: 5oEj3wfi…oFnRvHfnMRsW · slot 526563154</span><b>04 / Atomik satın alma</b></div>
+</div></body></html>

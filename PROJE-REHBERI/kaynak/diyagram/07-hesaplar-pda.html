@@ -1,0 +1,27 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.g { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+.card { padding: 20px 22px; }
+.card h3 { font-size: 24px; display: flex; justify-content: space-between; align-items: baseline; }
+.card h3 small { font-family: var(--mono); font-size: 15px; color: var(--faint); font-weight: 400; }
+.seed { font-family: var(--mono); font-size: 16px; color: var(--mint); background: rgba(61,220,151,.06); border: 1px solid rgba(61,220,151,.18); padding: 8px 10px; border-radius: 10px; margin: 10px 0; line-height: 1.4; }
+.f { font-family: var(--mono); font-size: 15.5px; color: var(--muted); line-height: 1.55; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Program Derived Addresses</div></div>
+<div class="eyebrow">Zincir üstü hesaplar</div>
+<h1 style="font-size:52px">Her kayıt, tohumlarından <em>hesaplanabilen</em> bir adreste</h1>
+<div class="g">
+ <div class="card"><h3>Config <small>tek</small></h3><div class="seed">["config"]</div><div class="f">admin · mint · treasury<br>fee_bps = 2000 · bump<br>Yalnızca upgrade authority kurar.</div></div>
+ <div class="card"><h3>DataAsset</h3><div class="seed">["asset", provider, asset_id, version]</div><div class="f">price · content_hash<br>license_hash · version<br>active (tek değişebilir alan)</div></div>
+ <div class="card" style="border-color:rgba(61,220,151,.35)"><h3>PurchaseReceipt <small>254 B</small></h3><div class="seed">["receipt", buyer, order_id, asset]</div><div class="f">buyer · provider · asset · mint<br>version · hash'ler · amount<br>80/20 payları · timestamp · kind=0</div></div>
+ <div class="card"><h3>Bounty</h3><div class="seed">["bounty", requester, bounty_id]</div><div class="f">requirement_hash · reward<br>deadline (≤7 gün) · status<br>winner_submission</div></div>
+ <div class="card"><h3>Kasa (vault)</h3><div class="seed">ATA(mint, sahibi = bounty PDA)</div><div class="f">Ödül burada kilitli.<br>Yalnızca program, bounty<br>tohumlarıyla imzalayıp öder.</div></div>
+ <div class="card"><h3>Submission</h3><div class="seed">["submission", bounty, provider, asset]</div><div class="f">bounty · provider · asset<br>Pasif varlığa referans.<br>Token hareketi yok.</div></div>
+ <div class="card" style="border-color:rgba(242,181,80,.35)"><h3>BountyReceipt</h3><div class="seed">["bounty_receipt", bounty, asset]</div><div class="f">PurchaseReceipt ile aynı yapı<br>kind=1 · amount = ödül<br>Bir bounty+varlık için tek.</div></div>
+ <div class="card"><h3>Token hesapları</h3><div class="seed">ATA(mint, sahip)</div><div class="f">Alıcı, sağlayıcı ve hazine için<br>kanonik ATA zorunlu.<br>Yanlış ATA → InvalidTokenAccount</div></div>
+</div>
+<div class="row" style="margin-top:26px;gap:16px">
+ <span class="pill mint">init → makbuz tekrar oynatılamaz</span><span class="pill amber">makbuzu kapatan talimat yok (kalıcı)</span><span class="pill blue">kira (rent) alıcı tarafından ödenir</span><span class="pill violet">19 özel hata kodu</span>
+</div>
+<div class="foot"><span>programs/adn/src/lib.rs</span><b>07 / Hesaplar</b></div>
+</div></body></html>

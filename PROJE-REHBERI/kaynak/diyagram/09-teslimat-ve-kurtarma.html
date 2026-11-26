@@ -1,0 +1,32 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 40px; }
+.s { position: relative; }
+.s .card { height: 250px; padding: 22px; }
+.s .n { font-family: var(--mono); color: var(--mint); font-size: 18px; margin-bottom: 8px; }
+.s h3 { font-size: 24px; }
+.s p { font-size: 18px; }
+.s:not(:last-child)::after { content: "→"; position: absolute; right: -16px; top: 110px; color: var(--mint); font-size: 24px; }
+.bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 30px; }
+.bottom .card { padding: 24px 26px; }
+.bottom h3 { font-size: 26px; }
+.flow2 { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">/challenges → /deliveries</div></div>
+<div class="eyebrow">Veri teslimi</div>
+<h1 style="font-size:54px">Makbuz yoksa veri yok; veri bozulursa <em>ücretsiz</em> tekrar</h1>
+<div class="steps">
+ <div class="s"><div class="card"><div class="n">01</div><h3>Ön kontrol</h3><p>Teklif öncesi: saklanan baytlar zincirdeki hash ile aynı mı, snapshot var mı?</p></div></div>
+ <div class="s"><div class="card"><div class="n">02</div><h3>Makbuz doğrulama</h3><p>Kesinleşmiş (finalized) makbuz zincirden okunur, tüm alanlar kontrol edilir.</p></div></div>
+ <div class="s"><div class="card"><div class="n">03</div><h3>Tek seferlik nonce</h3><p>Sunucu 60 saniye geçerli bir meydan okuma (challenge) üretir.</p></div></div>
+ <div class="s"><div class="card"><div class="n">04</div><h3>Cüzdan imzası</h3><p>Alıcı cüzdanı mesajı imzalar (ed25519). Nonce bir kez kullanılır.</p></div></div>
+ <div class="s"><div class="card" style="border-color:rgba(61,220,151,.4)"><div class="n">05</div><h3>Tam baytlar</h3><p>İçerik döner; alıcı SHA-256'yı makbuzdaki hash ile karşılaştırır.</p></div></div>
+</div>
+<div class="bottom">
+ <div class="card" style="border-color:rgba(255,122,122,.3)"><h3 class="red">Ödemeden sonra bozulma</h3><p>Saklanan bayt değişirse teslim <b>kapalı başarısız olur</b> (fail closed). Sistem hash'i doğrulanmış snapshot'tan birebir baytları geri yükler; alıcı aynı makbuzla <b>tekrar ödemeden</b> alır.</p>
+  <div class="flow2"><span class="pill red">HASH_MISMATCH</span><span class="pill amber">snapshot'tan geri yükle</span><span class="pill mint">ücretsiz yeniden dene</span></div></div>
+ <div class="card"><h3>Sızıntı yok (test edildi)</h3><p>Arama, katalog, bounty, sağlık, kanıt uçları ve loglar hiçbir zaman ücretli içeriği veya bounty cevabını içermez. Makbuzsuz, sahte makbuzlu, yanlış alıcılı ya da kötü imzalı istek → içerik yok.</p>
+  <div class="flow2"><span class="pill">T18</span><span class="pill">T19</span><span class="pill">T20/T43</span><span class="pill">T41/T50</span><span class="pill">T42</span></div></div>
+</div>
+<div class="foot"><span>Ödeme zincirde atomik; teslim ayrı ve tekrar denenebilir bir adım (açıkça yazılmış güven varsayımı)</span><b>09 / Teslimat</b></div>
+</div></body></html>

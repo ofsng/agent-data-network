@@ -1,0 +1,32 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.cols { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 26px; margin-top: 42px; }
+.rc { font-family: var(--mono); font-size: 19px; line-height: 1.75; color: var(--muted); }
+.rc b { color: var(--text); font-weight: 400; }
+ul { list-style: none; }
+li { font-size: 22px; padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; gap: 14px; line-height: 1.35; }
+li:last-child { border: 0; }
+li i { font-style: normal; font-weight: 900; }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">PurchaseReceipt</div></div>
+<div class="eyebrow">Dürüst sınır</div>
+<h1 style="font-size:54px">Makbuz <em>neyin ödendiğini</em> kanıtlar, verinin doğru olduğunu değil</h1>
+<div class="cols">
+ <div class="card"><h3>Gerçek bir makbuz (Devnet)</h3><div class="rc">
+  pda <b>2AxrTtdC…MXhr4</b><br>buyer <b>CTE4NWQ6…FTpXh</b><br>provider <b>B3MfpnQk…kWvAm</b><br>version <b>1</b><br>content <b>5aa926c5…7d5f88</b><br>license <b>d97fd627…5b590d</b><br>amount <b>30000</b> = 0.03 aUSD<br>provider/platform <b>24000 / 6000</b><br>kind <b>0 (satın alma)</b><br>finalized slot <b>526563174</b></div></div>
+ <div class="card" style="border-color:rgba(61,220,151,.35)"><h3 class="mint">Kanıtladıkları</h3><ul>
+  <li><i class="mint">✓</i>Bu cüzdan bu birim için ödedi</li>
+  <li><i class="mint">✓</i>Hangi sürüm, hangi baytlar (hash)</li>
+  <li><i class="mint">✓</i>Hangi lisans şartları (hash)</li>
+  <li><i class="mint">✓</i>Ne kadar, kime, nasıl bölündü</li>
+  <li><i class="mint">✓</i>Ne zaman (zincir saati)</li></ul></div>
+ <div class="card" style="border-color:rgba(255,122,122,.3)"><h3 class="red">Kanıtlamadıkları</h3><ul>
+  <li><i class="red">✕</i>Verinin doğru olduğu</li>
+  <li><i class="red">✕</i>Satıcının verinin sahibi olduğu</li>
+  <li><i class="red">✕</i>Verinin teslim edildiği</li>
+  <li><i class="red">✕</i>Verinin kullanıldığı</li>
+  <li><i class="red">✕</i>Hukuki sahiplik devri</li></ul></div>
+</div>
+<p class="lead" style="margin-top:30px;font-size:23px">Doğruluk ekonomik araçlarla ele alınır (itiraz süresi, teminat, itibar) ve kaynak imzalarıyla güçlendirilir. Arayüz her listelemede "Accuracy: provider-declared" yazar.</p>
+<div class="foot"><span>verify_receipt: program sahibi, PDA türetimi, alıcı, mint, sürüm, hash'ler, 80/20 tutarları kontrol edilir</span><b>08 / Makbuz</b></div>
+</div></body></html>

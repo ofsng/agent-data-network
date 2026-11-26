@@ -1,0 +1,23 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.stack { display: flex; flex-direction: column; gap: 14px; margin-top: 36px; }
+.lv { display: grid; grid-template-columns: 70px 330px 1fr 170px; align-items: center; gap: 22px; padding: 22px 26px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); }
+.lv .n { font-family: var(--mono); font-size: 30px; color: var(--faint); }
+.lv b { font-size: 26px; }
+.lv span { font-size: 20px; color: var(--muted); line-height: 1.4; }
+.lv.on { border-color: rgba(61,220,151,.35); }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Data Trust Layer</div></div>
+<div class="eyebrow">Doğruluk kanıtlanamaz, hesap sorulabilir</div>
+<h1 style="font-size:52px">Güven <em>katman katman</em> kurulur</h1>
+<div class="stack">
+ <div class="lv on"><div class="n">01</div><b>Biçim (şema)</b><span>UTF-8, NFC, LF, boyut ≤ 64 KB; TEXT_V1 / BOUNTY_JSON_V2 şeması. Bozuk girdi yayından önce reddedilir.</span><span class="pill mint">var</span></div>
+ <div class="lv on"><div class="n">02</div><b>Bütünlük (hash)</b><span>SHA-256 içerik ve lisans hash'i zincirde. Teklif öncesi ve teslimde karşılaştırılır.</span><span class="pill mint">var</span></div>
+ <div class="lv on"><div class="n">03</div><b>Kurtarma (snapshot)</b><span>Her birim için doğrulanmış kopya (0600, repo dışında). Bozulmada birebir geri yükleme, ücretsiz tekrar.</span><span class="pill mint">var</span></div>
+ <div class="lv on"><div class="n">04</div><b>Köken (provenance)</b><span>İlk kesinleşmiş listeleme kaydedilir; başka sağlayıcının aynı baytları kopya sayılır.</span><span class="pill mint">var</span></div>
+ <div class="lv"><div class="n">05</div><b>Kaynak kanıtı</b><span>Üretici / kurum imzası, zkTLS ile "bu veri şu siteden geldi" kanıtı.</span><span class="pill amber">yol haritası</span></div>
+ <div class="lv"><div class="n">06</div><b>Ekonomik caydırıcılık</b><span>İtiraz süresi, sağlayıcı teminatı (stake), kanıtlanmış sahtede ceza.</span><span class="pill amber">yol haritası</span></div>
+ <div class="lv"><div class="n">07</div><b>İtibar</b><span>Satıcının geçmişi, itiraz oranı, tekrar satış başarısı.</span><span class="pill amber">yol haritası</span></div>
+</div>
+<div class="foot"><span>Kaynak ve haklar sağlayıcı beyanıdır; doğruluk her zaman UNVERIFIED olarak tutulur</span><b>17 / Güven katmanları</b></div>
+</div></body></html>

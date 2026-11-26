@@ -1,0 +1,23 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+table.t { margin-top: 34px; }
+table.t td { font-size: 20px; padding: 14px 18px; }
+table.t td:nth-child(3) { color: var(--mint); }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Hackathon → Ürün</div></div>
+<div class="eyebrow">Ne aynı kalır, ne değişir</div>
+<h1 style="font-size:52px">Mantık gerçek; <em>para kaynağı ve barındırma</em> değişir</h1>
+<table class="t">
+ <tr><th>Parça</th><th>Bugün (hackathon)</th><th>Gerçek üründe</th></tr>
+ <tr><td>Ağ</td><td>Solana Devnet + yerel validator</td><td>Solana mainnet; program denetimden geçer</td></tr>
+ <tr><td>Para birimi</td><td>aUSD: operatörün bastığı test stablecoin</td><td>USDC gibi gerçek stablecoin</td></tr>
+ <tr><td>Ajan cüzdanını fonlama</td><td>Operatör anahtarı varsa test parası basılır</td><td>Kullanıcı kendi cüzdanından yatırır ya da zincir üstü harcama izni (delegate) verir</td></tr>
+ <tr><td>Harcama sınırı</td><td>SQLite'ta kalıcı bütçe rezervasyonu + insan onayı</td><td>Aynısı + SPL approve ile zincirde tavan</td></tr>
+ <tr><td>Pazar servisi</td><td>Kullanıcının makinesinde (npm start)</td><td>Tek merkezi barındırılan servis, Postgres</td></tr>
+ <tr><td>MCP sunucusu</td><td>Repo klasöründen çalışır</td><td>npx ile kurulan paket veya uzak MCP; anahtar yine kullanıcıda</td></tr>
+ <tr><td>Bounty incelemesi</td><td>Güvenilen yerel doğrulayıcı</td><td>İtiraz süresi, sağlayıcı teminatı, kaynak imzası</td></tr>
+ <tr><td>Program yükseltme</td><td>Demo deployer yükseltebilir</td><td>Multisig / zaman kilitli yönetişim</td></tr>
+ <tr><td>Canlı vitrin</td><td>Vercel'de salt okunur Devnet kopyası</td><td>Cüzdanla giriş yapılan tam web uygulaması</td></tr>
+</table>
+<div class="foot"><span>Değişmeyen: atomik ödeme, makbuz, emanet, 80/20, tipli araçlar, onaylar</span><b>15 / Bugün ve gerçek ürün</b></div>
+</div></body></html>

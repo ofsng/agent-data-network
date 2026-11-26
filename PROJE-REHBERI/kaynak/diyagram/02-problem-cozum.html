@@ -1,0 +1,31 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><link rel="stylesheet" href="stil.css">
+<style>
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; flex: 1; }
+.col h2 { font-size: 34px; font-weight: 900; margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
+.item { display: flex; gap: 18px; align-items: flex-start; padding: 20px 24px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); margin-bottom: 14px; }
+.item b { display: block; font-size: 24px; margin-bottom: 4px; }
+.item span { font-size: 20px; color: var(--muted); line-height: 1.4; }
+.dot { flex: 0 0 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-weight: 900; font-size: 20px; }
+.bad .dot { background: var(--red-soft); color: var(--red); border: 1px solid rgba(255,122,122,.3); }
+.good .dot { background: var(--mint-soft); color: var(--mint); border: 1px solid rgba(61,220,151,.3); }
+.good .item { border-color: rgba(61,220,151,.22); }
+</style></head><body><div class="page">
+<div class="top"><div class="brand"><div class="logo">ADN</div>Agent Data Network</div><div class="tag">Problem → Çözüm</div></div>
+<div class="eyebrow">Neden var?</div>
+<h1>Ajanlar veriyi tahmin ediyor, kazıyor ya da <em>toptan</em> alıyor</h1>
+<div class="cols">
+ <div class="col bad"><h2><span class="red">✕</span> Bugün</h2>
+  <div class="item"><div class="dot">1</div><div><b>Kazıma ve tahmin</b><span>Ajan internetten veri toplar ya da boşluğu uydurur; kaynağı ve lisansı belirsizdir.</span></div></div>
+  <div class="item"><div class="dot">2</div><div><b>Toptan veri seti</b><span>Tek bir bilgi için koca bir abonelik ya da veri seti satın alınır.</span></div></div>
+  <div class="item"><div class="dot">3</div><div><b>Kanıt yok</b><span>Hangi verinin hangi sürümünün, hangi lisansla alındığı ispatlanamaz.</span></div></div>
+  <div class="item"><div class="dot">4</div><div><b>Eksik veri eksik kalır</b><span>Kimsenin yayınlamadığı bilgiyi üretmesi için kimseye ödeme yapılmaz.</span></div></div>
+ </div>
+ <div class="col good"><h2><span class="mint">✓</span> Agent Data Network</h2>
+  <div class="item"><div class="dot">1</div><div><b>Birim başına satın alma</b><span>Ajan yalnızca ihtiyacı olan küçük veri birimlerini, sabit fiyattan alır.</span></div></div>
+  <div class="item"><div class="dot">2</div><div><b>Tek işlemde çok satıcı</b><span>Birden fazla sağlayıcıya tek atomik Solana işlemiyle ödeme: ya hepsi ya hiçbiri.</span></div></div>
+  <div class="item"><div class="dot">3</div><div><b>Zincir üstü lisans makbuzu</b><span>Alıcı, sürüm, içerik ve lisans parmak izi, tutar ve 80/20 dağılımı değiştirilemez kayıtta.</span></div></div>
+  <div class="item"><div class="dot">4</div><div><b>Eksik veriye ödül</b><span>Ödül kasaya kilitlenir; üretilen veri kabul edilince ödenir ve sonra yeniden satılır.</span></div></div>
+ </div>
+</div>
+<div class="foot"><span>Kaynak: README.md · SUBMISSION.md</span><b>02 / Problem ve çözüm</b></div>
+</div></body></html>
