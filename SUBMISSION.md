@@ -60,7 +60,7 @@ Use the screenshots in `evidence/screenshots/`:
   - TypeScript service: SQLite store, canonical bytes, trust sidecar and snapshots, wallet-signed delivery challenges.
   - Session state machine and vanilla-JS UI.
   - Built-in rule-based research agent on typed tools.
-  - MCP stdio server (`npm run mcp`): read-only tools for any agent, plus `wallet_status`, `purchase_data` and `retrieve_data` when an agent wallet and spending cap are configured (`npm run cli -- agent-wallet`).
+  - MCP server for any agent: it sets itself up (`get_started`, `create_wallet`, `fund_wallet`), buys within a human-approved allowance, and asks the human for big purchases or more budget through an MCP approval dialog or the app's **Your agent** page, which also shows every action live. One message pasted into Claude Code does the whole setup (`npm run connect`).
 - **Tests:**
   - 17 program tests on an isolated validator (rollback, replay, wrong mint/ATA, aliasing, expiry, escrow abuse, refund timing);
   - 2 Rust unit tests;

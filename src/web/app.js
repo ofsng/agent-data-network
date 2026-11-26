@@ -30,7 +30,7 @@ const NAV = [
   ["tx", "Transactions & receipts", '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/>'],
   ["earnings", "Provider earnings", '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>'],
   ["evidence", "Verification & evidence", '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>'],
-  ["connect", "Connect your agent", '<path d="M9 7V3M15 7V3M7 7h10v4a5 5 0 01-10 0zM12 16v5"/>'],
+  ["connect", "Your agent", '<path d="M9 7V3M15 7V3M7 7h10v4a5 5 0 01-10 0zM12 16v5"/>'],
 ];
 
 const app = {
@@ -50,7 +50,7 @@ const READ_ONLY = "Read-only public copy. Clone the GitHub repo and run it local
 const SNAPSHOT_ROUTES = [
   [/^\/api\/v1\/health$/, "health"], [/^\/api\/demo\/scenes$/, "scenes"], [/^\/api\/v1\/catalog$/, "catalog"],
   [/^\/api\/v1\/bounties$/, "bounties"], [/^\/api\/v1\/evidence$/, "evidence"], [/^\/api\/demo\/runs\/[\w-]+$/, "run"],
-  [/^\/api\/demo\/runs\/[\w-]+\/evidence$/, "manifest"], [/^\/api\/v1\/receipts\/(\w{32,44})$/, "receipts/$1"], [/^\/api\/v1\/bounties\/(\w{32,44})$/, "bounties/$1"],
+  [/^\/api\/demo\/runs\/[\w-]+\/evidence$/, "manifest"], [/^\/api\/v1\/receipts\/(\w{32,44})$/, "receipts/$1"], [/^\/api\/v1\/bounties\/(\w{32,44})$/, "bounties/$1"], [/^\/api\/v1\/agents$/, "agents"], [/^\/api\/v1\/connect$/, "connect"],
 ];
 async function snapshotApi(method, path) {
   const fail = (status, message) => { throw Object.assign(new Error(message), { status, code: "READ_ONLY" }); };
@@ -93,6 +93,7 @@ async function refreshPublic() {
   if (cat.status === "fulfilled") app.catalog = cat.value.items;
   if (b.status === "fulfilled") app.bounties = b.value.items;
   if (ev.status === "fulfilled") app.evidence = ev.value;
+  app.agents = (await api("GET", "/api/v1/agents").catch(() => null))?.items ?? app.agents ?? [];
 }
 
 // ---------------- controls ----------------
@@ -461,66 +462,58 @@ function renderEvidence() {
 
 // ---------------- connect your agent (MCP) ----------------
 const MCP_TOOLS = [
-  ["search_data", "Search listings by keyword or tag. Metadata and prices only.", false],
-  ["get_data_quote", "Exact price for up to 4 units after the trust preflight. Nothing is paid.", false],
-  ["verify_receipt", "Check a license receipt on chain: buyer, hashes, amount and 80/20 split.", false],
-  ["list_bounties · get_bounty_status", "Open, accepted and refunded bounties with live vault balances.", false],
-  ["wallet_status", "Agent wallet balance, spending cap, spent and remaining.", true],
-  ["purchase_data", "Buy one or two units in one transaction, within the cap. Returns verified receipts.", true],
-  ["retrieve_data", "Fetch the licensed content for an owned receipt; hash-checked.", true],
+  ["get_started", "Shows what is set up, the one next step, and what only you can do.", "setup"],
+  ["create_wallet · fund_wallet", "The agent creates its own wallet on this machine and tops it up where the operator keys are present.", "setup"],
+  ["request_budget · check_request", "The agent asks you for an allowance; you approve in a dialog or here.", "setup"],
+  ["search_data · get_data_quote", "Free metadata search and exact prices. Nothing is paid.", "read"],
+  ["purchase_data", "Buys one or two units in one transaction within the allowance; asks you first above the threshold.", "wallet"],
+  ["retrieve_data", "Fetches the content of a receipt it owns, hash-checked.", "wallet"],
+  ["wallet_status · verify_receipt · list_bounties", "Balance and allowance, on-chain receipt checks, open data requests.", "read"],
 ];
-function agentPrompt(ci, cluster) {
+function agentSentence(ci, cluster) {
   const root = ci?.root ?? "/path/to/agent-data-network";
-  const env = cluster === "devnet" ? "SOLANA_CLUSTER=devnet " : "";
-  return `You are connecting to Agent Data Network (ADN): a marketplace on Solana ${cluster === "devnet" ? "Devnet" : "(local cluster)"} where AI agents buy licensed data units from providers, pay in aUSD, and get an on-chain license receipt for every purchase.
-
-STEP 1 - Setup (skip if the adn tools wallet_status and purchase_data are already available to you).
-Run this in a terminal:
-${env}npm --prefix "${root}" run --silent cli -- connect 1 --cap 0.5
-It creates your agent wallet on this machine (the key never leaves it), tops it up to 1 aUSD plus SOL for fees, and registers the "adn" MCP server in Claude Code with a spending cap of 0.5 aUSD. It is safe to run again.
-If the adn tools do not appear after it finishes, tell me to restart Claude Code (or open a new session) and paste this message again; you will then skip to step 2.
-
-STEP 2 - Check the connection.
-Call network_status and wallet_status. Tell me the network, your wallet address, aUSD balance, spending cap and remaining budget.
-
-STEP 3 - How to work with ADN (follow these rules from now on).
-- search_data is free and returns metadata only (title, tags, price, provider). Search before buying; try several keywords.
-- Prices are in aUSD base units with 6 decimals: 30000 = 0.03 aUSD.
-- get_data_quote gives the exact price without paying.
-- purchase_data buys 1 or 2 units in a single transaction from your wallet and returns verified receipts. Stay within your cap, never buy the same unit twice, and ask me before any purchase over 0.1 aUSD.
-- retrieve_data returns the licensed content of a receipt you own, hash-checked.
-- verify_receipt proves a purchase on chain. Cite the receipt address next to every fact you take from ADN.
-- If no unit covers what is needed, say so plainly and check list_bounties; never invent data.
-
-STEP 4 - First task.
-Find the Voltara X100 inverter technical datasheet and its current stock and lead time. Buy both for at most 0.1 aUSD, verify the receipts, and write me a short procurement note that cites each receipt.`;
+  return `Set up Agent Data Network for me. Run this in a terminal: ${cluster === "devnet" ? "SOLANA_CLUSTER=devnet " : ""}npm --prefix "${root}" run --silent connect
+Then reload your MCP servers (or ask me to), call the adn tool get_started and follow it until it says READY. Do the setup yourself; only ask me for approvals.`;
 }
-
-function renderConnect() {
-  const h = app.health;
-  const cluster = h?.cluster ?? "localnet";
-  const keyPath = app.connectInfo?.keyPath ?? `~/.config/adn-agent/${cluster}/agent.json`;
-  const env = `--env ADN_AGENT_KEYPAIR=${keyPath} --env ADN_AGENT_CAP=0.5${cluster === "devnet" ? " --env SOLANA_CLUSTER=devnet" : ""}`;
-  const root = app.connectInfo?.root ?? "/path/to/agent-data-network";
-  const add = `claude mcp add adn ${env} -- npm --prefix "${root}" run --silent mcp`;
-  const desktop = JSON.stringify({ mcpServers: { adn: { command: "npm", args: ["--prefix", root, "run", "--silent", "mcp"], env: { ADN_AGENT_KEYPAIR: app.connectInfo?.keyPath ?? keyPath, ADN_AGENT_CAP: "0.5", ...(cluster === "devnet" ? { SOLANA_CLUSTER: "devnet" } : {}) } } } }, null, 2);
-  const prompt = "Find the Voltara X100 inverter datasheet and its current stock and lead time. Buy both for at most 0.1 aUSD, verify the receipts, and write me a short procurement note.";
-  const block = (code) => `<div style="position:relative"><pre class="json" style="white-space:pre-wrap;word-break:break-all;padding-right:64px">${esc(code)}</pre><button type="button" class="btn ghost" style="position:absolute;top:6px;right:6px;padding:4px 10px;font-size:12px" data-copy="${esc(code)}">Copy</button></div>`;
-  const step = (n, title, body) => `<div class="card"><h2><span class="badge mint">${n}</span> ${title}</h2>${body}</div>`;
-  const p = agentPrompt(app.connectInfo, cluster);
-  return `<div class="view-head"><div><h1>Connect your agent</h1><p>Any MCP client — Claude Code, Claude Desktop, Cursor — can search the marketplace, buy data with its own wallet, and retrieve what it paid for. The wallet key stays on your machine, and every purchase is reserved against the spending cap you set before anything is signed.</p></div></div>
-    <div class="card connect-hero"><h2><span class="badge mint">Fastest</span> Paste one prompt into your agent</h2>
-      <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px"><p class="muted" style="margin:0;flex:1 1 320px">Copy this into Claude Code. The agent sets up its own wallet, connects to the marketplace, learns the rules and runs a first purchase. Setup is safe to repeat.</p><button type="button" class="btn primary" data-copy="${esc(p)}">Copy prompt</button></div>
-      <pre class="json connect-prompt">${esc(p)}</pre></div>
-    <h2 class="section-title" style="margin:18px 0 10px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Manual setup</h2>
-    <div class="grid g2">
-      ${step(1, "Create an agent wallet", `<p class="muted" style="margin-top:0">Creates a wallet on this machine and funds it with aUSD and SOL for fees. Run it again to top up.</p>${block(`${cluster === "devnet" ? "SOLANA_CLUSTER=devnet " : ""}npm --prefix "${root}" run --silent cli -- agent-wallet 1`)}`)}
-      ${step(2, "Add the server to your agent", `<p class="muted" style="margin-top:0"><b>Claude Code</b></p>${block(add)}<p class="muted"><b>Claude Desktop / Cursor</b> (mcpServers config)</p>${block(desktop)}`)}
-      ${step(3, "Give it a task", `<p class="muted" style="margin-top:0">Ask in plain language. The agent picks the tools itself.</p>${block(prompt)}`)}
-      ${step(4, "Check the result", `<p class="muted" style="margin-top:0">Every purchase returns receipt addresses. Paste one into <a href="#control" data-view="control">Control → Verify receipt</a> or ask the agent to call <span class="mono">verify_receipt</span>.</p><dl class="kv"><dt>Spending cap</dt><dd><span class="mono">ADN_AGENT_CAP</span> in aUSD; enforced before signing</dd><dt>Network</dt><dd>${cluster === "devnet" ? "Solana Devnet" : "Solana Localnet"}</dd><dt>Program</dt><dd>${addr(h?.programId)}</dd></dl>`)}
+const sinceText = (t) => (t ? ago(Math.max(0, Math.floor(Date.now() / 1000) - t)) : "never");
+function agentCard(a) {
+  const al = a.allowance;
+  const cap = big(al?.cap); const left = big(al?.remaining);
+  const usedPct = cap > 0n ? Number(((cap - left) * 10000n) / cap) / 100 : 0;
+  const live = a.lastSeen && Date.now() / 1000 - a.lastSeen < 600;
+  const sig = (ref) => (ref && ref.length > 60 && app.health?.cluster === "devnet" ? ` <a href="https://explorer.solana.com/tx/${esc(ref)}?cluster=devnet" target="_blank" rel="noopener">tx ↗</a>` : "");
+  return `<div class="card agent-card">
+    <h2><span><span class="dot-live ${live ? "on" : ""}"></span>Agent ${addr(a.address)}</span><span class="faint">${live ? "active" : "last active"} ${esc(sinceText(a.lastSeen))}</span></h2>
+    <div class="agent-stats">
+      <div><span>Wallet</span><b class="num">${fmtTest(a.balance.aUSD)}</b><em>${a.balance.sol.toFixed(3)} SOL for fees</em></div>
+      <div><span>Allowance left</span><b class="num">${al ? fmtTest(al.remaining) : "—"}</b><div class="meter"><i class="spent" style="width:${usedPct}%"></i></div><em>${al ? `${fmtTest(al.spent)} spent of ${fmtTest(al.approvedInTotal)} approved` : "waiting for your first approval"}</em></div>
+      <div><span>Asks you first</span><b class="num">above ${al ? fmtTest(al.approveAbove) : "0.1 aUSD"}</b><em>per purchase</em></div>
     </div>
-    <div class="card" style="margin-top:12px"><h2>Tools your agent gets <span class="faint">${MCP_TOOLS.length}</span></h2><div class="table-wrap"><table><thead><tr><th>Tool</th><th>What it does</th><th>Access</th></tr></thead><tbody>${MCP_TOOLS.map(([n, d, w]) => `<tr><td class="mono">${esc(n)}</td><td>${esc(d)}</td><td>${w ? '<span class="badge mint">with wallet</span>' : '<span class="badge">open</span>'}</td></tr>`).join("")}</tbody></table></div>
-    <p class="faint" style="font-size:12px;margin-bottom:0">There is no generic signing tool. The agent can only buy listed units through <span class="mono">purchase_data</span>, and only within its cap.</p></div>`;
+    ${a.pending.length ? `<div class="agent-pending"><h3>Waiting for you</h3>${a.pending.map((r) => `<div class="pend"><div><b>${r.kind === "BUDGET" ? "More budget" : "Purchase"}</b><span>${esc(r.summary)}</span></div>
+      <div class="pend-btns"><button class="btn" type="button" data-decide="decline" data-agent="${esc(a.address)}" data-req="${esc(r.id)}">Decline</button><button class="btn primary" type="button" data-decide="approve" data-agent="${esc(a.address)}" data-req="${esc(r.id)}">Approve</button></div></div>`).join("")}</div>` : ""}
+    <h3 class="agent-sub">Activity</h3>
+    ${a.activity.length ? `<ul class="feed">${a.activity.map((x) => `<li class="${x.ok ? "" : "err"}"><span class="t num">${esc(new Date(x.at * 1000).toISOString().slice(11, 16))}</span><span class="tool">${esc(x.tool)}</span><span class="s">${esc(x.summary)}${sig(x.ref)}</span></li>`).join("")}</ul>` : '<div class="empty">No activity yet.</div>'}
+  </div>`;
+}
+function renderConnect() {
+  const cluster = app.health?.cluster ?? "localnet";
+  const sentence = agentSentence(app.connectInfo, cluster);
+  const block = (code) => `<div style="position:relative"><pre class="json" style="white-space:pre-wrap;word-break:break-all;padding-right:64px">${esc(code)}</pre><button type="button" class="btn ghost copy-btn" data-copytext="${esc(code)}">Copy</button></div>`;
+  const agents = app.agents ?? [];
+  const manual = app.connectInfo?.mcp ? `claude mcp add adn ${Object.entries(app.connectInfo.mcp.env).map(([k, v]) => `--env ${k}=${v}`).join(" ")} -- ${app.connectInfo.mcp.command} ${app.connectInfo.mcp.args.map((x) => (/\s/.test(x) ? `"${x}"` : x)).join(" ")}` : "npm run connect   # prints the exact command for your machine";
+  return `<div class="view-head"><div><h1>Your agent</h1><p>Your AI agent sets itself up, shops for data with its own wallet and asks you only when a person has to decide. You watch and approve here.</p></div></div>
+    <div class="card connect-hero"><h2><span class="badge mint">1 step</span> Give your agent this message</h2>
+      <p class="muted" style="margin-top:0">Paste it into Claude Code or any agent that can use a terminal. It creates its wallet, gets funded, connects over MCP and checks itself.</p>
+      ${block(sentence)}
+      <div class="asks"><div><b>It will ask you to</b></div><span>approve purchases above the threshold</span><span>approve more budget when the allowance runs out</span><span>reload MCP servers once after setup</span><span>send funds, only if this machine has no operator keys</span></div></div>
+    <h2 class="section-title">Connected agents <span class="faint">${agents.length}</span></h2>
+    ${agents.length ? agents.map(agentCard).join("") : `<div class="card"><div class="empty">No agent connected yet. After you paste the message above, your agent shows up here with its wallet, allowance and every action it takes.</div></div>`}
+    <details class="card manual"><summary>Manual setup and the tools your agent gets</summary>
+      <p class="muted">Run <span class="mono">npm run connect</span> yourself (add <span class="mono">--allowance 1 --approve-above 0.2</span> to change the defaults), or register the server by hand:</p>${block(manual)}
+      <p class="muted">Give more budget later with <span class="mono">npm run cli -- allow 0.5</span>, or approve the agent's request on this page.</p>
+      <div class="table-wrap"><table><thead><tr><th>Tool</th><th>What it does</th><th>Kind</th></tr></thead><tbody>${MCP_TOOLS.map(([n, d, k]) => `<tr><td class="mono">${esc(n)}</td><td>${esc(d)}</td><td><span class="badge ${k === "wallet" ? "amber" : k === "setup" ? "blue" : ""}">${k}</span></td></tr>`).join("")}</tbody></table></div>
+      <p class="faint" style="font-size:12px;margin-bottom:0">There is no generic signing tool: the agent can only buy listed units through purchase_data, within an allowance you approved. Approvals guard against mistakes; anyone with full access to this machine can still read the key file.</p>
+    </details>`;
 }
 
 // ---------------- control (compact exchange-style console) ----------------
@@ -618,7 +611,7 @@ function render() {
   const i = focused && el.querySelector(`#${focused}`);
   if (i && i.tagName === "INPUT") { i.focus(); i.setSelectionRange(i.value.length, i.value.length); }
   else if (i) i.focus();
-  if (STATIC) document.querySelectorAll('#btnRun, #btnNext, #btnPause, #btnReset, [data-action="new"], [data-action="run"], [data-action="next"], [data-action="pause"], [data-action="ctl-quote"]')
+  if (STATIC) document.querySelectorAll('#btnRun, #btnNext, #btnPause, #btnReset, [data-action="new"], [data-action="run"], [data-action="next"], [data-action="pause"], [data-action="ctl-quote"], [data-decide]')
     .forEach((b) => { b.disabled = true; b.title = READ_ONLY; });
 }
 
@@ -644,6 +637,17 @@ document.addEventListener("click", async (e) => {
     const u = app.ctl.units; const p = pick.dataset.pick;
     app.ctl.units = u.includes(p) ? u.filter((x) => x !== p) : [...u, p].slice(-2);
     app.ctl.quote = null; render();
+  }
+  const cp = e.target.closest("[data-copytext]");
+  if (cp) { try { await navigator.clipboard.writeText(cp.dataset.copytext); toast("Copied"); } catch { toast("Select the text and copy it"); } return; }
+  const dec = e.target.closest("[data-decide]");
+  if (dec && !dec.disabled) {
+    dec.disabled = true;
+    try {
+      await api("POST", `/api/v1/agents/${dec.dataset.agent}/requests/${dec.dataset.req}`, { decision: dec.dataset.decide });
+      toast(dec.dataset.decide === "approve" ? "Approved" : "Declined");
+    } catch (err) { toast(err.message); }
+    await refreshPublic(); render(); return;
   }
   const fill = e.target.closest("[data-fill]");
   if (fill) { app.ctl.receipt = fill.dataset.val; app.ctl.verify = null; render(); }
@@ -689,5 +693,11 @@ window.addEventListener("hashchange", () => { const v = location.hash.slice(1); 
   if (STATIC) { app.runId = app.health.snapshot?.runId ?? null; app.token = "public"; }
   await Promise.all([refreshRun(), refreshPublic()]);
   render();
-  setInterval(async () => { if (!app.busy) { await refreshRun(); render(); } }, 8000);
+  setInterval(async () => {
+    if (app.busy) return;
+    await refreshRun();
+    if (app.view === "connect") app.agents = (await api("GET", "/api/v1/agents").catch(() => null))?.items ?? app.agents;
+    // Leave the page alone while someone is typing or selecting text in it.
+    if (!document.activeElement?.matches("input, select, textarea") && !String(getSelection())) render();
+  }, 5000);
 })();

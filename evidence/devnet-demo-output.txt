@@ -1,19 +1,19 @@
 [devnet] program 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8 rpc https://api.devnet.solana.com
-run run-20261126153018-1210d2 (DEVNET)
-  ✓ PUBLISHED (123.7s) 24 units listed by 2 providers (22 newly registered, 2 reused finalized registrations); 13 earlier listing(s) withdrawn
+run run-20261126160622-324f29 (DEVNET)
+  ✓ PUBLISHED (13.9s) 24 units listed by 2 providers (0 newly registered, 24 reused finalized registrations); 1 earlier listing(s) withdrawn
   ✓ SEARCHED (0.0s) selected "Voltara X100 inverter technical datasheet" and "Voltara X100 inverter stock and lead time" from two independent providers (metadata only, no content yet)
-  ✓ QUOTED (0.8s) quote 0.06 aUSD for 2 units (≤ agent max spend 0.1 aUSD); est. 0.0039 SOL for fee + 2 receipt deposits; preflight passed
+  ✓ QUOTED (0.7s) quote 0.06 aUSD for 2 units (≤ agent max spend 0.1 aUSD); est. 0.0039 SOL for fee + 2 receipt deposits; preflight passed
   ✓ PAYMENT_PENDING (2.8s) signed one transaction with 2 purchase_unit instructions (784 bytes); waiting for finality
-  ✓ PURCHASED (2.3s) finalized in one transaction: agent −0.06 aUSD, NorthLab +0.024 aUSD, SouthSupply +0.024 aUSD, treasury +0.012 aUSD; 2 license receipts created
+  ✓ PURCHASED (2.2s) finalized in one transaction: agent −0.06 aUSD, NorthLab +0.024 aUSD, SouthSupply +0.024 aUSD, treasury +0.012 aUSD; 2 license receipts created
   ✓ VERIFIED (2.0s) 2 receipts verified on-chain and 2 deliveries hash-matched (wallet-signed challenges, exact bytes)
   ✓ GAP (0.0s) no active unit carries the 'recycling' tag → the brief has a gap; public requirement v2 prepared (no answer included)
-  ✓ BOUNTY_FUNDED (6.2s) 2 aUSD locked in the bounty's PDA vault; status OPEN until 16:32:53 UTC
+  ✓ BOUNTY_FUNDED (6.1s) 2 aUSD locked in the bounty's PDA vault; status OPEN until 17:07:07 UTC
   ✓ SUBMITTED (8.4s) NorthLab registered 2 inactive candidate units and submitted both; vault still 2 aUSD (no payout on upload)
-  ✓ REVIEWED (1.7s) local validator: candidate 1 FAIL (valueMatch); candidate 2 PASS — pass/fail only, answer not revealed
-  ✓ ACCEPTED (5.6s) escrow released: vault −2 aUSD → NorthLab +1.6 aUSD, treasury +0.4 aUSD; bounty ACCEPTED, bounty receipt written
+  ✓ REVIEWED (1.5s) local validator: candidate 1 FAIL (valueMatch); candidate 2 PASS — pass/fail only, answer not revealed
+  ✓ ACCEPTED (5.9s) escrow released: vault −2 aUSD → NorthLab +1.6 aUSD, treasury +0.4 aUSD; bounty ACCEPTED, bounty receipt written
   ✓ DELIVERED (1.0s) bounty receipt verified; full certificate delivered to the requester only now, hash-matched
-  ✓ ACTIVATED (1.9s) NorthLab activated the commissioned unit; it is now in the shared catalog at 0.03 aUSD
-  ✓ RESOLD (7.7s) second agent paid +0.03 aUSD; NorthLab earns again +0.024 aUSD, treasury +0.006 aUSD; new receipt verified, data delivered
-  ✓ REFUND_DEMONSTRATED (27.0s) early refund rejected by the program (DeadlineNotReached); after the deadline the requester got +2 aUSD back, platform fee 0 aUSD
+  ✓ ACTIVATED (2.0s) NorthLab activated the commissioned unit; it is now in the shared catalog at 0.03 aUSD
+  ✓ RESOLD (7.6s) second agent paid +0.03 aUSD; NorthLab earns again +0.024 aUSD, treasury +0.006 aUSD; new receipt verified, data delivered
+  ✓ REFUND_DEMONSTRATED (25.3s) early refund rejected by the program (DeadlineNotReached); after the deadline the requester got +2 aUSD back, platform fee 0 aUSD
   ✓ COMPLETE (0.0s) brief with 3 source-linked findings; earned this run: NorthLab +1.648 aUSD, SouthSupply +0.024 aUSD, treasury +0.418 aUSD
-evidence -> evidence/runs/run-20261126153018-1210d2.json and evidence/devnet-run-manifest.json (complete)
+evidence -> evidence/runs/run-20261126160622-324f29.json and evidence/devnet-run-manifest.json (complete)

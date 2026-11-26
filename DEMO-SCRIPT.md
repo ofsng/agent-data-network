@@ -9,7 +9,7 @@ Contest rule (official FAQ): under 3 minutes, strict; a real product demo, not a
    - Fallback: `npm start` (local validator). Then say "local validator" instead of "Devnet" in every line below.
 2. Open http://127.0.0.1:8787 at 1440×900 and press **New session** for a fresh session.
 3. Press **Run agent task** once before recording to warm up, then **New session** again.
-4. For the MCP shot: run `npm run cli -- agent-wallet 1` and add the printed `claude mcp add …` line to Claude Code. Test the prompt once before recording.
+4. For the MCP shot: paste the message from the **Your agent** page into Claude Code once before recording, so the wallet and the `adn` server already exist. Keep the **Your agent** page open next to the terminal.
 5. A full run takes about 3–4 minutes in real time, mostly waiting about 13 s for finality per transaction. Record it once in full, then cut the waits in editing. Show a small on-screen caption, "finality waits shortened". Never cut a result.
 
 ## Shot list
@@ -21,7 +21,7 @@ Contest rule (official FAQ): under 3 minutes, strict; a real product demo, not a
 | 1:00–1:15 | Verify step; Transactions & receipts | "The agent checks its receipts on chain, signs a one-time challenge, and gets the exact bytes, hash-checked against the receipt. No receipt, no data." |
 | 1:15–1:50 | Gap → bounty → submit → review; Data bounties tab | "The recycling certificate doesn't exist anywhere. Instead of making it up, the agent funds a 2 aUSD bounty, held in a vault owned by the program. The provider submits two candidates. The review shows only pass or fail, never the answer, so nobody can take the data without paying." |
 | 1:50–2:15 | Accept → deliver → activate → resale; Provider earnings | "The requester accepts. The vault pays 1.6 to the provider and 0.4 to the platform, and only then is the answer released. The provider lists it, a second agent buys it, and the provider is paid again for the same work. Missing data becomes an asset." |
-| 2:15–2:35 | Claude Code terminal next to the **Connect your agent** page | Type the prompt from the Connect page. "Any agent can plug in. Here Claude uses the same tools over MCP: it searches, buys two units with its own wallet under a 0.5 aUSD cap, verifies the receipts and writes the note." Paste one returned receipt into Control → Verify receipt. |
+| 2:15–2:35 | Claude Code terminal next to the **Your agent** page | Ask for the procurement brief in plain words. "Any agent can plug in. Here Claude uses the same tools over MCP: it searches, buys two units with its own wallet under a 0.5 aUSD cap, verifies the receipts and writes the note." Paste one returned receipt into Control → Verify receipt. |
 | 2:35–2:50 | Verification & evidence; Explorer tab | "Every number here comes from finalized transactions of one Anchor program. Tests cover rollback, replay, wrong accounts, leaks, budget caps and corrupted-data recovery. Agent Data Network: buy knowledge, prove it, fund what's missing." |
 
 ## Do not claim

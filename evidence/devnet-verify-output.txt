@@ -1,28 +1,16 @@
-manifest run-20261126153018-1210d2 (DEVNET) program 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8 via https://api.devnet.solana.com
-✓ tx   4x8Qus3GvjBjrpBv… slot 526554448 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   a7eceFygZk9cPwzS… slot 526554456 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   5p1d25xyMAdG8C1n… slot 526554464 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   2V9euUPQgorbaFdu… slot 526554484 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   3GK8UAX2ZLu41XNV… slot 526554492 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   vhqMtkJeSfgn1J2e… slot 526554500 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   4HrkWDBdgHC2bmgu… slot 526554508 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   2qRj7ejRtx57a2zM… slot 526554516 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   4BskmSaeoQQYBWeZ… slot 526554524 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   56mek2kFQJqib4dv… slot 526554532 fee 5000  Provider withdraws previous session's commissioned listing (set_asset_active=false)
-✓ tx   ZxxMeqEgnwco2USF… slot 526554540 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   2Lfuw4QvyRZx4sjU… slot 526554548 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   3vaJtHS7Mnk48Fzu… slot 526554560 fee 5000  Provider withdraws a retired listing (set_asset_active=false)
-✓ tx   3pnw9zTgk1bd8f2p… slot 526554603 fee 5000  Atomic two-provider purchase (2 × purchase_unit)
-✓ tx   yAbRHGDJ3NmcLnHC… slot 526554660 fee 5000  Create funded bounty (reward → PDA vault)
-✓ tx   44NUvF1RQo4YdfTe… slot 526554695 fee 5000  Provider submits candidate 1 (inactive asset, no payout)
-✓ tx   5heRxMhvJ6L5BLJ9… slot 526554696 fee 5000  Provider submits candidate 2 (inactive asset, no payout)
-✓ tx   obGEdcmyDcC5umxt… slot 526554744 fee 5000  Requester accepts reviewed submission (80/20 escrow payout)
-✓ tx   2tnSCSENN4J9D43x… slot 526554779 fee 5000  Provider activates commissioned unit for sale
-✓ tx   51gQYX8LehR8UpwD… slot 526554802 fee 5000  Second agent buys the commissioned unit (purchase_unit)
-✓ tx   6Hci9qfJEq9zRpdi… slot 526554840 fee 5000  Separate requester funds a short-lived bounty
-✓ tx   2akz5J94Ec2F8Hw5… slot 526554928 fee 5000  Expired bounty refunded in full (no fee)
-✓ rcpt A6NfS99vVzHUWNbMEyqDkYRUpH1UDnpsdUnb1kwGmF1M kind 0 amount 30000 = 24000 + 6000
-✓ rcpt EZNm8GfaGDxcH15PvajKqmQSkgMR8fRpaM9vwrWKmCbF kind 0 amount 30000 = 24000 + 6000
-✓ rcpt FTGtj83w9ytpHGPQfnE6LfMSTtR79YS9PLp8jozmYkft kind 1 amount 2000000 = 1600000 + 400000
-✓ rcpt 5QveJ7Hn71q9114cFkbZCDpQUdJ1rXSbcgWgd18iGhd6 kind 0 amount 30000 = 24000 + 6000
+manifest run-20261126160622-324f29 (DEVNET) program 3vZNsmhko4nWqmFbAehmdwRmKLMyusqEPZCLP4rLQEA8 via https://api.devnet.solana.com
+✓ tx   uYbkK495TEc5hSzd… slot 526563117 fee 5000  Provider withdraws previous session's commissioned listing (set_asset_active=false)
+✓ tx   5oEj3wfizEPwPiyx… slot 526563154 fee 5000  Atomic two-provider purchase (2 × purchase_unit)
+✓ tx   3FtymqJ17KZWzsuS… slot 526563209 fee 5000  Create funded bounty (reward → PDA vault)
+✓ tx   2AkVDDrFZGafF3Jb… slot 526563250 fee 5000  Provider submits candidate 1 (inactive asset, no payout)
+✓ tx   58KEMYWigsZczUr8… slot 526563251 fee 5000  Provider submits candidate 2 (inactive asset, no payout)
+✓ tx   2NGCd5nZTRkJk6BU… slot 526563296 fee 5000  Requester accepts reviewed submission (80/20 escrow payout)
+✓ tx   3t4owANv6hBnN8j2… slot 526563328 fee 5000  Provider activates commissioned unit for sale
+✓ tx   5FPkLAZJvSFyVyD7… slot 526563352 fee 5000  Second agent buys the commissioned unit (purchase_unit)
+✓ tx   4wUsyMjUDsXMpuUS… slot 526563390 fee 5000  Separate requester funds a short-lived bounty
+✓ tx   nZYdksco2ZUivUFQ… slot 526563470 fee 5000  Expired bounty refunded in full (no fee)
+✓ rcpt 2AxrTtdCha8tgo7VwjjGh4XPubJXDrRmPRRydFLXMhr4 kind 0 amount 30000 = 24000 + 6000
+✓ rcpt DHKhKcb4qHH8BmaEAxXZHtgnnbsmsGqWRJLqFmmzwoYr kind 0 amount 30000 = 24000 + 6000
+✓ rcpt 6asEahJBuAnwXBGm2eUYPREtbr6rFKAPvDF3zY2HDwAQ kind 1 amount 2000000 = 1600000 + 400000
+✓ rcpt E4NeK6VLczBNrS7FUZVyEpQorKomyLZkgtW7XxW9M1m7 kind 0 amount 30000 = 24000 + 6000
 ALL EVIDENCE VERIFIED ON CHAIN

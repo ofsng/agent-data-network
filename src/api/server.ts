@@ -12,6 +12,10 @@ import { trustView } from "../data/trust";
 import { DemoOrchestrator, STEPS, manifestPath } from "../demo/orchestrator";
 import { Service, ServiceError, createService } from "./service";
 import { agentKeyPath, mcpLaunch } from "../agent/connect";
+import { AgentAccount, fmtAUSD } from "../agent/account";
+import { getAccount } from "@solana/spl-token";
+import { PublicKey } from "@solana/web3.js";
+import { ata } from "../chain/adn";
 
 const MAX_BODY = 64 * 1024;
 const WEB = join(ROOT, "src/web");
@@ -63,7 +67,34 @@ export function createApp(cfg: Config = loadConfig(), db: Db = openDb(cfg.dbPath
       return [h.rpcOk && h.dbOk ? 200 : 503, { ...h, demo: !!orch, agent: "built-in research agent", transport: "Solana program (Anchor)", mcp: "npm run mcp" }];
     }],
     // Local onboarding info for the "Connect your agent" page (paths on this machine only).
-    ["GET", /^\/api\/v1\/connect$/, async () => [200, { cluster: cfg.cluster, root: ROOT, keyPath: agentKeyPath(cfg.cluster), mcp: mcpLaunch(cfg.cluster, "0.5") }]],
+    ["GET", /^\/api\/v1\/connect$/, async () => [200, { cluster: cfg.cluster, root: ROOT, keyPath: agentKeyPath(cfg.cluster), mcp: mcpLaunch(cfg.cluster) }]],
+    // Agents on this machine: allowance, balances, pending approvals and recent activity.
+    ["GET", /^\/api\/v1\/agents$/, async () => [200, { items: await Promise.all(AgentAccount.list(db, cfg.cluster).map(async (buyer) => {
+      const a = new AgentAccount(db, cfg.cluster, buyer);
+      const t = a.totals();
+      const pk = new PublicKey(buyer);
+      const tokens = await getAccount(svc.connection, ata(pk, svc.mint), "confirmed").then((x) => x.amount, () => 0n);
+      const sol = await svc.connection.getBalance(pk, "confirmed").catch(() => 0);
+      const activity = a.activity(40);
+      return {
+        address: buyer, balance: { aUSD: tokens.toString(), sol: sol / 1e9 },
+        allowance: a.active() ? { cap: a.active()!.cap.toString(), spent: t.spent.toString(), remaining: t.remaining.toString(), approvedInTotal: t.allowed.toString(), approveAbove: t.approveAbove.toString() } : null,
+        pending: a.pending().map(({ payload: _p, ...r }) => r), recent: a.recentRequests(8).map(({ payload: _p, ...r }) => r),
+        activity, lastSeen: activity[0]?.at ?? null,
+      };
+    })).then((xs) => xs.sort((a, b) => (b.lastSeen ?? 0) - (a.lastSeen ?? 0))) }]],
+    // A human's decision on an agent request. Browser-only: the Origin header must match.
+    ["POST", /^\/api\/v1\/agents\/(\w{32,44})\/requests\/(req_[0-9a-f]{12})$/, async (m, req) => {
+      if (req.headers.origin !== `http://${req.headers.host}`) throw new ServiceError(403, "ORIGIN", "approve or decline from the ADN app in your browser");
+      const b = await body(req);
+      if (b.decision !== "approve" && b.decision !== "decline") throw new ServiceError(400, "INVALID", "decision must be approve or decline");
+      try {
+        const r = new AgentAccount(db, cfg.cluster, m[1]).decide(m[2], b.decision === "approve", "web app");
+        return [200, { ...r, amount: fmtAUSD(r.amount) }];
+      } catch (e: any) {
+        throw new ServiceError(e.status ?? 400, e.code ?? "INVALID", e.message);
+      }
+    }],
     ["GET", /^\/api\/v1\/assets$/, async (_m, req, url) => {
       rateLimit(`s:${req.socket.remoteAddress}`, 30);
       return [200, svc.searchAssets(url.searchParams.get("q") ?? "", url.searchParams.get("requiredTag") ?? undefined, Number(url.searchParams.get("limit") ?? 10))];

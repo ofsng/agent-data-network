@@ -67,31 +67,29 @@ The local validator keeps full history (`--limit-ledger-size 50000000`) so every
 
 The deployer pays roughly 1.89 SOL of program rent, plus an equally sized temporary buffer during the deploy (refunded), and about 0.15 SOL per session. The public RPC rate-limits (HTTP 429); set `SOLANA_RPC_URL` to another Devnet endpoint if needed. Mainnet URLs are refused.
 
-### Connect your own agent (MCP)
-Fastest: open **Connect your agent** in the app and paste its prompt into Claude Code. The agent runs one command that creates its wallet, funds it, and registers the MCP server, then checks the connection, learns the rules and makes a first purchase. The command on its own:
-```bash
-npm run cli -- connect 1 --cap 0.5
-```
-It is idempotent: the same wallet is kept and only topped up to the target, and the `adn` server is re-registered at user scope (prefix `SOLANA_CLUSTER=devnet` for Devnet). Restart Claude Code afterwards to load the tools.
+### Connect your own agent (MCP): the agent does the work
+Open **Your agent** in the app, copy the one message there and paste it into Claude Code (or any agent with a terminal). From then on the agent does the setup itself and only asks you when a person must decide:
 
-Manual setup: create and fund an agent wallet on your machine (re-run to top up):
-```bash
-npm run cli -- agent-wallet 1
-```
-Add the server to Claude Code (the command above prints the exact line for your cluster):
-```bash
-claude mcp add adn --env ADN_AGENT_KEYPAIR=$HOME/.config/adn-agent/localnet/agent.json --env ADN_AGENT_CAP=0.5 -- npm --prefix /path/to/agent-data-network run --silent mcp
-```
-Then ask in plain language, e.g. *"Find the Voltara X100 datasheet and its stock and lead time, buy both for at most 0.1 aUSD, verify the receipts and write a procurement note."*
+1. It runs `npm run connect` (add `SOLANA_CLUSTER=devnet` for Devnet). That creates a wallet on this machine (key file 0600, never leaves it), funds it where the marketplace operator's keys are present, sets a starting allowance of 0.5 aUSD with a 0.1 aUSD approval threshold, and registers the `adn` MCP server in Claude Code. Safe to re-run.
+2. It asks you to reload MCP servers once (Claude Code: `/mcp`).
+3. It calls `get_started`, which reports what is set up, the one next step and anything only you can do, and follows it until `READY`.
+4. It works on your request: searches, buys within the allowance and cites receipts.
 
-| Tool | Access | What it does |
+**What it asks you, and how.** Purchases above the threshold and any new allowance need your OK. Clients that support MCP elicitation (approval dialogs) show you a dialog; otherwise the request waits on the **Your agent** page with Approve / Decline buttons, and the agent polls `check_request`. The same page shows the agent's wallet, allowance, pending requests and every action it took, live. If this machine has no operator keys, the agent asks you to send it aUSD and SOL instead of funding itself.
+
+**Allowances, not a growing cap.** Each allowance is a fixed budget that can't be expanded in place; more budget is a new allowance a human approved (in the dialog, on the page, or with `npm run cli -- allow 0.5`). Spend from earlier allowances stays counted. Change the defaults with `npm run connect -- --allowance 1 --approve-above 0.2`.
+
+| Tool | Kind | What it does |
 |---|---|---|
-| `network_status`, `search_data`, `get_data_quote`, `verify_receipt`, `list_bounties`, `get_bounty_status` | open | Metadata search, exact quotes, on-chain receipt checks, bounty status. Never returns paid bytes. |
-| `wallet_status` | wallet | Balance, cap, spent, remaining. |
-| `purchase_data` | wallet | Buys 1–2 units in one transaction: quote + trust preflight, reserve against the cap, sign, finalize, verify receipts. |
+| `get_started` | setup | Status, the single next step, and what to ask the human. |
+| `create_wallet`, `fund_wallet` | setup | Wallet on this machine; top-up where operator keys are present, otherwise a request to the human. |
+| `request_budget`, `check_request` | setup | Ask the human for an allowance; follow a pending request. |
+| `search_data`, `get_data_quote`, `verify_receipt`, `list_bounties`, `get_bounty_status`, `network_status` | open | Metadata search, exact quotes, on-chain receipt checks, bounties. Never returns paid bytes. |
+| `wallet_status` | wallet | Balance, allowance, spent, remaining, approval threshold, purchases. |
+| `purchase_data` | wallet | Buys 1–2 units in one transaction: quote + trust preflight, allowance check, human OK above the threshold, sign, finalize, verify receipts. |
 | `retrieve_data` | wallet | Wallet-signed challenge, exact bytes, hash-checked against the receipt. |
 
-Without `ADN_AGENT_KEYPAIR` the server is read-only. The key never leaves the machine running the server; `ADN_AGENT_CAP` (aUSD) is a durable cap enforced before signing, and there is no generic signing tool. Add `SOLANA_CLUSTER=devnet` to use Devnet. The **Connect your agent** page in the app shows the same steps.
+The server also ships its usage rules as MCP instructions, and two prompts: `get_started` and `procurement_brief`. There is no generic signing tool. Approvals protect against agent mistakes; anyone with full access to the machine can still read the key file.
 
 ## Guided tour and Control page
 - **Tour:** the first visit opens a short spotlight walkthrough (Turkish or English, switchable). Every other part of the screen is dimmed while one part is explained in plain words. Reopen it with the **?** button.

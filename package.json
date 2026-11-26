@@ -18,7 +18,8 @@
     "devnet": "bash scripts/devnet.sh",
     "start:devnet": "(fuser -k 8787/tcp 2>/dev/null || true) && SOLANA_CLUSTER=devnet tsx src/api/server.ts",
     "verify:devnet": "SOLANA_CLUSTER=devnet tsx scripts/verify-evidence.ts",
-    "export:public": "SOLANA_CLUSTER=devnet tsx scripts/export-public.ts"
+    "export:public": "SOLANA_CLUSTER=devnet tsx scripts/export-public.ts",
+    "connect": "tsx src/cli.ts connect"
   },
   "dependencies": {
     "@anchor-lang/core": "1.2.2",

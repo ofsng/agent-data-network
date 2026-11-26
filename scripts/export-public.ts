@@ -6,6 +6,7 @@
 import { AddressInfo } from "net";
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "fs";
 import { join } from "path";
+import { homedir } from "os";
 import { ROOT, loadConfig } from "../src/config";
 import { createApp } from "../src/api/server";
 import { createService } from "../src/api/service";
@@ -47,6 +48,8 @@ const redact = (v: any): any =>
     "evidence.json": await get("/api/v1/evidence"),
     "run.json": redact(run),
     "manifest.json": manifest,
+    "agents.json": await get("/api/v1/agents"),
+    "connect.json": { cluster: "devnet", root: "/path/to/agent-data-network", keyPath: "~/.config/adn-agent/devnet/agent.json" },
   };
   for (const r of manifest.receipts) files[`receipts/${r.pda}.json`] = await get(`/api/v1/receipts/${r.pda}`);
   for (const b of (files["bounties.json"] as any).items) files[`bounties/${b.bountyPda}.json`] = await get(`/api/v1/bounties/${b.bountyPda}`);
@@ -63,7 +66,9 @@ const redact = (v: any): any =>
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(join(SNAP, "receipts"), { recursive: true });
   mkdirSync(join(SNAP, "bounties"), { recursive: true });
-  for (const [f, v] of Object.entries(files)) writeFileSync(join(SNAP, f), JSON.stringify(v));
+  // Local paths (home folder, checkout) never leave this machine.
+  const local = (t: string) => t.split(ROOT).join("/path/to/agent-data-network").split(homedir()).join("~");
+  for (const [f, v] of Object.entries(files)) writeFileSync(join(SNAP, f), local(JSON.stringify(v)));
   const web = join(ROOT, "src", "web");
   for (const f of readdirSync(web)) cpSync(join(web, f), join(OUT, f), { recursive: true });
   const html = readFileSync(join(OUT, "index.html"), "utf8").replace("<head>", '<head>\n<meta name="adn-static" content="1">');
