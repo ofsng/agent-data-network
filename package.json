@@ -16,7 +16,7 @@
     "verify": "tsx scripts/verify-evidence.ts",
     "mcp": "tsx src/mcp/server.ts",
     "devnet": "bash scripts/devnet.sh",
-    "start:devnet": "SOLANA_CLUSTER=devnet tsx src/api/server.ts",
+    "start:devnet": "(fuser -k 8787/tcp 2>/dev/null || true) && SOLANA_CLUSTER=devnet tsx src/api/server.ts",
     "verify:devnet": "SOLANA_CLUSTER=devnet tsx scripts/verify-evidence.ts",
     "export:public": "SOLANA_CLUSTER=devnet tsx scripts/export-public.ts"
   },

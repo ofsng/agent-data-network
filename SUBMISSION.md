@@ -40,7 +40,7 @@ Use the screenshots in `evidence/screenshots/`:
 ## Step 3: Links & video
 - **Demo video:** _your YouTube/Loom link, under 3:00, recorded per DEMO-SCRIPT.md_
 - **Repo:** https://github.com/ofsng/agent-data-network (make it public before submitting)
-- **Live link:** the Devnet program in Explorer (above). The app runs on loopback because it holds the provider and operator keys, so it is not hosted publicly. Anyone can run it with `npm run setup && npm start`.
+- **Live link:** https://agent-data-network.vercel.app: a read-only public copy of a finished Devnet session (every signature opens in Solana Explorer; paid content redacted; nothing signs). The full app holds provider and operator keys, so it runs locally: `npm run setup && npm start`, or `npm run start:devnet`.
 
 ## Technical description (for the description field or the README)
 - **On-chain:** one Anchor 1.2.2 program, 8 instructions:

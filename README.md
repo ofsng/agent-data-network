@@ -2,7 +2,7 @@
 
 **Discover → Purchase → Verify → Commission → Reuse.**
 
-Submission texts: [SUBMISSION.md](SUBMISSION.md) · Video script: [DEMO-SCRIPT.md](DEMO-SCRIPT.md)
+**Live (read-only Devnet copy):** https://agent-data-network.vercel.app · Submission texts: [SUBMISSION.md](SUBMISSION.md) · Video script: [DEMO-SCRIPT.md](DEMO-SCRIPT.md)
 
  AI agents buy exactly the licensed data units they need. In **one atomic Solana transaction** they pay several independent providers. They prove what they bought with **immutable on-chain license receipts**. When data is missing, they finance it with an **on-chain bounty escrow**, and the new data can then be **resold** to the next agent.
 
@@ -151,6 +151,9 @@ Every number shown comes from the run's actual state.
   - The bounty review is an off-chain trusted validator that the program cannot enforce.
   - Payment is atomic, but off-chain delivery is a separate, retryable step.
   - A receipt proves paid entitlement to exact bytes, version and license, not truth, ownership or consumption.
+
+### Public read-only copy
+`npm run export:public` writes `public/` from the last complete Devnet session: the same UI reading captured JSON, paid content redacted, every signing action disabled, checked for leaks before writing. Deploy it with `vercel deploy public --prod`.
 
 ## Known risks and roadmap
 The same table is shown in the app under **Verification & evidence → Open risks**.
