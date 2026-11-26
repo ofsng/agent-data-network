@@ -38,7 +38,7 @@ Use the screenshots in `evidence/screenshots/`:
 
 ## Step 3: Links & video
 - **Demo video:** _your YouTube/Loom link, under 3:00, recorded per DEMO-SCRIPT.md_
-- **Repo:** _https://github.com/ofsng/<repo> after you make it public_
+- **Repo:** https://github.com/ofsng/agent-data-network (make it public before submitting)
 - **Live link:** the Devnet program in Explorer (above). The app itself is a loopback-only demo (it holds local demo keys), so it is not hosted publicly. Anyone can run it with `npm run setup && npm start`.
 
 ## Technical description (for the description field or the README)
