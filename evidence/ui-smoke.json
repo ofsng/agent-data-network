@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8787/",
-  "startedAt": "2026-11-26T16:07:53.486Z",
+  "startedAt": "2026-11-27T12:57:00.811Z",
   "checks": {
     "noPaidContentBeforePurchase": true,
     "failureVisible": true,
@@ -20,5 +20,5 @@
     "consoleErrors": []
   },
   "passed": true,
-  "finishedAt": "2026-11-26T16:10:23.806Z"
+  "finishedAt": "2026-11-27T12:59:43.411Z"
 }
