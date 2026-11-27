@@ -12,7 +12,7 @@ Last update: 2026-11-26 (evening). Base scope V1.5 (`STARTUP-PACKAGE/`, archive 
 | Technical (local validator) | **MET**: the same run on a fresh local validator | evidence/run-manifest.json |
 | UX (guided browser demo) | **MET**: full run through the UI, step-by-step and auto, failure + retry, mobile | evidence/ui-smoke.json, evidence/screenshots/ |
 | Repository hygiene | **MET**: no keys, wallets, API keys or secrets in the tree or the git history; dev tooling untracked | see "Release checks" |
-| Tests | **MET**: 37/37 (Rust 2, Anchor program 17, App/API/MCP 17, browser smoke 1) | evidence/test-summary.json |
+| Tests | **MET**: 39/39 (Rust 2, Anchor program 17, App/API/MCP 19, browser smoke 1); the two newest (T57, T58) were run on 2026-11-27 with the app suite and the browser smoke, not yet recorded in the summary file | evidence/test-summary.json |
 | Public copy | **MET**: read-only snapshot of the latest Devnet session on Vercel; paid content redacted, signing disabled, leak-checked on export | `npm run export:public`, public/ (generated) |
 | Contest submission | PENDING (founder): video < 3 min, portal form (repo is public) | SUBMISSION.md, DEMO-SCRIPT.md, evidence/rules.md |
 
@@ -39,6 +39,7 @@ Last update: 2026-11-26 (evening). Base scope V1.5 (`STARTUP-PACKAGE/`, archive 
 | External LLM agent | DONE via MCP | Any MCP client (Claude Code, Claude Desktop, Cursor) is the LLM agent. The built-in agent that runs the 16-step story stays rule-based. |
 | Guided tour + Control page | DONE | Spotlight tour (TR/EN, auto on first visit, `?` button); compact exchange-style Control page (run controls, wallets, market, quote, receipt check, bounty status). |
 | Copy guard + open risks | DONE | Same bytes relisted later by another provider: flagged, hidden from search, refused at quote (`DUPLICATE_CONTENT`, T56). Open-risks table in the app (Verification & evidence) and README; jury Q&A in SUBMISSION.md. |
+| Retry fixes (found while recording the demo video) | DONE | • An expired quote no longer blocks the session: retrying the payment step takes a fresh quote for the same units; a quote whose transaction may have been sent is never replaced (T57).<br>• A refund step that failed after its bounty was funded resumes with that bounty instead of hitting the one-bounty budget; if it resumes after the deadline it says the early-refund check was not re-checked (T58). |
 | Public read-only copy | DONE | https://agent-data-network.vercel.app: `npm run export:public` then `vercel deploy public --prod`. Rebuild after each new Devnet session. |
 | Turkish explainer video | DONE (for the founder, outdated UI) | `video/` tooling; the MP4 is not in git. Recorded before the aUSD naming and the Your agent page. |
 | Secret / history scan | DONE | See "Release checks". |

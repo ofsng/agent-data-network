@@ -347,10 +347,21 @@ export class DemoOrchestrator {
 
     async PAYMENT_PENDING(s) {
       const t = this.tools(s, "agent");
+      // A quote lives QUOTE_TTL_SECS. On a retry after it expired, or after a simulation
+      // failure that sent nothing, take a fresh quote for the same units. A quote whose
+      // transaction may have been sent (PENDING/UNKNOWN) is never replaced.
+      let q = s.data.quote as Quote;
+      const row = this.svc.db.prepare("SELECT state, expires_at FROM quotes WHERE order_id=?").get(q.orderId) as { state: string; expires_at: number } | undefined;
+      const stale = !!row && ((row.state === "QUOTED" && row.expires_at <= Math.floor(Date.now() / 1000)) || row.state === "FAILED");
+      if (stale) {
+        q = await t.get_data_quote(q.items.map((i) => i.assetPda), BigInt(s.data.quoteMaxSpend), "bundle");
+        s.data.quote = q;
+        s.data.requotes = (s.data.requotes ?? 0) + 1;
+      }
       s.data.prePurchase = await this.balances(s);
-      const r = await t.purchase_data(s.data.quote as Quote);
+      const r = await t.purchase_data(q);
       s.data.purchase = r;
-      return `signed one transaction with ${r.instructions} purchase_unit instructions (${r.sizeBytes} bytes); waiting for finality`;
+      return `signed one transaction with ${r.instructions} purchase_unit instructions (${r.sizeBytes} bytes); waiting for finality${stale ? " (fresh quote: the earlier one had expired)" : ""}`;
     },
 
     async PURCHASED(s) {
@@ -506,24 +517,41 @@ export class DemoOrchestrator {
       const t = this.tools(s, "refundRequester");
       const requester = this.keyFor(s, "refundRequester");
       const pre = await this.balances(s);
-      const b = await t.create_bounty("X100_RECYCLING_V2", POLICY.bountyReward, POLICY.refundDeadlineSecs);
-      const f = await this.fee(b.signature);
-      this.tx(s, "Separate requester funds a short-lived bounty", b.signature, f.slot, f.fee);
+      // Resume: a retry after this session's refund bounty was already funded continues with
+      // that bounty (the requester's budget allows exactly one, so a second one would fail).
+      const label = "Separate requester funds a short-lived bounty";
+      const prior = s.transactions.find((x) => x.label === label);
+      const open = prior ? (await this.svc.listBounties("OPEN")).find((x) => x.requester === requester.publicKey.toBase58()) : undefined;
+      let b: { bountyPda: string; deadline: number; signature: string };
+      let funded: Record<string, string>;
+      if (prior && open) {
+        b = { bountyPda: open.bountyPda, deadline: open.deadline, signature: prior.signature };
+        funded = await this.balances(s, { vault: b.bountyPda });
+        s.deltas.refundFund ??= { ...Object.fromEntries(Object.keys(funded).map((k) => [k, "0"])), refundRequester: `-${open.reward}`, vault: open.reward };
+      } else {
+        b = await t.create_bounty("X100_RECYCLING_V2", POLICY.bountyReward, POLICY.refundDeadlineSecs);
+        const f = await this.fee(b.signature);
+        this.tx(s, label, b.signature, f.slot, f.fee);
+        funded = await this.balances(s, { vault: b.bountyPda });
+        s.deltas.refundFund = this.delta({ ...pre, vault: "0" }, funded);
+        this.save(s);
+      }
       const bounty = new PublicKey(b.bountyPda);
-      const funded = await this.balances(s, { vault: b.bountyPda });
-      s.deltas.refundFund = this.delta({ ...pre, vault: "0" }, funded);
       const refund = () => programFor(this.conn, requester).methods.refundExpiredBounty().accountsStrict({
         requester: requester.publicKey, config: pda.config(), bounty, mint: this.svc.mint, vault: ata(bounty, this.svc.mint),
         requesterToken: ata(requester.publicKey, this.svc.mint), tokenProgram: TOKEN_PROGRAM_ID,
       });
       let early = "";
-      try {
+      // Resumed after the deadline: the early-refund check can no longer be shown, so say so.
+      const resumedLate = !!(prior && open) && ((await this.conn.getBlockTime(await this.conn.getSlot("confirmed"))) ?? 0) >= b.deadline;
+      if (resumedLate) early = s.data.refund?.earlyRefund ?? "not re-checked (resumed after the deadline)";
+      else try {
         await refund().simulate();
         early = "UNEXPECTED: early refund simulated successfully";
       } catch (e) {
         early = /DeadlineNotReached/.test(String((e as any)?.simulationResponse?.logs ?? e)) || /DeadlineNotReached/.test(String(e)) ? "DeadlineNotReached" : String(e).slice(0, 120);
       }
-      if (early !== "DeadlineNotReached") throw new Error(`early refund check: ${early}`);
+      if (!resumedLate && early !== "DeadlineNotReached") throw new Error(`early refund check: ${early}`);
       s.data.refund = { bountyPda: b.bountyPda, deadline: b.deadline, earlyRefund: early, waitingUntil: b.deadline };
       this.save(s);
       const chainTime = async () => (await this.conn.getBlockTime(await this.conn.getSlot("confirmed"))) ?? 0;
@@ -535,7 +563,7 @@ export class DemoOrchestrator {
       const post = await this.balances(s, { vault: b.bountyPda });
       s.deltas.refund = this.delta(funded, post);
       Object.assign(s.data.refund, { signature: sig, slot, createSignature: b.signature });
-      return `early refund rejected by the program (DeadlineNotReached); after the deadline the requester got ${T(s.deltas.refund.refundRequester)} back, platform fee ${T(s.deltas.refund.treasury).replace("+", "")}`;
+      return `${early === "DeadlineNotReached" ? "early refund rejected by the program (DeadlineNotReached)" : `early refund ${early}`}; after the deadline the requester got ${T(s.deltas.refund.refundRequester)} back, platform fee ${T(s.deltas.refund.treasury).replace("+", "")}`;
     },
 
     async COMPLETE(s) {
