@@ -24,7 +24,8 @@ symbol { overflow: visible; }
 .btn.big { padding: 11px 18px; font-size: 14px; border-radius: var(--radius); }
 .btn.big .ic { width: 15px; height: 15px; }
 .contact { display: flex; align-items: center; gap: 14px; margin-top: 40px; }
-.qr { width: 72px; height: 72px; border-radius: var(--radius); border: 1px dashed var(--line-2); display: grid; place-items: center; color: var(--faint); background: var(--panel); }
+.qr { width: 120px; height: 120px; border-radius: var(--radius); display: block; }
+.contact { flex-direction: column; }
 
 /* slide 2: broken flow */
 svg.broken { width: min(720px, 100%); height: auto; overflow: visible; }
