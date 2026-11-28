@@ -94,6 +94,7 @@ The server also ships its usage rules as MCP instructions, and two prompts: `get
 ## Guided tour and Control page
 - **Tour:** the first visit opens a short spotlight walkthrough (Turkish or English, switchable). Every other part of the screen is dimmed while one part is explained in plain words. Reopen it with the **?** button.
 - **Control:** a compact console for the whole task: run controls, wallet balances, a market list, a read-only quote, on-chain receipt verification and bounty escrow status. The other pages keep the full detail.
+- **Pitch:** a five-slide deck in the app's own theme at **http://127.0.0.1:8787/pitch** (← → keys, on-screen buttons or swipe; `#3` opens slide 3).
 - **Explainer video (Turkish):** `video/record.ts` records the tour and a live run; `video/build.py` speeds up the run segment, adds the narration clips listed in `video/narration.json` and burns in Turkish subtitles.
 
 ## The agent task (one session)

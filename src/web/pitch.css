@@ -1,0 +1,80 @@
+/* Pitch deck: five slides on the app's own tokens (app.css :root). No new colours. */
+body.pitch { min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+.deck { flex: 1; position: relative; display: grid; place-items: center; padding: 48px 24px 96px; }
+.slide { width: min(960px, 100%); text-align: center; animation: slide-in 0.35s ease both; }
+.slide[hidden] { display: none; }
+@keyframes slide-in { from { opacity: 0; transform: translateY(8px); } }
+
+.slide h1 { font-size: clamp(32px, 5.4vw, 56px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 750; margin: 0; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mint); margin: 0 0 12px; }
+.micro { color: var(--muted); font-size: clamp(15px, 1.8vw, 18px); margin: 14px 0 0; }
+.visual { margin-top: 44px; display: flex; justify-content: center; }
+
+/* icons */
+.ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ic.sm { width: 13px; height: 13px; }
+.ic.lg { width: 30px; height: 30px; }
+symbol { overflow: visible; }
+
+/* cover + CTA */
+.cover { display: flex; flex-direction: column; align-items: center; }
+.logo-xl { width: 88px; height: 88px; border-radius: 22px; font-size: 26px; margin-bottom: 28px; box-shadow: 0 0 0 1px rgba(61, 220, 151, 0.4), 0 18px 60px rgba(61, 220, 151, 0.18); }
+.chips { margin-top: 28px; }
+.cta { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
+.btn.big { padding: 11px 18px; font-size: 14px; border-radius: var(--radius); }
+.btn.big .ic { width: 15px; height: 15px; }
+.contact { display: flex; align-items: center; gap: 14px; margin-top: 40px; }
+.qr { width: 72px; height: 72px; border-radius: var(--radius); border: 1px dashed var(--line-2); display: grid; place-items: center; color: var(--faint); background: var(--panel); }
+
+/* slide 2: broken flow */
+svg.broken { width: min(720px, 100%); height: auto; overflow: visible; }
+.broken .wire path { fill: none; stroke: var(--line-2); stroke-width: 2; stroke-dasharray: 6 8; }
+.broken .cut path { stroke: var(--red); stroke-width: 2.5; stroke-linecap: round; }
+.broken .node rect { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
+.broken .node use { color: var(--muted); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.broken .node.warn rect { stroke: rgba(255, 112, 112, 0.35); }
+.broken .node.warn use { color: var(--red); }
+.broken text { fill: var(--text); font: 600 18px var(--sans); }
+.broken .alert { color: var(--amber); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* slide 3: product mock */
+.mock { width: min(520px, 100%); text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(61, 220, 151, 0.06); }
+.mock-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: var(--panel-2); }
+.mock-bar span { width: 9px; height: 9px; border-radius: 50%; background: var(--line-2); }
+.mock-bar b { margin-left: 8px; color: var(--muted); font-weight: 500; }
+.mock-body { padding: 8px 16px 16px; }
+.mock-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.mock-row .ic { color: var(--mint); }
+.mock-row span { flex: 1; }
+.mock-row b { font-size: 15px; }
+.mock-row .plus { color: var(--mint); }
+.mock-row.quiet .ic, .mock-row.quiet b { color: var(--amber); }
+.mock-foot { display: flex; gap: 8px; padding-top: 14px; }
+
+/* slide 4: three-step flow */
+.flow { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; gap: 28px; }
+.flow li { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.flow li b { font-size: 18px; font-weight: 600; white-space: nowrap; }
+.flow .step { width: 112px; height: 112px; border-radius: 28px; display: grid; place-items: center; background: var(--panel); border: 1px solid var(--line-2); color: var(--muted); }
+.flow .step.on { color: var(--mint); border-color: rgba(61, 220, 151, 0.45); background: var(--mint-soft); }
+.flow .arrow { padding-top: 45px; color: var(--faint); }
+.flow .arrow .ic { width: 22px; height: 22px; }
+.flow .step .ic.lg { width: 40px; height: 40px; }
+
+/* pager + progress */
+.pager { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; }
+.btn.icon { padding: 8px; border-radius: 999px; }
+.btn.icon .ic { width: 16px; height: 16px; }
+.progress { position: fixed; left: 0; right: 0; bottom: 0; height: 3px; background: var(--line); }
+.progress i { display: block; height: 100%; background: var(--mint); transition: width 0.3s ease; }
+
+@media (max-width: 640px) {
+  .deck { padding: 32px 16px 88px; }
+  .visual { margin-top: 32px; }
+  .flow { flex-direction: column; align-items: center; gap: 8px; }
+  .flow .arrow { padding: 0; transform: rotate(90deg); }
+  .flow .step { width: 84px; height: 84px; border-radius: 22px; }
+  .flow .step .ic.lg { width: 30px; height: 30px; }
+  .logo-xl { width: 72px; height: 72px; font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) { .slide { animation: none; } .progress i { transition: none; } }

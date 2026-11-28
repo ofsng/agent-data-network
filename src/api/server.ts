@@ -169,7 +169,7 @@ export function createApp(cfg: Config = loadConfig(), db: Db = openDb(cfg.dbPath
   ];
 
   function serveStatic(pathname: string, res: ServerResponse) {
-    const rel = pathname === "/" ? "index.html" : normalize(pathname).replace(/^(\.\.[/\\])+/, "").replace(/^[/\\]+/, "");
+    const rel = pathname === "/" ? "index.html" : pathname === "/pitch" ? "pitch.html" : normalize(pathname).replace(/^(\.\.[/\\])+/, "").replace(/^[/\\]+/, "");
     const file = join(WEB, rel);
     if (!file.startsWith(WEB) || !existsSync(file) || !TYPES[extname(file)]) return false;
     res.writeHead(200, {
